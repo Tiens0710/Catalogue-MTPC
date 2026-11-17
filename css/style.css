@@ -105,14 +105,11 @@ body {
 .sheet.no-anim { transition: none !important; }
 
 .face {
-  position: absolute; inset: 0;
+  position: absolute !important; inset: 0;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
-  /* Nền pastel xanh sage nhẹ — không trắng, không đậm */
-  background:
-    radial-gradient(circle, rgba(75, 142, 101, .07) 1px, transparent 1px),
-    linear-gradient(165deg, #EDF7F1 0%, #E4F2EB 55%, #D9EDE2 100%);
-  background-size: 22px 22px, 100% 100%;
+  /* Nền xanh pastel trang nhã, dịu mắt, không bị chói trắng */
+  background: linear-gradient(165deg, #EEF6F1 0%, #E3EFE7 55%, #D7EADE 100%);
   overflow: hidden;
   display: flex; flex-direction: column;
 }
@@ -136,50 +133,17 @@ body {
 .face.front { border-radius: 10px 0 0 10px; box-shadow: inset 2px 0 12px -7px rgba(27, 59, 41, .16); }
 .face.back  { border-radius: 0 10px 10px 0; box-shadow: inset -2px 0 12px -7px rgba(27, 59, 41, .16); }
 
-/* Vân giấy + trang trí góc — SVG noise overlay */
-.face::before {
-  content: "";
-  position: absolute; inset: 0; z-index: 1;
-  pointer-events: none;
-  opacity: .032;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
-  background-size: 180px 180px;
-}
-
-/* Dải accent dọc + góc trang trí — đặt trên .face trực tiếp bằng SVG background */
-
-/* Watermark logo mờ */
-.face .page-watermark {
-  display: none; /* không dùng nữa */
-}
-
 /* ============ Bố cục trang ============ */
 .page {
   padding: 2.9em 3.2em 2.6em;
   font-size: var(--page-fs, clamp(9.5px, 1.3cqi, 14.2px));
   line-height: 1.72;
   letter-spacing: .011em;
-  position: relative;
 }
 .page > * { position: relative; z-index: 2; }
 
-/* Watermark "MTPC" mờ — đặt qua .face vì .page-inner không nên có flex */
 .page-inner {
   position: relative;
-}
-.page-inner::after {
-  content: "MTPC";
-  position: absolute;
-  top: 50%; left: 50%;
-  transform: translate(-50%, -50%) rotate(-18deg);
-  font-family: var(--serif);
-  font-size: 6em; font-weight: 700;
-  color: var(--green-500);
-  opacity: .05;
-  letter-spacing: .18em;
-  user-select: none; pointer-events: none;
-  z-index: 0;
-  white-space: nowrap;
 }
 
 /* Chạy đầu trang + số trang */
@@ -188,8 +152,7 @@ body {
   font-size: .6em; font-weight: 600; letter-spacing: .3em; text-transform: uppercase;
   color: var(--muted);
   padding-bottom: 1em; margin-bottom: 2em;
-  border-bottom: none;
-  position: relative;
+  border-bottom: 1px solid rgba(75, 142, 101, .15);
 }
 .pg-head::after {
   content: "";
@@ -426,7 +389,6 @@ body {
     radial-gradient(75% 55% at 15% 90%, rgba(75, 142, 101, .18), transparent 50%),
     linear-gradient(165deg, #1C3B29 0%, #295039 52%, #142B1E 100%);
   color: #F7FBF8;
-  position: relative;
   overflow: hidden;
 }
 
@@ -707,8 +669,9 @@ body {
   margin: .35em 0;
 }
 .vision-item {
-  background: var(--green-50);
-  border: 1px solid var(--green-200);
+  background: rgba(255, 255, 255, .72);
+  border: 1px solid rgba(136, 193, 155, .35);
+  box-shadow: 0 4px 14px -4px rgba(27, 59, 41, .06);
   border-radius: 12px;
   padding: .85em 1em;
 }
@@ -758,8 +721,9 @@ body {
   gap: .6em;
   align-items: flex-start;
   padding: .65em .8em;
-  background: var(--green-50);
-  border: 1px solid var(--green-200);
+  background: rgba(255, 255, 255, .72);
+  border: 1px solid rgba(136, 193, 155, .35);
+  box-shadow: 0 4px 14px -4px rgba(27, 59, 41, .06);
   border-radius: 10px;
 }
 .reason-check {

@@ -28,6 +28,7 @@
   /* ---------- Cập nhật giao diện ---------- */
   function update() {
     var single = isSingle();
+    book.classList.toggle("single", single);
 
     sheets.forEach(function (s, i) {
       var isFlipped = single ? (i < Math.floor(page / 2)) : (i < flipped);
