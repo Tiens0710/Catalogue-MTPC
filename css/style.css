@@ -38,8 +38,8 @@ body {
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   background:
-    radial-gradient(120% 90% at 50% -10%, rgba(136, 193, 155, .28), transparent 60%),
-    linear-gradient(180deg, #D9EDE0 0%, #E5F2E9 48%, #EEF6F0 100%);
+    radial-gradient(ellipse 75% 65% at 50% 46%, rgba(255, 255, 255, .42) 0%, rgba(174, 213, 186, .26) 48%, rgba(27, 59, 41, .2) 100%),
+    linear-gradient(180deg, #DCEEE3 0%, #CCE5D6 48%, #BCDDC8 100%);
 }
 
 /* ============ Thanh thương hiệu trên — tối giản ============ */
@@ -88,17 +88,28 @@ body {
   width: min(1180px, 95vw, calc((100dvh - 200px) * 1.52));
   aspect-ratio: 1.52;
   container-type: inline-size;
-  filter: drop-shadow(var(--shadow-book));
+  box-shadow:
+    0 40px 85px -22px rgba(18, 48, 30, .45),
+    0 18px 36px -15px rgba(18, 48, 30, .3),
+    0 0 0 1px rgba(27, 59, 41, .06);
   transform: translateZ(0);
 }
 
-/* Đế sách — lớp giấy chồng khéo léo */
+/* Đế sách — mô phỏng các trang giấy xếp lớp dày cộp phong cách FlipHTML5 */
 .book::before {
   content: "";
-  position: absolute; inset: -5px;
-  background: linear-gradient(90deg, #C8DFCD, #DCF0E3 30%, #DCF0E3 70%, #C2DBCA);
-  border-radius: 12px;
-  box-shadow: inset 0 0 0 1px rgba(27, 59, 41, .05);
+  position: absolute; inset: -4px -8px;
+  background: linear-gradient(90deg, #BDDAC7, #E8F4EC 24px, #E8F4EC calc(100% - 24px), #BDDAC7 100%);
+  border-radius: 14px;
+  box-shadow:
+    -3px 0 0 -1px #D8EFE0,
+    -6px 0 0 -2px #C8E5D2,
+    -9px 0 0 -3px #B6D9C2,
+    3px 0 0 -1px #D8EFE0,
+    6px 0 0 -2px #C8E5D2,
+    9px 0 0 -3px #B6D9C2,
+    0 24px 44px -14px rgba(18, 48, 30, .38);
+  z-index: 0;
 }
 
 /* ============ Tờ giấy ============ */
@@ -117,26 +128,53 @@ body {
   position: absolute !important; inset: 0;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
-  /* Nền xanh pastel trang nhã, dịu mắt, không bị chói trắng */
   background: linear-gradient(165deg, #EEF6F1 0%, #E3EFE7 55%, #D7EADE 100%);
   overflow: hidden;
   display: flex; flex-direction: column;
 }
 .face.back { transform: rotateY(180deg); }
 
-/* Bóng gáy sách — rất nhẹ */
+/* Họa tiết trang trí Brochure cao cấp (phong cách FlipHTML5) — Trang Phải (Front) */
+.face.front:not(.cover):not(.backcover):not(.closing) {
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 280 180' fill='none'%3E%3Cpath d='M280 0 L120 0 C160 38 190 75 280 110 Z' fill='%2362A87C' opacity='0.22'/%3E%3Cpath d='M280 0 L170 0 C205 28 230 55 280 82 Z' fill='%234B8E65' opacity='0.28'/%3E%3Cpath d='M280 0 L220 0 C240 16 255 32 280 48 Z' fill='%2338704E' opacity='0.22'/%3E%3Ccircle cx='265' cy='14' r='3' fill='%234B8E65' opacity='0.45'/%3E%3Ccircle cx='250' cy='22' r='2' fill='%234B8E65' opacity='0.4'/%3E%3Ccircle cx='235' cy='14' r='2.5' fill='%234B8E65' opacity='0.35'/%3E%3C/svg%3E") top right no-repeat,
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 120' fill='none'%3E%3Cpath d='M200 120 L200 55 C155 65 115 92 85 120 Z' fill='%23AED5BA' opacity='0.25'/%3E%3Cpath d='M200 120 L200 82 C170 88 142 105 125 120 Z' fill='%2362A87C' opacity='0.2'/%3E%3C/svg%3E") bottom right no-repeat,
+    linear-gradient(165deg, #EEF6F1 0%, #E3EFE7 55%, #D7EADE 100%);
+  background-size: 260px auto, 190px auto, 100% 100%;
+}
+
+/* Họa tiết trang trí Brochure cao cấp — Trang Trái (Back) */
+.face.back:not(.cover):not(.backcover):not(.closing) {
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 280 180' fill='none'%3E%3Cpath d='M0 0 L160 0 C120 38 90 75 0 110 Z' fill='%2362A87C' opacity='0.22'/%3E%3Cpath d='M0 0 L110 0 C75 28 50 55 0 82 Z' fill='%234B8E65' opacity='0.28'/%3E%3Cpath d='M0 0 L60 0 C40 16 25 32 0 48 Z' fill='%2338704E' opacity='0.22'/%3E%3Ccircle cx='15' cy='14' r='3' fill='%234B8E65' opacity='0.45'/%3E%3Ccircle cx='30' cy='22' r='2' fill='%234B8E65' opacity='0.4'/%3E%3Ccircle cx='45' cy='14' r='2.5' fill='%234B8E65' opacity='0.35'/%3E%3C/svg%3E") top left no-repeat,
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 120' fill='none'%3E%3Cpath d='M0 120 L0 55 C45 65 85 92 115 120 Z' fill='%23AED5BA' opacity='0.25'/%3E%3Cpath d='M0 120 L0 82 C30 88 58 105 75 120 Z' fill='%2362A87C' opacity='0.2'/%3E%3C/svg%3E") bottom left no-repeat,
+    linear-gradient(165deg, #EEF6F1 0%, #E3EFE7 55%, #D7EADE 100%);
+  background-size: 260px auto, 190px auto, 100% 100%;
+}
+
+/* Rãnh gáy sách 3D chân thực — chiều sâu như lật sách thật trên FlipHTML5 */
 .face::after {
   content: "";
-  position: absolute; top: 0; bottom: 0; width: 10%;
+  position: absolute; top: 0; bottom: 0;
   pointer-events: none; z-index: 5;
 }
 .face.front::after {
-  left: 0;
-  background: linear-gradient(90deg, rgba(27, 59, 41, .065), rgba(27, 59, 41, 0));
+  left: 0; width: 14%;
+  background: linear-gradient(90deg,
+    rgba(16, 42, 28, .22) 0%,
+    rgba(16, 42, 28, .12) 3%,
+    rgba(16, 42, 28, .04) 7%,
+    rgba(255, 255, 255, .15) 11%,
+    rgba(16, 42, 28, 0) 22%);
 }
 .face.back::after {
-  right: 0;
-  background: linear-gradient(270deg, rgba(27, 59, 41, .065), rgba(27, 59, 41, 0));
+  right: 0; width: 14%;
+  background: linear-gradient(270deg,
+    rgba(16, 42, 28, .22) 0%,
+    rgba(16, 42, 28, .12) 3%,
+    rgba(16, 42, 28, .04) 7%,
+    rgba(255, 255, 255, .15) 11%,
+    rgba(16, 42, 28, 0) 22%);
 }
 
 .face.front { border-radius: 10px 0 0 10px; box-shadow: inset 2px 0 12px -7px rgba(27, 59, 41, .16); }
