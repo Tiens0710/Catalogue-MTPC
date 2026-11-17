@@ -134,22 +134,20 @@ body {
 }
 .face.back { transform: rotateY(180deg); }
 
-/* Họa tiết trang trí Brochure cao cấp (phong cách FlipHTML5) — Trang Phải (Front) */
+/* Họa tiết trang trí Brochure sóng uốn lượn đa tầng (Dynamic Fluid Waves) — Trang Phải (Front) */
 .face.front:not(.cover):not(.backcover):not(.closing) {
   background:
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 280 180' fill='none'%3E%3Cpath d='M280 0 L120 0 C160 38 190 75 280 110 Z' fill='%2362A87C' opacity='0.22'/%3E%3Cpath d='M280 0 L170 0 C205 28 230 55 280 82 Z' fill='%234B8E65' opacity='0.28'/%3E%3Cpath d='M280 0 L220 0 C240 16 255 32 280 48 Z' fill='%2338704E' opacity='0.22'/%3E%3Ccircle cx='265' cy='14' r='3' fill='%234B8E65' opacity='0.45'/%3E%3Ccircle cx='250' cy='22' r='2' fill='%234B8E65' opacity='0.4'/%3E%3Ccircle cx='235' cy='14' r='2.5' fill='%234B8E65' opacity='0.35'/%3E%3C/svg%3E") top right no-repeat,
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 120' fill='none'%3E%3Cpath d='M200 120 L200 55 C155 65 115 92 85 120 Z' fill='%23AED5BA' opacity='0.25'/%3E%3Cpath d='M200 120 L200 82 C170 88 142 105 125 120 Z' fill='%2362A87C' opacity='0.2'/%3E%3C/svg%3E") bottom right no-repeat,
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 500 130' preserveAspectRatio='none'%3E%3Cpath d='M0 0 L500 0 L500 115 C460 98 395 55 305 72 C190 94 95 62 0 42 Z' fill='%2338704E' opacity='0.16'/%3E%3Cpath d='M0 0 L500 0 L500 88 C465 72 410 38 335 52 C215 76 115 45 0 24 Z' fill='%234B8E65' opacity='0.22'/%3E%3Cpath d='M0 0 L500 0 L500 58 C475 45 435 22 365 34 C245 54 135 28 0 14 Z' fill='%2388C19B' opacity='0.28'/%3E%3Ccircle cx='450' cy='105' r='5.5' fill='%234B8E65' opacity='0.35'/%3E%3Ccircle cx='410' cy='80' r='3.5' fill='%2362A87C' opacity='0.4'/%3E%3Ccircle cx='320' cy='90' r='4' fill='%234B8E65' opacity='0.25'/%3E%3Ccircle cx='180' cy='105' r='3' fill='%2388C19B' opacity='0.3'/%3E%3C/svg%3E") top center / 100% 125px no-repeat,
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 500 80' preserveAspectRatio='none'%3E%3Cpath d='M0 80 L500 80 L500 62 C465 48 420 22 345 40 C215 72 115 42 0 58 Z' fill='%234B8E65' opacity='0.18'/%3E%3Cpath d='M0 80 L500 80 L500 72 C480 62 445 42 375 54 C255 76 145 60 0 70 Z' fill='%2388C19B' opacity='0.24'/%3E%3C/svg%3E") bottom center / 100% 75px no-repeat,
     linear-gradient(165deg, #EEF6F1 0%, #E3EFE7 55%, #D7EADE 100%);
-  background-size: 260px auto, 190px auto, 100% 100%;
 }
 
-/* Họa tiết trang trí Brochure cao cấp — Trang Trái (Back) */
+/* Họa tiết trang trí Brochure sóng uốn lượn đa tầng — Trang Trái (Back) */
 .face.back:not(.cover):not(.backcover):not(.closing) {
   background:
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 280 180' fill='none'%3E%3Cpath d='M0 0 L160 0 C120 38 90 75 0 110 Z' fill='%2362A87C' opacity='0.22'/%3E%3Cpath d='M0 0 L110 0 C75 28 50 55 0 82 Z' fill='%234B8E65' opacity='0.28'/%3E%3Cpath d='M0 0 L60 0 C40 16 25 32 0 48 Z' fill='%2338704E' opacity='0.22'/%3E%3Ccircle cx='15' cy='14' r='3' fill='%234B8E65' opacity='0.45'/%3E%3Ccircle cx='30' cy='22' r='2' fill='%234B8E65' opacity='0.4'/%3E%3Ccircle cx='45' cy='14' r='2.5' fill='%234B8E65' opacity='0.35'/%3E%3C/svg%3E") top left no-repeat,
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 120' fill='none'%3E%3Cpath d='M0 120 L0 55 C45 65 85 92 115 120 Z' fill='%23AED5BA' opacity='0.25'/%3E%3Cpath d='M0 120 L0 82 C30 88 58 105 75 120 Z' fill='%2362A87C' opacity='0.2'/%3E%3C/svg%3E") bottom left no-repeat,
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 500 130' preserveAspectRatio='none'%3E%3Cpath d='M0 0 L500 0 L500 42 C405 62 310 94 195 72 C105 55 40 98 0 115 Z' fill='%2338704E' opacity='0.16'/%3E%3Cpath d='M0 0 L500 0 L500 24 C385 45 285 76 165 52 C90 38 35 72 0 88 Z' fill='%234B8E65' opacity='0.22'/%3E%3Cpath d='M0 0 L500 0 L500 14 C365 28 255 54 135 34 C65 22 25 45 0 58 Z' fill='%2388C19B' opacity='0.28'/%3E%3Ccircle cx='50' cy='105' r='5.5' fill='%234B8E65' opacity='0.35'/%3E%3Ccircle cx='90' cy='80' r='3.5' fill='%2362A87C' opacity='0.4'/%3E%3Ccircle cx='180' cy='90' r='4' fill='%234B8E65' opacity='0.25'/%3E%3Ccircle cx='320' cy='105' r='3' fill='%2388C19B' opacity='0.3'/%3E%3C/svg%3E") top center / 100% 125px no-repeat,
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 500 80' preserveAspectRatio='none'%3E%3Cpath d='M0 80 L500 80 L500 58 C385 42 285 72 155 40 C80 22 35 48 0 62 Z' fill='%234B8E65' opacity='0.18'/%3E%3Cpath d='M0 80 L500 80 L500 70 C355 60 245 76 125 54 C55 42 20 62 0 72 Z' fill='%2388C19B' opacity='0.24'/%3E%3C/svg%3E") bottom center / 100% 75px no-repeat,
     linear-gradient(165deg, #EEF6F1 0%, #E3EFE7 55%, #D7EADE 100%);
-  background-size: 260px auto, 190px auto, 100% 100%;
 }
 
 /* Rãnh gáy sách 3D chân thực — chiều sâu như lật sách thật trên FlipHTML5 */
@@ -221,19 +219,31 @@ body {
 .face.front .pg-foot { right: 3.2em; }
 .face.back  .pg-foot { left: 3.2em; }
 
-/* Kicker — nhãn nhỏ với vạch mảnh phía trước */
+/* Kicker — nhãn phân mục phong cách brochure hiện đại */
 .kicker {
-  display: flex; align-items: center; gap: 1em;
-  font-size: .7em; font-weight: 600; letter-spacing: .34em;
-  text-transform: uppercase; color: var(--green-600);
+  display: inline-flex; align-items: center; gap: .6em;
+  font-size: .68em; font-weight: 700; letter-spacing: .22em;
+  text-transform: uppercase; color: var(--green-700);
+  background: rgba(255, 255, 255, .7);
+  border: 1px solid rgba(75, 142, 101, .28);
+  padding: .3em .9em;
+  border-radius: 999px;
+  box-shadow: 0 2px 6px rgba(27, 59, 41, .05);
   margin-bottom: 1.1em;
 }
 .kicker::before {
-  content: ""; width: 2em; height: 1px;
-  background: var(--green-400); flex: 0 0 auto;
+  content: "✦";
+  font-size: .85em;
+  color: var(--green-600);
+  width: auto; height: auto;
+  background: none;
 }
-.kicker.light { color: var(--green-300); }
-.kicker.light::before { background: var(--green-300); }
+.kicker.light {
+  background: rgba(255, 255, 255, .15);
+  border-color: rgba(255, 255, 255, .35);
+  color: #FFFFFF;
+}
+.kicker.light::before { color: #AED5BA; }
 
 .h-serif {
   font-family: var(--serif);
@@ -643,7 +653,7 @@ body {
 .ph {
   position: relative;
   background: linear-gradient(145deg, #EEF6F0 0%, #E3EFE6 55%, #D6E7DA 100%);
-  border: 1px solid rgba(75, 142, 101, .2);
+  border: 3px solid rgba(255, 255, 255, .9);
   border-radius: 14px;
   overflow: hidden;
   background-size: cover;
@@ -654,7 +664,7 @@ body {
   align-items: center;
   justify-content: center;
   gap: 8px;
-  box-shadow: 0 10px 24px -14px rgba(27, 59, 41, .22);
+  box-shadow: 0 12px 28px -10px rgba(27, 59, 41, .28), 0 0 0 1px rgba(75, 142, 101, .15);
   transition: transform .25s ease, box-shadow .25s ease;
 }
 
