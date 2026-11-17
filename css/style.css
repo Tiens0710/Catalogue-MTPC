@@ -146,50 +146,11 @@ body {
   background-size: 180px 180px;
 }
 
-/* Dải accent dọc — cạnh gáy sách */
-.face.front .page::before,
-.face.back .page::before {
-  content: "";
-  position: absolute; top: 0; bottom: 0;
-  width: 3px;
-  background: linear-gradient(180deg,
-    transparent 0%,
-    var(--green-300) 20%,
-    var(--green-400) 50%,
-    var(--green-300) 80%,
-    transparent 100%);
-  opacity: .55;
-  z-index: 0;
-  border-radius: 2px;
-}
-.face.front .page::before { right: 0; }
-.face.back  .page::before { left: 0; }
-
-/* Hoa văn góc trang — viền L hình kim cương */
-.face.front .page::after,
-.face.back  .page::after {
-  content: "";
-  position: absolute;
-  width: 42px; height: 42px;
-  border: 1.5px solid var(--green-300);
-  opacity: .5; z-index: 0;
-}
-.face.front .page::after { top: 1.5em; left: 2.5em; border-right: none; border-bottom: none; border-radius: 6px 0 0 0; }
-.face.back  .page::after { top: 1.5em; right: 2.5em; border-left: none; border-bottom: none; border-radius: 0 6px 0 0; }
+/* Dải accent dọc + góc trang trí — đặt trên .face trực tiếp bằng SVG background */
 
 /* Watermark logo mờ */
 .face .page-watermark {
-  position: absolute;
-  bottom: 10%; right: 50%;
-  transform: translateX(50%);
-  font-family: var(--serif);
-  font-size: 7em; font-weight: 700;
-  color: var(--green-400);
-  opacity: .045;
-  letter-spacing: .1em;
-  user-select: none; pointer-events: none;
-  z-index: 0;
-  white-space: nowrap;
+  display: none; /* không dùng nữa */
 }
 
 /* ============ Bố cục trang ============ */
@@ -202,22 +163,20 @@ body {
 }
 .page > * { position: relative; z-index: 2; }
 
-/* Watermark "MTPC" mờ — tự động trên mọi trang nội dung */
+/* Watermark "MTPC" mờ — đặt qua .face vì .page-inner không nên có flex */
 .page-inner {
   position: relative;
-  height: 100%;
-  display: flex; flex-direction: column;
 }
-.page-inner::before {
+.page-inner::after {
   content: "MTPC";
   position: absolute;
-  bottom: 12%; left: 50%;
-  transform: translateX(-50%) rotate(-15deg);
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%) rotate(-18deg);
   font-family: var(--serif);
-  font-size: 7.5em; font-weight: 700;
+  font-size: 6em; font-weight: 700;
   color: var(--green-500);
-  opacity: .04;
-  letter-spacing: .15em;
+  opacity: .05;
+  letter-spacing: .18em;
   user-select: none; pointer-events: none;
   z-index: 0;
   white-space: nowrap;
