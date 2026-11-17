@@ -8,18 +8,10 @@
   <link rel="icon" type="image/jpeg" href="images/logo.jpg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Cormorant+Garant:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Playfair+Display:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/style.css?v=2.7" />
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Playfair+Display:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css?v=2.36" />
 </head>
 <body>
-
-  <!-- ===== Thanh thương hiệu (trên) ===== -->
-  <header class="topbar">
-    <div class="brand">
-      <img class="brand-logo" src="images/logo.jpg" alt="Logo MTPC" />
-      <span class="brand-text">Trường Trung cấp Miền Tây <em>· Catalogue 2026</em></span>
-    </div>
-  </header>
 
   <!-- ===== Sách lật trang ===== -->
   <main class="stage">
@@ -27,12 +19,14 @@
 
       <!-- ============ SHEET 1 : Bìa + Khái quát ============ -->
       <section class="sheet">
-        <!-- P1 · BÌA — Thiết kế phong cách Editorial Showcase -->
+        <!-- P1 · BÌA — Ảnh tràn · ngọc lục bảo & kem -->
         <article class="face front page cover">
-          <div class="cover-bg-glow"></div>
+          <figure class="cover-photo">
+            <img src="images/why-1.jpg" alt="Lễ trao bằng tốt nghiệp Trường Trung cấp Miền Tây" />
+          </figure>
 
           <div class="cover-inner">
-            <!-- Header bìa: Logo huy hiệu + Định danh + Năm -->
+            <!-- Header: logo + định danh + năm tuyển sinh -->
             <header class="cover-header">
               <div class="cover-brand">
                 <img class="cover-logo-img" src="images/logo.jpg" alt="Logo Trường Trung Cấp Miền Tây" />
@@ -41,51 +35,48 @@
                   <span class="c-loc">Cần Thơ · Đồng Bằng Sông Cửu Long</span>
                 </div>
               </div>
-              <span class="cover-year-tag">Tuyển sinh 2026</span>
+              <span class="cover-year-tag">Ấn bản 2026</span>
             </header>
 
-            <!-- Khung ảnh trung tâm: Tôn vinh hình ảnh nhà trường -->
-            <div class="cover-showcase">
-              <figure class="ph cover-hero" data-img="images/cover.jpg"></figure>
-              <div class="cover-pill-tag">Kỷ cương · Thân thiện · Thực tiễn</div>
-            </div>
-
-            <!-- Khối tiêu đề thương hiệu -->
-            <div class="cover-title-group">
-              <h1 class="cover-main-title">MIỀN TÂY</h1>
-              <p class="cover-sub-title">Trường Trung Cấp Nghề Uy Tín</p>
-              <p class="cover-philosophy">Tri thức · Đạo đức · Hội nhập · Phát triển</p>
-            </div>
-
-            <!-- Chân trang bìa -->
-            <footer class="cover-footer">
-              <div class="cover-rule"></div>
-              <div class="cover-meta">
-                <span>www.mtpc.edu.vn</span>
-                <span>Tư vấn: 0934 790 790</span>
+            <div class="cover-lower">
+              <!-- Tiêu đề thương hiệu -->
+              <div class="cover-main">
+                <p class="cover-kicker">Catalogue tuyển sinh</p>
+                <h1 class="cover-main-title">MIỀN TÂY</h1>
+                <p class="cover-sub-title">Trung cấp · Sơ cấp · Chứng chỉ nghề</p>
               </div>
-            </footer>
+
+              <!-- Chân trang -->
+              <footer class="cover-footer">
+                <p class="cover-philosophy">Tri thức · Đạo đức · Hội nhập · Phát triển</p>
+                <div class="cover-rule"></div>
+                <div class="cover-meta">
+                  <span>www.mtpc.edu.vn</span>
+                  <span>Tư vấn tuyển sinh: 0934 790 790</span>
+                </div>
+              </footer>
+            </div>
           </div>
         </article>
 
-        <!-- P2 · KHÁI QUÁT — bố cục cân đối & số liệu -->
-        <article class="face back page">
+        <!-- P2 · KHÁI QUÁT — bố cục biên tập -->
+        <article class="face back page page-editorial">
           <div class="page-inner">
-            <div class="s-group">
-              <p class="kicker">Giới thiệu</p>
-              <h2 class="h-serif">Khái quát về nhà trường</h2>
-              <p class="lead">Trường Trung cấp Miền Tây <strong>(TCMT)</strong> là cơ sở giáo dục nghề nghiệp đào tạo và phát triển nguồn nhân lực có chuyên môn, kỹ năng nghề nghiệp, đáp ứng nhu cầu thị trường lao động với phương châm lấy người học làm trung tâm.</p>
-            </div>
+            <h2 class="ed-title">Khái quát<br>về nhà trường</h2>
 
-            <figure class="ph hero-photo ratio-16-7" data-img="images/campus.jpg"></figure>
+            <p class="ed-lead"><span class="dropcap">T</span>rường Trung cấp Miền Tây <strong>(TCMT)</strong> là cơ sở giáo dục nghề nghiệp đào tạo và phát triển nguồn nhân lực có chuyên môn, kỹ năng nghề nghiệp, đáp ứng nhu cầu thị trường lao động với phương châm lấy người học làm trung tâm.</p>
 
-            <ul class="facts big">
-              <li><span class="num">15+</span><span>năm đào tạo nghề uy tín</span></li>
-              <li><span class="num">4+6</span><span>ngành trung cấp · sơ cấp &amp; chứng chỉ</span></li>
-              <li><span class="num">6–22h</span><span>lịch học linh hoạt, tất cả các ngày trong tuần</span></li>
+            <figure class="ed-photo">
+              <img src="images/dieu-duong.jpg" alt="Giờ thực hành kỹ năng điều dưỡng tại Trường Trung cấp Miền Tây" />
+              <figcaption>Giờ thực hành kỹ năng điều dưỡng</figcaption>
+            </figure>
+
+            <ul class="ed-stats">
+              <li><b>15+</b><span>năm đào tạo nghề</span></li>
+              <li><b>4+6</b><span>ngành trung cấp, sơ cấp &amp; chứng chỉ</span></li>
+              <li><b>6–22h</b><span>lịch học linh hoạt</span></li>
             </ul>
 
-            <p class="cap">“Tri thức · Đạo đức · Hội nhập · Phát triển”</p>
             <footer class="pg-foot"><span>02</span></footer>
           </div>
         </article>
@@ -93,33 +84,29 @@
 
       <!-- ============ SHEET 2 : Tầm nhìn sứ mệnh + Hoạt động đào tạo ============ -->
       <section class="sheet">
-        <!-- P3 · TẦM NHÌN & SỨ MỆNH -->
-        <article class="face front page">
+        <!-- P3 · TẦM NHÌN & SỨ MỆNH — bố cục biên tập -->
+        <article class="face front page page-editorial">
           <div class="page-inner">
-            <div class="s-group">
-              <p class="kicker">Định hướng</p>
-              <h2 class="h-serif">Tầm nhìn &amp; sứ mệnh</h2>
-            </div>
+            <h2 class="ed-title">Tầm nhìn<br>&amp; sứ mệnh</h2>
 
-            <figure class="ph hero-photo ratio-16-7" data-img="images/vision.jpg"></figure>
+            <figure class="ed-photo">
+              <img src="images/xoa-bop.jpg" alt="Thực hành kỹ thuật tại phòng kỹ năng Trường Trung cấp Miền Tây" />
+              <figcaption>Thực hành kỹ thuật tại phòng kỹ năng</figcaption>
+            </figure>
 
-            <div class="vision-grid">
-              <div class="vision-item">
-                <h3 class="h-sub no-gap">Tầm nhìn</h3>
-                <p class="body-text">Trở thành cơ sở giáo dục nghề nghiệp có uy tín tại ĐBSCL; mở rộng hợp tác trong nước và quốc tế, đào tạo thực hành gắn với doanh nghiệp, cơ sở y tế và xã hội trong chuyển đổi số.</p>
+            <div class="ed-cols">
+              <div class="ed-col">
+                <h3 class="ed-sub">Tầm nhìn</h3>
+                <p>Trở thành cơ sở giáo dục nghề nghiệp có uy tín tại ĐBSCL; mở rộng hợp tác trong nước và quốc tế, đào tạo thực hành gắn với doanh nghiệp, cơ sở y tế và xã hội trong chuyển đổi số.</p>
               </div>
-              <div class="vision-item">
-                <h3 class="h-sub no-gap">Sứ mệnh</h3>
-                <p class="body-text">Trang bị kiến thức chuyên môn, kỹ năng nghề và đạo đức nghề; hình thành đội ngũ lao động có tay nghề, tác phong chuyên nghiệp và khả năng phát triển nghề nghiệp bền vững.</p>
+              <div class="ed-col">
+                <h3 class="ed-sub">Sứ mệnh</h3>
+                <p>Trang bị kiến thức chuyên môn, kỹ năng nghề và đạo đức nghề; hình thành đội ngũ lao động có tay nghề, tác phong chuyên nghiệp và khả năng phát triển nghề nghiệp bền vững.</p>
               </div>
             </div>
 
-            <div class="four-chips">
-              <span class="chip">Tri thức</span>
-              <span class="chip">Đạo đức</span>
-              <span class="chip">Hội nhập</span>
-              <span class="chip">Phát triển</span>
-            </div>
+            <p class="ed-quote">Tri thức · Đạo đức<br>Hội nhập · Phát triển</p>
+
             <footer class="pg-foot"><span>03</span></footer>
           </div>
         </article>
@@ -128,12 +115,13 @@
         <article class="face back page">
           <div class="page-inner">
             <div class="s-group">
-              <p class="kicker">Đào tạo</p>
               <h2 class="h-serif">Lý thuyết gắn thực hành</h2>
               <p class="lead">Hoạt động đào tạo kết hợp chặt chẽ giữa lý thuyết và thực hành, chú trọng rèn luyện kỹ năng nghề, tác phong làm việc, ý thức kỷ luật và vận dụng vào thực tế.</p>
             </div>
 
-            <figure class="ph hero-photo ratio-16-7" data-img="images/training.jpg"></figure>
+            <figure class="ph hero-photo ratio-16-7 frame-mat warm" data-img="images/training.jpg">
+              <figcaption class="ph-cap">Lý thuyết gắn liền thực hành nghề</figcaption>
+            </figure>
 
             <div class="features-grid">
               <div class="feature-item">
@@ -171,7 +159,6 @@
         <article class="face front page">
           <div class="page-inner">
             <div class="s-group">
-              <p class="kicker">Lựa chọn</p>
               <h2 class="h-serif">Vì sao chọn MTPC?</h2>
             </div>
 
@@ -219,11 +206,12 @@
         <article class="face back page">
           <div class="page-inner">
             <div class="s-group">
-              <p class="kicker">Đào tạo chuyên môn</p>
               <h2 class="h-serif">Các ngành đào tạo</h2>
             </div>
 
-            <figure class="ph hero-photo ratio-16-5" data-img="images/programs.jpg"></figure>
+            <figure class="ph hero-photo ratio-16-5 frame-line" data-img="images/programs.jpg">
+              <figcaption class="ph-cap">Các ngành đào tạo trọng tâm</figcaption>
+            </figure>
 
             <div class="major-list">
               <a class="major-row" href="#ysy" data-goto="7">
@@ -253,6 +241,9 @@
               </a>
             </div>
 
+            <div class="orn-divider" aria-hidden="true">
+              <svg viewBox="0 0 60 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10h52"/><path d="M20 10c2-5 6-7 10-7-2 4-6 6-10 7Z"/><path d="M34 10c2 5 6 7 10 7-2-4-6-6-10-7Z"/></svg>
+            </div>
             <p class="cap">Đào tạo trung cấp, sơ cấp &amp; bồi dưỡng chứng chỉ · <strong>Tư vấn: 0934 790 790</strong></p>
             <footer class="pg-foot"><span>06</span></footer>
           </div>
@@ -264,13 +255,16 @@
         <!-- P7 · Y SỸ ĐA KHOA -->
         <article class="face front page" id="ysy">
           <div class="page-inner">
+            <span class="ghost-no" aria-hidden="true">01</span>
             <div class="s-group">
               <p class="tag">Trình độ Trung cấp</p>
               <h2 class="h-serif">Y sĩ đa khoa</h2>
               <p class="lead">Chương trình cung cấp kiến thức về y học cơ sở, y học lâm sàng và những kỹ năng chuyên môn cần thiết trong chăm sóc sức khỏe ban đầu.</p>
             </div>
 
-            <figure class="ph hero-photo ratio-16-7" data-img="images/y-si.jpg"></figure>
+            <figure class="ph hero-photo ratio-16-7 frame-mat" data-img="images/y-si.jpg">
+              <figcaption class="ph-cap">Thực hành chăm sóc sức khỏe ban đầu</figcaption>
+            </figure>
 
             <div class="curriculum-box">
               <h3 class="h-sub no-gap">Nội dung đào tạo trọng tâm</h3>
@@ -293,13 +287,16 @@
         <!-- P8 · DƯỢC -->
         <article class="face back page" id="duoc">
           <div class="page-inner">
+            <span class="ghost-no" aria-hidden="true">02</span>
             <div class="s-group">
               <p class="tag">Trình độ Trung cấp</p>
               <h2 class="h-serif">Dược <em class="thin">(Dược sĩ)</em></h2>
               <p class="lead">Trang bị kiến thức về dược lý, dược lâm sàng, bào chế, kiểm nghiệm, bảo quản và quản lý thuốc trong phạm vi chuyên môn.</p>
             </div>
 
-            <figure class="ph hero-photo ratio-16-7" data-img="images/duoc.jpg"></figure>
+            <figure class="ph hero-photo ratio-16-7 frame-line warm" data-img="images/duoc.jpg">
+              <figcaption class="ph-cap">Thực hành dược lý &amp; bào chế</figcaption>
+            </figure>
 
             <div class="curriculum-box">
               <h3 class="h-sub no-gap">Nội dung đào tạo trọng tâm</h3>
@@ -325,13 +322,16 @@
         <!-- P9 · ĐIỀU DƯỠNG -->
         <article class="face front page" id="dieuDuong">
           <div class="page-inner">
+            <span class="ghost-no" aria-hidden="true">03</span>
             <div class="s-group">
               <p class="tag">Trình độ Trung cấp</p>
               <h2 class="h-serif">Điều dưỡng</h2>
               <p class="lead">Hướng đến đào tạo người học có kiến thức và kỹ năng chăm sóc người bệnh trong các giai đoạn phòng bệnh, điều trị và phục hồi.</p>
             </div>
 
-            <figure class="ph hero-photo ratio-16-7" data-img="images/dieu-duong.jpg"></figure>
+            <figure class="ph hero-photo ratio-16-7 frame-line" data-img="images/dieu-duong.jpg">
+              <figcaption class="ph-cap">Thực tập tại bệnh viện &amp; cơ sở y tế</figcaption>
+            </figure>
 
             <div class="curriculum-box">
               <h3 class="h-sub no-gap">Nội dung đào tạo trọng tâm</h3>
@@ -354,13 +354,16 @@
         <!-- P10 · CNTT ĐỊNH HƯỚNG AI -->
         <article class="face back page" id="cntt">
           <div class="page-inner">
+            <span class="ghost-no" aria-hidden="true">04</span>
             <div class="s-group">
               <p class="tag">Trình độ Trung cấp</p>
               <h2 class="h-serif">Công nghệ thông tin <em class="thin">định hướng AI</em></h2>
               <p class="lead">Xây dựng nền tảng về máy tính, hệ điều hành, phần mềm, tin học văn phòng, mạng máy tính và an toàn thông tin trong bối cảnh chuyển đổi số.</p>
             </div>
 
-            <figure class="ph hero-photo ratio-16-7" data-img="images/cntt.jpg"></figure>
+            <figure class="ph hero-photo ratio-16-7 frame-mat" data-img="images/cntt.jpg">
+              <figcaption class="ph-cap">Thực hành máy tính &amp; công cụ AI</figcaption>
+            </figure>
 
             <div class="curriculum-box">
               <h3 class="h-sub no-gap">Nội dung đào tạo trọng tâm</h3>
@@ -385,7 +388,6 @@
       <section class="sheet">
         <!-- P11 · SƠ CẤP — KỸ THUẬT (3 ảnh) -->
         <article class="face front page" id="socap">
-          <p class="kicker">Sơ cấp &amp; chứng chỉ</p>
           <h2 class="h-serif">Nhóm ngành kỹ thuật</h2>
           <div class="photo-rows">
             <div class="photo-row">
@@ -416,7 +418,6 @@
 
         <!-- P12 · SƠ CẤP — SỨC KHỎE (3 ảnh, ảnh lệch phải) -->
         <article class="face back page">
-          <p class="kicker">Sơ cấp &amp; chứng chỉ</p>
           <h2 class="h-serif">Nhóm ngành sức khỏe</h2>
           <div class="photo-rows">
             <div class="photo-row mirror">
@@ -453,25 +454,24 @@
           <figure class="ph banner" data-img="images/students.jpg" style="--ph:'images/students.jpg'"></figure>
           <div class="strip-bottom">
             <div class="s-group">
-              <p class="kicker">Cơ hội học tập</p>
               <h2 class="h-serif">Đối tượng tuyển sinh</h2>
             </div>
             <div class="audience">
               <div class="aud">
                 <h4>Học sinh THCS, THPT</h4>
-                <p>Chọn học nghề phù hợp năng lực, sớm rèn luyện kỹ năng thực hành và tham gia thị trường lao động.</p>
+                <p>Chọn nghề sớm, rèn kỹ năng thực hành từ đầu.</p>
               </div>
               <div class="aud">
                 <h4>Người học liên thông</h4>
-                <p>Tư vấn lộ trình hoàn thiện văn bằng tại ĐH Trà Vinh, ĐH Y Dược Cần Thơ, CĐ Nghề Cần Thơ.</p>
+                <p>Lộ trình liên thông lên cao đẳng, đại học.</p>
               </div>
               <div class="aud">
                 <h4>Học thêm ngành / Chuyển đổi</h4>
-                <p>Bổ sung kiến thức, học thêm nghề mới với kế hoạch học tập linh hoạt, cân đối cùng công việc.</p>
+                <p>Học linh hoạt, cân đối cùng công việc.</p>
               </div>
               <div class="aud">
                 <h4>Bộ đội &amp; Công an xuất ngũ</h4>
-                <p>Đồng hành định hướng nghề nghiệp, hỗ trợ hồ sơ và thủ tục theo chính sách quyền lợi học nghề hiện hành.</p>
+                <p>Hỗ trợ hồ sơ theo chính sách hiện hành.</p>
               </div>
             </div>
             <p class="cap">Học viên ở xa — nhà trường tư vấn thông tin về điều kiện sinh hoạt và chỗ ở (nếu có).</p>
@@ -481,21 +481,36 @@
 
         <!-- P14 · HỢP TÁC & LIÊN KẾT -->
         <article class="face back page">
+          <svg class="ghost-art" style="bottom:-2.4em; right:-1.4em; width:10em; transform:rotate(180deg)" viewBox="0 0 240 340" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+            <path d="M18 330 C 80 260, 130 170, 205 22"/>
+            <ellipse cx="46" cy="286" rx="25" ry="11" transform="rotate(-42 46 286)"/>
+            <ellipse cx="96" cy="270" rx="22" ry="10" transform="rotate(38 96 270)"/>
+            <ellipse cx="76" cy="226" rx="21" ry="10" transform="rotate(-44 76 226)"/>
+            <ellipse cx="124" cy="212" rx="19" ry="9" transform="rotate(38 124 212)"/>
+            <ellipse cx="106" cy="170" rx="18" ry="9" transform="rotate(-44 106 170)"/>
+            <ellipse cx="150" cy="158" rx="17" ry="8" transform="rotate(36 150 158)"/>
+            <ellipse cx="134" cy="118" rx="16" ry="8" transform="rotate(-46 134 118)"/>
+            <ellipse cx="174" cy="108" rx="15" ry="7" transform="rotate(34 174 108)"/>
+            <ellipse cx="162" cy="70" rx="13" ry="7" transform="rotate(-46 162 70)"/>
+            <ellipse cx="196" cy="60" rx="12" ry="6" transform="rotate(32 196 60)"/>
+            <ellipse cx="204" cy="26" rx="9" ry="14"/>
+          </svg>
           <div class="page-inner">
             <div class="s-group">
-              <p class="kicker">Kết nối</p>
               <h2 class="h-serif">Hợp tác &amp; liên kết đào tạo</h2>
               <p class="lead">Nhà trường tăng cường kết nối với các cơ sở giáo dục trong nước, mở rộng hợp tác quốc tế và doanh nghiệp.</p>
             </div>
 
-            <figure class="ph hero-photo ratio-16-7" data-img="images/partners.jpg"></figure>
+            <figure class="ph hero-photo ratio-16-7 frame-mat warm" data-img="images/partners.jpg">
+              <figcaption class="ph-cap">Hợp tác đào tạo cùng các đơn vị liên kết</figcaption>
+            </figure>
 
             <ul class="ticks big">
-              <li><strong>Trường ĐH Trà Vinh</strong> — trao đổi chuyên môn và phối hợp đào tạo, liên thông</li>
-              <li><strong>Trường ĐH Y Dược Cần Thơ</strong> — hợp tác chuyên môn y khoa và tư vấn lộ trình học tập</li>
-              <li><strong>Trường CĐ Nghề Cần Thơ</strong> — ký kết MOU hợp tác đào tạo và trao đổi kinh nghiệm</li>
-              <li><strong>Hợp tác quốc tế Campuchia</strong> — triển khai đào tạo học sinh, sinh viên Campuchia từ 2025</li>
-              <li><strong>Kết nối doanh nghiệp</strong> — bệnh viện, phòng khám, nhà thuốc, gara, cơ sở sản xuất</li>
+              <li><strong>ĐH Trà Vinh</strong> — liên thông &amp; phối hợp đào tạo</li>
+              <li><strong>ĐH Y Dược Cần Thơ</strong> — hợp tác y khoa, tư vấn lộ trình</li>
+              <li><strong>CĐ Nghề Cần Thơ</strong> — MOU đào tạo nghề</li>
+              <li><strong>Quốc tế</strong> — đào tạo sinh viên Campuchia từ 2025</li>
+              <li><strong>Doanh nghiệp</strong> — bệnh viện, nhà thuốc, gara, sản xuất</li>
             </ul>
 
             <p class="cap">MOU ký kết chính thức — tạo điều kiện thực tập và tiếp cận cơ hội việc làm.</p>
@@ -508,20 +523,35 @@
       <section class="sheet">
         <!-- P15 · ĐỊNH HƯỚNG PHÁT TRIỂN -->
         <article class="face front page">
+          <svg class="ghost-art" style="top:-2.4em; left:-1.4em; width:10em; transform:scaleX(-1)" viewBox="0 0 240 340" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+            <path d="M18 330 C 80 260, 130 170, 205 22"/>
+            <ellipse cx="46" cy="286" rx="25" ry="11" transform="rotate(-42 46 286)"/>
+            <ellipse cx="96" cy="270" rx="22" ry="10" transform="rotate(38 96 270)"/>
+            <ellipse cx="76" cy="226" rx="21" ry="10" transform="rotate(-44 76 226)"/>
+            <ellipse cx="124" cy="212" rx="19" ry="9" transform="rotate(38 124 212)"/>
+            <ellipse cx="106" cy="170" rx="18" ry="9" transform="rotate(-44 106 170)"/>
+            <ellipse cx="150" cy="158" rx="17" ry="8" transform="rotate(36 150 158)"/>
+            <ellipse cx="134" cy="118" rx="16" ry="8" transform="rotate(-46 134 118)"/>
+            <ellipse cx="174" cy="108" rx="15" ry="7" transform="rotate(34 174 108)"/>
+            <ellipse cx="162" cy="70" rx="13" ry="7" transform="rotate(-46 162 70)"/>
+            <ellipse cx="196" cy="60" rx="12" ry="6" transform="rotate(32 196 60)"/>
+            <ellipse cx="204" cy="26" rx="9" ry="14"/>
+          </svg>
           <div class="page-inner">
             <div class="s-group">
-              <p class="kicker">Chiến lược</p>
               <h2 class="h-serif">Định hướng phát triển</h2>
             </div>
 
-            <figure class="ph hero-photo ratio-16-7" data-img="images/future.jpg"></figure>
+            <figure class="ph hero-photo ratio-16-7 frame-line warm" data-img="images/future.jpg">
+              <figcaption class="ph-cap">Định hướng phát triển bền vững</figcaption>
+            </figure>
 
             <ol class="num-list compact">
-              <li><strong>Gắn đào tạo với thực tiễn</strong><span>quan tâm nhu cầu thị trường lao động, chú trọng kiến thức ứng dụng &amp; kỹ năng thực hành</span></li>
-              <li><strong>Phát triển năng lực nghề nghiệp</strong><span>rèn luyện thao tác kỹ thuật, khả năng xử lý tình huống và tư duy giải quyết vấn đề</span></li>
-              <li><strong>Xây dựng tác phong chuyên nghiệp</strong><span>bồi dưỡng ý thức kỷ luật, tinh thần trách nhiệm, đạo đức nghề và thái độ tích cực</span></li>
-              <li><strong>Mở rộng kết nối và cơ hội việc làm</strong><span>tăng cường phối hợp với doanh nghiệp, cơ sở y tế và đơn vị sử dụng lao động</span></li>
-              <li><strong>Thúc đẩy hội nhập và đổi mới</strong><span>cập nhật công nghệ, phương pháp đào tạo và mở rộng hợp tác trong nước, quốc tế</span></li>
+              <li><strong>Gắn đào tạo với thực tiễn</strong><span>theo nhu cầu thị trường lao động</span></li>
+              <li><strong>Phát triển năng lực nghề nghiệp</strong><span>thao tác kỹ thuật &amp; xử lý tình huống</span></li>
+              <li><strong>Xây dựng tác phong chuyên nghiệp</strong><span>kỷ luật, trách nhiệm &amp; đạo đức nghề</span></li>
+              <li><strong>Mở rộng kết nối và cơ hội việc làm</strong><span>cùng doanh nghiệp &amp; cơ sở y tế</span></li>
+              <li><strong>Thúc đẩy hội nhập và đổi mới</strong><span>công nghệ mới &amp; hợp tác quốc tế</span></li>
             </ol>
 
             <p class="cap">Không ngừng đổi mới vì sự thành đạt và phát triển bền vững của người học.</p>
@@ -530,10 +560,9 @@
         </article>
 
         <!-- P16 · LIÊN HỆ & TƯ VẤN -->
-        <article class="face back page">
+        <article class="face back page has-seal">
           <div class="page-inner">
             <div class="s-group">
-              <p class="kicker">Kết nối</p>
               <h2 class="h-serif">Thông tin liên hệ &amp; tư vấn</h2>
             </div>
 
@@ -551,10 +580,6 @@
               <div class="contact-row">
                 <span class="c-label">Website</span>
                 <span>https://www.mtpc.edu.vn</span>
-              </div>
-              <div class="contact-row">
-                <span class="c-label">Phương châm</span>
-                <span>Tri thức – Đạo đức – Hội nhập – Phát triển</span>
               </div>
             </div>
 
@@ -584,7 +609,6 @@
           <figure class="ph cover-ph seamless" data-img="images/closing.jpg"></figure>
           <div class="closing-overlay"></div>
           <div class="closing-content">
-            <p class="kicker light">Lời kết</p>
             <h2 class="h-serif light">Vững bước tương lai,<br>đồng hành cùng Miền Tây</h2>
             <p class="closing-text">Trường Trung cấp Miền Tây luôn sẵn sàng đồng hành, tư vấn và hỗ trợ người
               học lựa chọn chương trình phù hợp, từng bước xây dựng nền tảng nghề nghiệp
@@ -612,8 +636,6 @@
       <!-- Vùng bấm để lật trang -->
       <button class="zone zone-left" aria-label="Trang trước" tabindex="-1"></button>
       <button class="zone zone-right" aria-label="Trang sau" tabindex="-1"></button>
-
-      <div class="hint" id="hint" hidden>Bấm vào trang để lật <span>→</span></div>
     </div>
 
     <!-- ===== Thanh công cụ (dưới) ===== -->
@@ -636,6 +658,8 @@
         <svg viewBox="0 0 24 24"><path d="M4 4h6v2H6v4H4V4zm10 0h6v6h-2V6h-4V4zM4 14h2v4h4v2H4v-6zm14 0h2v6h-6v-2h4v-4z"/></svg>
       </button>
     </div>
+
+    <div class="hint" id="hint" hidden>Bấm vào trang để lật <span>→</span></div>
   </main>
 
   <script src="js/main.js?v=2.2"></script>

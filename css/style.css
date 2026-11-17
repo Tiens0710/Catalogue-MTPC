@@ -19,9 +19,12 @@
   --soft:   #4A6053;
   --muted:  #6F897B;
   --hairline: #DEEBE2;
-  --serif: "Cormorant Garant", "Playfair Display", "Georgia", serif;
+  --sand-100: #F2E9D5;
+  --sand-200: #E6D6B4;
+  --sand-500: #B9975B;
+  --serif: "Cormorant Garamond", "Playfair Display", "Georgia", serif;
   --sans:  "Be Vietnam Pro", "Inter", "Segoe UI", Arial, sans-serif;
-  --serif-italic: "Cormorant Garant", "Playfair Display", serif;
+  --serif-italic: "Cormorant Garamond", "Playfair Display", serif;
   --shadow-book:
       0 60px 100px -48px rgba(27, 59, 41, .38),
       0 24px 48px -32px rgba(27, 59, 41, .22);
@@ -40,39 +43,6 @@ body {
   background:
     radial-gradient(ellipse 70% 60% at 50% 45%, #EDF4EE 0%, #DCE8DF 55%, #C2D5C7 100%);
 }
-
-/* ============ Thanh thương hiệu trên — tối giản ============ */
-.topbar {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 60;
-  display: flex; justify-content: center;
-  padding: 20px 18px 0;
-  pointer-events: none;
-}
-.brand {
-  display: inline-flex; align-items: center; gap: 12px;
-  background: transparent; border: 0; box-shadow: none;
-}
-.brand-logo {
-  width: 30px; height: 30px;
-  border-radius: 50%;
-  object-fit: cover;
-  background: #FFFFFF;
-  box-shadow: 0 2px 8px rgba(27, 59, 41, .15);
-  border: 1px solid rgba(75, 142, 101, .25);
-  flex-shrink: 0;
-}
-.brand-mark {
-  font-family: var(--serif); font-weight: 600; letter-spacing: .06em;
-  background: var(--green-600); color: #F7FBF8;
-  width: 27px; height: 27px; border-radius: 50%;
-  display: inline-flex; align-items: center; justify-content: center;
-  font-size: 9.5px;
-}
-.brand-text {
-  font-size: 11px; font-weight: 600; color: #355341;
-  letter-spacing: .24em; text-transform: uppercase;
-}
-.brand-text em { font-style: normal; font-weight: 400; color: #759983; letter-spacing: .18em; }
 
 /* ============ Sân khấu & quyển sách ============ */
 .stage {
@@ -154,11 +124,41 @@ body {
 .face.front { border-radius: 8px 0 0 8px; box-shadow: inset 1px 0 8px -4px rgba(27, 59, 41, .12); }
 .face.back  { border-radius: 0 8px 8px 0; box-shadow: inset -1px 0 8px -4px rgba(27, 59, 41, .12); }
 
+/* Họa tiết góc trang mỹ thuật nét mảnh (Fine-line Corner Ornament) — sang trọng, không màu mè */
+.face:not(.cover):not(.backcover):not(.closing)::before {
+  content: "";
+  position: absolute;
+  width: 28px; height: 28px;
+  pointer-events: none;
+  z-index: 1;
+}
+.face.front:not(.cover):not(.backcover):not(.closing)::before,
+.face.back:not(.cover):not(.backcover):not(.closing)::before {
+  content: none;
+}
+
+/* Con dấu chìm trang trọng (Academic Seal Watermark) trên các trang tiêu điểm */
+.face.has-seal .page-inner::before {
+  content: "";
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 220px; height: 220px;
+  background-image: url("../images/logo.jpg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: .04;
+  pointer-events: none;
+  z-index: 0;
+  border-radius: 50%;
+}
+
 /* ============ Bố cục trang ============ */
 .page {
-  padding: 3em 3.4em 2.8em;
-  font-size: var(--page-fs, clamp(9.5px, 1.3cqi, 14.2px));
-  line-height: 1.72;
+  padding: 2.6em 3.2em 2.3em;
+  font-size: var(--page-fs, clamp(9.2px, 1.23cqi, 13.4px));
+  line-height: 1.6;
   letter-spacing: .011em;
 }
 .page > * { position: relative; z-index: 2; }
@@ -215,7 +215,7 @@ body {
 .h-serif {
   font-family: var(--serif);
   font-size: 3em; font-weight: 600; line-height: 1.1;
-  color: var(--green-600);
+  color: #1F4A35;
   margin-bottom: .5em;
   letter-spacing: .01em;
 }
@@ -274,7 +274,7 @@ body {
 .major-list { display: grid; margin-top: .4em; }
 .major-row {
   display: flex; align-items: center; gap: 1.3em;
-  padding: .95em .5em;
+  padding: .78em .5em;
   border-bottom: 1px solid var(--hairline);
   text-decoration: none;
   cursor: pointer;
@@ -360,10 +360,10 @@ body {
 .gallery .ph { margin: 0; border-radius: 14px; box-shadow: 0 20px 30px -26px rgba(27, 59, 41, .32); }
 
 /* Liên hệ */
-.contact { margin-top: 1.3em; display: grid; gap: 0; }
+.contact { margin-top: .8em; display: grid; gap: 0; }
 .contact-row {
   display: grid; grid-template-columns: 9.5em 1fr; gap: 1em; align-items: baseline;
-  padding: .8em 0; border-bottom: 1px solid var(--hairline);
+  padding: .62em 0; border-bottom: 1px solid var(--hairline);
   font-size: .88em; color: var(--soft);
 }
 .contact-row:first-child { border-top: 1px solid var(--hairline); }
@@ -373,11 +373,11 @@ body {
 
 /* Form đăng ký — nền tint rất nhạt */
 .register {
-  margin-top: 1.6em;
+  margin-top: 1.1em;
   background: var(--green-100);
   border: 1px solid var(--green-200);
   border-radius: 18px;
-  padding: 1.5em 1.7em 1.3em;
+  padding: 1.15em 1.5em 1.05em;
 }
 .register .h-sub { margin-top: 0; font-size: .96em; }
 .form-row { display: grid; grid-template-columns: 7.5em 1fr; align-items: center; gap: 1em; margin-bottom: .6em; }
@@ -398,173 +398,245 @@ body {
   background: var(--green-600); color: #F7FBF8;
   font-family: var(--sans); font-size: .84em; font-weight: 600;
   letter-spacing: .14em; text-transform: uppercase;
-  border-radius: 999px; padding: .95em 2.6em;
+  border-radius: 999px; padding: .8em 2.4em;
   box-shadow: 0 16px 28px -16px rgba(27, 59, 41, .45);
   transition: transform .25s, background .25s, box-shadow .25s;
 }
 .btn:hover { transform: translateY(-1px); background: var(--green-700); box-shadow: 0 20px 32px -16px rgba(27, 59, 41, .5); }
 .form-note { font-size: .68em; color: var(--muted); margin-top: .9em; }
 
-/* ============ Trang bìa — phong cách Editorial Luxury Showcase ============ */
+/* ============ Trang bìa — Ảnh tràn · ngọc lục bảo ============ */
 .cover {
   padding: 0;
-  background:
-    radial-gradient(85% 65% at 85% 10%, rgba(174, 213, 186, .22), transparent 55%),
-    radial-gradient(75% 55% at 15% 90%, rgba(75, 142, 101, .18), transparent 50%),
-    linear-gradient(165deg, #1C3B29 0%, #295039 52%, #142B1E 100%);
-  color: #F7FBF8;
+  background: #0F261B;
+  color: #F6F1E4;
   overflow: hidden;
 }
 
-.cover-bg-glow {
+/* Ảnh bìa tràn viền */
+.cover .cover-photo {
+  position: absolute; inset: 0; z-index: 0;
+  margin: 0;
+}
+.cover-photo img {
+  display: block;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: center 40%;
+  transform: scale(1.08) translateY(-5%);
+  transform-origin: center;
+  filter: saturate(.92) contrast(1.04) brightness(.96);
+}
+.cover-photo::after {
+  content: "";
   position: absolute; inset: 0;
-  background: radial-gradient(circle at 50% 40%, rgba(174, 213, 186, .08) 0%, transparent 60%);
-  pointer-events: none;
+  background-color: rgba(15, 38, 27, .13);
+  background-image:
+    linear-gradient(180deg, rgba(8, 21, 14, .58) 0%, rgba(8, 21, 14, .30) 16%, rgba(8, 21, 14, 0) 40%),
+    linear-gradient(0deg, rgba(15, 38, 27, .45) 0%, rgba(15, 38, 27, 0) 34%);
 }
 
 .cover-inner {
-  position: relative; z-index: 3;
+  position: relative; z-index: 2;
   height: 100%;
   display: flex; flex-direction: column;
-  justify-content: space-between;
-  padding: 2.3em 2.5em 2.1em;
-  box-sizing: border-box;
+  justify-content: flex-start;
 }
 
-/* Header bìa */
+/* Header trên ảnh */
 .cover-header {
   display: flex; align-items: center; justify-content: space-between;
-  padding-bottom: 1.1em;
-  border-bottom: 1px solid rgba(174, 213, 186, .28);
+  gap: 1.2em;
+  padding: 2.2em 2.6em 0;
+  border-bottom: 0;
 }
-.cover-brand {
-  display: flex; align-items: center; gap: .75em;
-}
+.cover-brand { display: flex; align-items: center; gap: .85em; }
 .cover-logo-img {
   width: 2.7em; height: 2.7em;
   border-radius: 50%;
   object-fit: cover;
   background: #FFFFFF;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, .3);
-  border: 1.5px solid rgba(255, 255, 255, .7);
+  border: 1px solid rgba(255, 255, 255, .55);
+  box-shadow: 0 8px 18px -8px rgba(0, 0, 0, .5);
   flex-shrink: 0;
 }
-.cover-badge {
-  display: inline-flex; align-items: center; justify-content: center;
-  width: 2.3em; height: 2.3em;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #A8D5B5 0%, #529E70 100%);
-  color: #0E2416;
-  font-family: var(--serif); font-size: .88em; font-weight: 700;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, .25), inset 0 0 0 1px rgba(255, 255, 255, .4);
-}
-.cover-brand-text {
-  display: flex; flex-direction: column; gap: 2px;
-}
+.cover-brand-text { display: flex; flex-direction: column; gap: 2px; }
 .c-school {
-  font-size: .66em; font-weight: 700; letter-spacing: .24em; text-transform: uppercase;
-  color: #EDF7F0;
+  font-size: .66em; font-weight: 600; letter-spacing: .24em; text-transform: uppercase;
+  color: #F6F1E4;
 }
 .c-loc {
-  font-size: .56em; font-weight: 500; letter-spacing: .18em; text-transform: uppercase;
-  color: rgba(174, 213, 186, .85);
+  font-size: .54em; font-weight: 400; letter-spacing: .20em; text-transform: uppercase;
+  color: rgba(246, 241, 228, .62);
 }
 .cover-year-tag {
-  font-size: .62em; font-weight: 700; letter-spacing: .28em; text-transform: uppercase;
-  padding: .35em .85em;
-  border-radius: 999px;
-  background: rgba(174, 213, 186, .16);
-  border: 1px solid rgba(174, 213, 186, .35);
-  color: #D2EBD9;
-}
-
-/* Khung ảnh trung tâm — Hero Showcase */
-.cover-showcase {
-  position: relative;
-  width: 100%;
-  margin: .9em 0;
-}
-.cover-hero {
-  width: 100%;
-  aspect-ratio: 16 / 9.8;
-  border-radius: 16px;
-  overflow: hidden;
-  border: 2px solid rgba(255, 255, 255, .35);
-  outline: 1px solid rgba(174, 213, 186, .3);
-  outline-offset: 3px;
-  box-shadow:
-    0 18px 38px -14px rgba(10, 32, 18, .6),
-    0 0 0 1px rgba(0, 0, 0, .2);
-  margin: 0;
-  transition: transform .3s ease, box-shadow .3s ease;
-}
-.cover-hero.has-img {
-  background-size: cover;
-  background-position: center;
-  border: 2px solid rgba(255, 255, 255, .4) !important;
-  outline: 1px solid rgba(174, 213, 186, .35);
-  outline-offset: 3px;
-  box-shadow: 0 18px 38px -14px rgba(10, 32, 18, .65), 0 0 0 1px rgba(0, 0, 0, .2) !important;
-}
-.cover-pill-tag {
-  position: absolute; bottom: -0.7em; left: 50%;
-  transform: translateX(-50%);
-  background: rgba(22, 46, 32, .88);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border: 1px solid rgba(174, 213, 186, .38);
-  border-radius: 999px;
-  padding: .28em 1.1em;
-  font-size: .62em; font-weight: 600; letter-spacing: .16em; text-transform: uppercase;
-  color: #E2F3E7;
+  font-size: .58em; font-weight: 600; letter-spacing: .30em; text-transform: uppercase;
+  color: #C9A96A;
   white-space: nowrap;
-  box-shadow: 0 6px 16px rgba(0, 0, 0, .28);
 }
 
-/* Khối tiêu đề thương hiệu */
-.cover-title-group {
-  text-align: center;
-  margin: .4em 0;
+/* Dải xanh đậm phía dưới */
+.cover-lower {
+  margin-top: auto;
+  padding: 3em 2.6em 1.9em;
+  background: linear-gradient(180deg, rgba(15, 38, 27, 0) 0, #0F261B 2.8em);
+}
+
+.cover-main { text-align: left; }
+.cover-kicker {
+  font-size: .60em; font-weight: 600; letter-spacing: .44em; text-transform: uppercase;
+  color: #C9A96A;
+  margin: 0 0 .95em;
 }
 .cover-main-title {
   font-family: var(--serif);
-  font-size: 3.9em; font-weight: 700; line-height: 1.0;
-  letter-spacing: .06em;
-  color: #FFFFFF;
-  text-shadow: 0 4px 22px rgba(0, 0, 0, .38);
-  margin-bottom: .08em;
+  font-size: clamp(2.6em, 7.7cqi, 6.4em);
+  font-weight: 600; line-height: .92;
+  letter-spacing: .015em;
+  color: #FAF5E6;
+  text-shadow: 0 10px 36px rgba(0, 0, 0, .35);
+  margin: 0 0 .30em;
 }
 .cover-sub-title {
-  font-family: var(--serif);
-  font-size: .95em; font-weight: 500;
-  letter-spacing: .36em; text-transform: uppercase;
-  color: #B5DEC1;
-  margin-bottom: .55em;
-}
-.cover-philosophy {
-  display: inline-block;
   font-family: var(--serif-italic); font-style: italic;
-  font-size: .98em;
-  color: rgba(238, 246, 240, .92);
-  padding: .25em .8em;
-  border-top: 1px solid rgba(174, 213, 186, .25);
-  border-bottom: 1px solid rgba(174, 213, 186, .25);
+  font-size: 1.12em; font-weight: 500;
+  letter-spacing: .015em;
+  color: rgba(246, 241, 228, .76);
+  margin: 0;
 }
 
 /* Chân trang bìa */
-.cover-footer {
-  margin-top: auto;
+.cover-footer { width: 100%; margin-top: 1.6em; }
+.cover-philosophy {
+  font-family: var(--serif-italic); font-style: italic;
+  font-size: .88em;
+  letter-spacing: .02em;
+  text-align: left;
+  color: rgba(246, 241, 228, .72);
+  margin: 0 0 .85em;
 }
 .cover-rule {
   width: 100%; height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(174, 213, 186, .35), transparent);
-  margin-bottom: .8em;
+  background: linear-gradient(90deg, rgba(201, 169, 106, .55), rgba(201, 169, 106, .10) 60%, rgba(201, 169, 106, 0));
+  margin-bottom: .75em;
 }
 .cover-meta {
-  display: flex; justify-content: space-between;
-  font-size: .64em; font-weight: 600; letter-spacing: .24em; text-transform: uppercase;
-  color: rgba(174, 213, 186, .85);
+  display: flex; justify-content: space-between; gap: 1em;
+  font-size: .56em; font-weight: 600; letter-spacing: .18em; text-transform: uppercase;
+  color: rgba(174, 213, 186, .78);
 }
+.cover-meta span:last-child { color: #D9C08C; }
+
+/* Bìa ở khung hẹp */
+@container (max-width: 760px) {
+  .cover-header { padding: 1.8em 2.2em 0; }
+  .cover-lower { padding: 2.8em 2.2em 1.8em; }
+  .cover-meta { letter-spacing: .12em; }
+}
+
+/* ============ Trang trong — Ngôn ngữ biên tập ============ */
+.page-editorial .page-inner {
+  justify-content: flex-start;
+  gap: 0;
+  padding-top: .4em;
+  padding-bottom: 3.2em;
+}
+
+.ed-title {
+  font-family: var(--serif);
+  font-size: 3.4em; font-weight: 600; line-height: 1.0;
+  letter-spacing: -.005em;
+  color: #14382A;
+  margin: 0 0 .55em;
+}
+.ed-lead {
+  font-size: .95em; line-height: 1.8; color: #3E4A41;
+  margin: 0 0 1.1em;
+}
+.ed-lead strong { color: #14382A; font-weight: 600; }
+.dropcap {
+  float: left;
+  font-family: var(--serif); font-weight: 600;
+  font-size: 3.05em; line-height: .8;
+  color: #14382A;
+  padding: .04em .12em 0 0;
+}
+.ed-photo {
+  margin: 0 0 1.1em;
+  flex: 1 1 auto;
+  min-height: 10em;
+  display: flex;
+  flex-direction: column;
+}
+.ed-photo img {
+  display: block; width: 100%;
+  height: 0; flex: 1 1 auto; min-height: 9em;
+  object-fit: cover;
+  object-position: center 32%;
+  filter: saturate(.95) contrast(1.02);
+}
+.ed-photo figcaption {
+  position: relative;
+  margin-top: .6em; padding-left: 1.1em;
+  font-family: var(--serif-italic); font-style: italic;
+  font-size: .64em; color: #77806F;
+}
+.ed-photo figcaption::before {
+  content: ""; position: absolute; left: 0; top: .62em;
+  width: .6em; height: 1px; background: #B9975B;
+}
+.ed-stats {
+  list-style: none;
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  margin: auto 0 0;
+  border-top: 1px solid rgba(20, 56, 42, .22);
+  border-bottom: 1px solid rgba(20, 56, 42, .22);
+}
+.ed-stats li { padding: 1em .8em .95em 0; }
+.ed-stats li + li {
+  border-left: 1px solid rgba(20, 56, 42, .15);
+  padding-left: 1em;
+}
+.ed-stats b {
+  display: block;
+  font-family: var(--serif); font-weight: 600;
+  font-size: 1.95em; line-height: .9;
+  color: #14382A;
+  margin-bottom: .4em;
+}
+.ed-stats span {
+  display: block;
+  font-size: .55em; font-weight: 600;
+  letter-spacing: .1em; line-height: 1.5;
+  text-transform: uppercase; color: #6E7A68;
+}
+.ed-cols {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 1.4em;
+  margin: 0 0 1.1em;
+}
+.ed-col {
+  border-top: 1px solid rgba(20, 56, 42, .22);
+  padding-top: .75em;
+}
+.ed-sub {
+  font-size: .58em; font-weight: 700; letter-spacing: .24em;
+  text-transform: uppercase; color: #A88546;
+  margin: 0 0 .75em;
+}
+.ed-col p {
+  font-size: .86em; line-height: 1.78; color: #3E4A41; margin: 0;
+}
+.ed-quote {
+  margin: auto 0 0;
+  padding: .85em 0 .75em;
+  font-family: var(--serif-italic); font-style: italic;
+  font-size: 1.2em; line-height: 1.4; letter-spacing: .02em;
+  text-align: center; color: #14382A;
+  border-top: 1px solid rgba(185, 151, 91, .55);
+  border-bottom: 1px solid rgba(185, 151, 91, .55);
+}
+.ed-photo--group img { object-position: center 74%; }
 
 /* ============ Trang lời kết ============ */
 .closing {
@@ -647,8 +719,8 @@ body {
   transition: opacity .2s ease;
 }
 
-/* Nhãn tên file tinh tế dạng thẻ glass pill */
-.ph::after {
+/* Nhãn tên file tinh tế dạng thẻ glass pill — chỉ hiện khi có data-label */
+.ph[data-label]::after {
   content: attr(data-label);
   display: inline-flex;
   align-items: center;
@@ -677,10 +749,85 @@ body {
 .ph.seamless { background: none; border: 0; box-shadow: none; }
 .ph.seamless::before, .ph.seamless::after { display: none !important; }
 
+/* ============ Hệ khung ảnh editorial — 4 kiểu đan xen theo spread ============ */
+/* 1) Tấm lót màu lệch sau ảnh — ảnh "nổi" khỏi trang */
+.ph.frame-mat { overflow: visible; }
+.ph.has-img.frame-mat { box-shadow: 0 12px 24px -16px rgba(27, 59, 41, .3); }
+.ph.has-img.frame-mat::before {
+  display: block !important;
+  content: "";
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  background: var(--green-100);
+  border: 1px solid rgba(75, 142, 101, .35);
+  border-radius: 16px;
+  transform: translate(.8em, .8em);
+  z-index: -1;
+  opacity: 1;
+}
+/* Trang trái sách: tấm lót lệch về mép ngoài, đối xứng qua gáy */
+.face.back .ph.has-img.frame-mat::before { transform: translate(-.8em, .8em); }
+
+/* 2) Khung hairline thả nổi quanh ảnh */
+.ph.frame-line { overflow: visible; }
+.ph.has-img.frame-line::after {
+  display: block !important;
+  content: "";
+  position: absolute; inset: -.7em;
+  background: none;
+  backdrop-filter: none;
+  padding: 0;
+  border: 1px solid rgba(75, 142, 101, .32);
+  border-radius: 16px;
+  pointer-events: none;
+}
+
+/* Tông ấm xen kẽ — tấm lót & khung màu cát/vàng đồng */
+.ph.has-img.frame-mat.warm::before {
+  background: var(--sand-100);
+  border-color: rgba(185, 151, 91, .42);
+}
+.ph.has-img.frame-line.warm::after {
+  border-color: rgba(185, 151, 91, .45);
+}
+
+/* Chú thích in trên ảnh — chân ảnh tạp chí */
+.ph .ph-cap {
+  position: absolute; left: 0; right: 0; bottom: 0; z-index: 1;
+  padding: 2.6em 1.15em .8em;
+  background: linear-gradient(to top, rgba(16, 33, 23, .62) 0%, rgba(16, 33, 23, .22) 58%, transparent 100%);
+  color: #F5F9F3;
+  font-family: var(--serif-italic); font-style: italic;
+  font-size: .86em; line-height: 1.35; letter-spacing: .015em;
+  border-radius: 0 0 14px 14px;
+  pointer-events: none;
+}
+
+/* 3) Ảnh dải ngang tràn mép (P13): lề trắng in bên trong ảnh */
+.strip-top .ph.banner.has-img::after {
+  display: block !important;
+  content: "";
+  position: absolute; inset: 1.1em;
+  background: none;
+  backdrop-filter: none;
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, .5);
+  border-radius: 4px;
+  pointer-events: none;
+}
+
+/* 4) Cặp ảnh P5 — viền trắng polaroid, nghiêng nhẹ so le */
+.why-gallery .ph {
+  border: 6px solid #fff;
+  box-shadow: 0 16px 28px -16px rgba(27, 59, 41, .45);
+}
+.why-gallery .ph:first-child { transform: rotate(-1.4deg); }
+.why-gallery .ph:last-child  { transform: rotate(1.4deg); }
+
 /* Tỉ lệ ảnh chuẩn (Aspect Ratios) */
 .ratio-16-9  { aspect-ratio: 16 / 9; }
 .ratio-16-8  { aspect-ratio: 16 / 8; }
-.ratio-16-7  { aspect-ratio: 16 / 7; }
+.ratio-16-7  { aspect-ratio: 16 / 6.2; }
 .ratio-16-6  { aspect-ratio: 16 / 6; }
 .ratio-16-5  { aspect-ratio: 16 / 5.2; }
 .ratio-4-3   { aspect-ratio: 4 / 3; }
@@ -736,12 +883,18 @@ body {
 }
 .feature-item:last-child { border-bottom: 0; }
 .feat-no {
-  font-family: var(--serif-italic);
-  font-style: italic;
-  font-weight: 500;
-  font-size: 1.3em;
-  color: var(--green-600);
-  min-width: 1.4em;
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: .92em;
+  color: var(--green-700);
+  width: 2.2em; height: 2.2em;
+  background: #F4FAF6;
+  border: 1px solid rgba(75, 142, 101, .28);
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
 }
 .feature-item h4 { font-size: .93em; font-weight: 600; color: var(--navy); }
 .feature-item p { font-size: .83em; color: var(--muted); margin-top: .15em; line-height: 1.5; }
@@ -803,20 +956,52 @@ body {
   padding-top: .35em;
 }
 
-/* Caption — chú thích nhỏ serif nghiêng */
+/* Caption & Khẩu hiệu — viền chỉ đứt đoạn thanh nhã */
 .cap {
   font-family: var(--serif-italic); font-style: italic;
-  font-size: .8em; color: var(--muted); line-height: 1.6;
+  font-size: .88em; color: var(--green-700); line-height: 1.6;
+  text-align: center;
+  padding: .65em 1em;
+  background: #F6FBF8;
+  border: 1px dashed rgba(75, 142, 101, .28);
+  border-radius: 6px;
+  margin-top: auto;
 }
-.cap strong { font-style: normal; color: var(--green-700); font-weight: 600; }
-.page > .cap { margin-top: auto; padding-top: .8em; }
+.cap strong { font-style: normal; color: var(--green-800); font-weight: 600; }
+.page > .cap { margin-top: auto; }
 
 /* Khẩu hiệu serif nghiêng */
 .motto {
-  margin-top: auto; padding-top: 1.2em;
   font-family: var(--serif-italic); font-style: italic;
   font-size: 1em; color: var(--green-600); letter-spacing: .05em;
 }
+
+/* ============ Hoạ tiết trang trí ============ */
+/* Nhánh lá mờ tràn mép — watermark góc trang */
+.page > .ghost-art {
+  position: absolute; z-index: 0;
+  color: var(--green-400); opacity: .3;
+  pointer-events: none;
+}
+/* Số ngành khổng lồ mờ sau tiêu đề */
+.ghost-no {
+  position: absolute; z-index: -1;
+  top: .7em; right: 2.2em;
+  font-family: var(--serif-italic); font-style: italic; font-weight: 500;
+  font-size: 8.2em; line-height: 1;
+  color: rgba(95, 129, 84, .09);
+  pointer-events: none;
+}
+/* Divider lá nhỏ giữa 2 vạch kẻ */
+.orn-divider {
+  display: flex; align-items: center; gap: .9em;
+  color: var(--green-500);
+  margin-bottom: .55em;
+}
+.orn-divider::before, .orn-divider::after {
+  content: ""; height: 1px; width: 3.2em; background: currentColor; opacity: .45;
+}
+.orn-divider svg { width: 2.1em; height: auto; display: block; }
 
 /* P11–P12 — hàng ảnh + chú thích ngắn */
 .photo-rows { display: grid; }
@@ -826,7 +1011,7 @@ body {
   border-bottom: 1px solid var(--hairline);
 }
 .photo-row:last-child { border-bottom: 0; }
-.photo-row .ph { width: 8em; aspect-ratio: 4 / 3; border-radius: 10px; }
+.photo-row .ph { width: 8em; aspect-ratio: 4 / 3; border-radius: 10px; border: 4px solid #fff; box-shadow: 0 8px 18px -10px rgba(27, 59, 41, .38); }
 .photo-row h4 { font-size: .98em; font-weight: 600; color: var(--navy); }
 .photo-row p { font-size: .8em; color: var(--muted); margin-top: .3em; line-height: 1.6; }
 .photo-row.mirror { grid-template-columns: 1fr 8em; }
@@ -836,18 +1021,18 @@ body {
 .page.strip-top { padding: 0; }
 .strip-top .ph.banner { position: absolute; top: 0; left: 0; right: 0; height: 54%; margin: 0; border-radius: 0; }
 .strip-bottom {
-  position: absolute; left: 0; right: 0; top: 54%; bottom: 0; z-index: 2;
-  padding: 1.6em 3em 2.1em;
+  position: absolute; left: 0; right: 0; top: 52%; bottom: 0; z-index: 2;
+  padding: 1.3em 3em 1.8em;
   display: flex; flex-direction: column;
   justify-content: space-between;
-  gap: .8em;
+  gap: .6em;
 }
 .strip-bottom .aud { border-top: 0; padding-top: 0; }
 .strip-bottom .aud h4 { font-size: .9em; }
 .strip-bottom .aud p { font-size: .8em; margin-top: .2em; }
 
 /* Danh sách số gọn */
-.num-list.compact li { padding: .55em 0; }
+.num-list.compact li { padding: .34em 0; gap: .1em 1.3em; }
 .num-list.compact li:first-child { padding-top: .15em; }
 .num-list.compact li::before { font-size: 1.3em; }
 .num-list.compact strong { font-size: .9em; }
@@ -875,7 +1060,7 @@ body {
 
 /* Gợi ý lật trang */
 .hint {
-  position: absolute; right: 2em; bottom: 2em; z-index: 40;
+  position: fixed; right: 24px; bottom: 24px; z-index: 40;
   background: rgba(39, 82, 57, .92); color: #EDF6F0;
   border: 0;
   font-size: clamp(11px, 1cqi, 13.5px); font-weight: 400;
@@ -1053,17 +1238,22 @@ body {
 
 /* Nội dung trên màn nhỏ */
 @media (max-width: 899px) {
+  .book.single .ed-photo { min-height: 8em; }
+  .book.single .ed-photo img { min-height: 7em; }
+  .book.single .ed-stats li { padding: .8em .7em .75em 0; }
+  .book.single .ed-quote { font-size: 1.05em; padding: .7em 0 .6em; }
+  .book.single .page-editorial .pg-foot { bottom: -1.9em; }
   .pg-head { margin-bottom: 1.4em; }
-  .cover-inner { padding: 1.6em 1.5em 1.4em; }
-  .cover-main-title { font-size: 2.6em; }
-  .cover-showcase { margin: .6em 0; }
+  .cover-inner { padding: 1.9em 1.8em 1.7em; }
+  .cover-main { margin-top: 1.2em; }
+  .cover-main-title { font-size: 3.6em; }
+  .cover-photo { height: 34%; }
+  .hint { display: none; }
   .vision-grid, .why-gallery, .reasons-grid { grid-template-columns: 1fr; gap: .7em; }
   .cols-2, .admission, .why, .audience { grid-template-columns: 1fr; gap: 1.2em; }
-  .brand-text em { display: none; }
 }
 
 @media (max-width: 480px) {
   .stage { padding: 56px 10px 84px; }
-  .brand-text { font-size: 10px; }
   .tb-btn { width: 34px; height: 34px; }
 }
