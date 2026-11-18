@@ -1387,8 +1387,8 @@ body {
   .book.single .curriculum-box { padding: .7em 1em; }
   .book.single .register, .book.single .register.compact { padding: 1em 1.1em .9em; }
   .book.single .reason-card { padding: .6em .7em; }
-  .book.single .ed-photo { min-height: 0; }
-  .book.single .ed-photo img { height: 6.5em; min-height: 0; flex: 0 0 auto; }
+  .book.single .ed-photo { min-height: 0; flex: 0 0 auto; }
+  .book.single .ed-photo img { height: 9em; min-height: 0; flex: 0 0 auto; }
   .book.single .strip-top .ph.banner { aspect-ratio: 16 / 6; }
   .book.single .photo-row { grid-template-columns: 6.5em 1fr; gap: .9em; padding: .8em 0; }
   .book.single .photo-row .ph { width: 6.5em; }
