@@ -88,7 +88,8 @@
   }
 
   function buildCurl(sheet) {
-    var W = sheet.offsetWidth, H = sheet.offsetHeight;
+    var dm = sheetDims(sheet);
+    var W = dm.W, H = dm.H;
     var w = W / STRIPS;
     var front = sheet.querySelector(".face.front");
     var back = sheet.querySelector(".face.back");
@@ -150,6 +151,16 @@
     }
   }
 
+  /* Đo kích thước tờ giấy — tờ ẩn (display:none) cần bật tạm để đo */
+  function sheetDims(sheet) {
+    if (sheet.offsetWidth > 0) return { W: sheet.offsetWidth, H: sheet.offsetHeight };
+    var prev = sheet.style.display;
+    sheet.style.display = "block";
+    var d = { W: sheet.offsetWidth, H: sheet.offsetHeight };
+    sheet.style.display = prev;
+    return d;
+  }
+
   function easeInOut(p) {
     return p < .5 ? 2 * p * p : 1 - Math.pow(-2 * p + 2, 2) / 2;
   }
@@ -175,7 +186,14 @@
   function schedulePrefetch() {
     window.clearTimeout(idleTimer);
     idleTimer = window.setTimeout(function () {
-      if (isSingle() || animating) return;
+      if (animating) return;
+      if (isSingle()) {
+        var s0 = Math.floor((page - 1) / 2);
+        [s0 + 1, s0 - 1].forEach(function (i) {
+          if (i >= 0 && i < N) getCurl(sheets[i]);
+        });
+        return;
+      }
       [flipped, flipped - 1].forEach(function (i) {
         if (i >= 0 && i < N) getCurl(sheets[i]);
       });
@@ -288,9 +306,7 @@
     if (animating) return;
     if (isSingle()) {
       if (page >= TOTAL) return;
-      page++;
-      hasFlipped = true;
-      update();
+      singleTurn(1);
       return;
     }
     if (flipped >= N) return;
@@ -312,8 +328,7 @@
     if (animating) return;
     if (isSingle()) {
       if (page <= 1) return;
-      page--;
-      update();
+      singleTurn(-1);
       return;
     }
     if (flipped <= 0) return;
@@ -322,6 +337,61 @@
     if (flipped === N) book.classList.remove("at-end");
     runTurn(sheets[flipped - 1], "left", 180, 0, false, function () {
       flipped--;
+      animating = false;
+      update();
+    });
+  }
+
+  /* ---------- Lật trang ở chế độ 1 trang (mobile) ----------
+     Dùng lại cơ chế trang giấy cong: trang hiện tại quét sang trái quanh
+     cạnh gáy (như trang phải của quyển sách), lộ trang đích nằm tĩnh bên
+     dưới; kết thúc trả tờ giấy thật về đúng trạng thái — không chênh hình. */
+  var underFlip = null;
+  function makeUnder(face) {
+    if (!underFlip) {
+      underFlip = document.createElement("div");
+      underFlip.className = "under-flip";
+      underFlip.style.zIndex = N + 1;
+      book.insertBefore(underFlip, book.querySelector(".zone-left"));
+    }
+    var clone = face.cloneNode(true);
+    Array.prototype.forEach.call(clone.querySelectorAll("[id]"), function (n) { n.removeAttribute("id"); });
+    clone.removeAttribute("id");
+    underFlip.innerHTML = "";
+    underFlip.appendChild(clone);
+    underFlip.style.display = "block";
+  }
+  function hideUnder() { if (underFlip) underFlip.style.display = "none"; }
+
+  function singleTurn(delta) {
+    if (animating) return;
+    var target = page + delta;
+    if (target < 1 || target > TOTAL) return;
+    var s = Math.floor((page - 1) / 2);
+    var showingFront = page % 2 === 1;
+    var turned, from, to, destFace;
+    // Mobile chỉ quét trong khoang 0°→90° quanh cạnh gáy trái: ngoài khoảng này
+    // trang phản chiếu ra ngoài khung sách (màn hình dọc không có nửa trái).
+    if (delta > 0) {
+      if (showingFront)      { turned = sheets[s];     from = 0;  to = 90; destFace = turned.querySelector(".face.back"); }
+      else                   { turned = sheets[s + 1]; from = 90; to = 0;  destFace = sheets[s].querySelector(".face.back"); }
+    } else {
+      if (showingFront)      { turned = sheets[s - 1]; from = 0;  to = 90; destFace = turned.querySelector(".face.back"); }
+      else                   { turned = sheets[s];     from = 90; to = 0;  destFace = turned.querySelector(".face.front"); }
+    }
+    animating = true;
+    hasFlipped = true;
+    makeUnder(destFace);
+    var cur = sheets[s];
+    cur.style.visibility = "hidden";
+    // Tờ ẩn (display:none) cần tạm hiện để có kích thước dựng trang cong
+    var tempShown = turned !== cur && turned.offsetParent === null;
+    if (tempShown) turned.style.display = "block";
+    runTurn(turned, delta > 0 ? "right" : "left", from, to, from < to, function () {
+      if (tempShown) turned.style.display = "";
+      cur.style.visibility = "";
+      hideUnder();
+      page = target;
       animating = false;
       update();
     });

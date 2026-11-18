@@ -1174,8 +1174,21 @@ body {
   pointer-events: none;
 }
 
-/* Chế độ 1 trang & giảm chuyển động: không dùng bóng đổ */
-.book.single .cast, .book.single .curl { display: none; }
+/* Chế độ 1 trang: không dùng bóng cast; trang giấy cong vẫn hoạt động */
+.book.single .cast { display: none; }
+.book.single .curl { left: 0; }
+
+/* Lớp trang đích tĩnh nằm dưới trang đang lật (chế độ 1 trang):
+   trang hiện tại quét sang trái quanh cạnh gáy, lộ trang kế tiếp bên dưới */
+.under-flip {
+  position: absolute; inset: 0; z-index: 10; display: none;
+  overflow: hidden; background: #fff; border-radius: 10px;
+}
+.under-flip .face {
+  transform: none !important;
+  backface-visibility: visible !important;
+  -webkit-backface-visibility: visible !important;
+}
 @media (prefers-reduced-motion: reduce) {
   .cast { display: none; }
   .book { --flip-time: .01s; }
@@ -1347,15 +1360,10 @@ body {
 }
 .book.single .page { font-size: clamp(10.5px, 3cqi, 14.5px); padding: 2.6em 2.2em 2.4em; }
 .book.single .cover { padding: 0; }
-.book.single .sheet.active .face.front { animation: pageIn .5s ease both; }
 .book.single .sheet.active .face.back { display: none; }
 .book.single .sheet.active.show-back .face.front { display: none; }
 .book.single .sheet.active.show-back .face.back {
-  display: flex; transform: none; animation: pageIn .5s ease both;
-}
-@keyframes pageIn {
-  from { opacity: 0; transform: translateX(14px); }
-  to   { opacity: 1; transform: translateX(0); }
+  display: flex; transform: none;
 }
 .book.single .face::after { width: 100%; opacity: 0; }
 
