@@ -58,13 +58,13 @@ body {
   aspect-ratio: 1.52;
   container-type: inline-size;
   transform: translate3d(0, 0, 0);
-  transition: transform .95s cubic-bezier(.45, .06, .18, 1);
+  transition: transform .65s cubic-bezier(.45, .06, .18, 1);
   will-change: transform;
   /* Chiều sâu 3D thật cho các tờ giấy khi lật */
   perspective: 3400px;
   perspective-origin: 50% 45%;
   --flip-ease: cubic-bezier(.5, .05, .2, 1);
-  --flip-time: .9s;
+  --flip-time: .65s;
 }
 
 /* Đế sách — block giấy xếp lớp, bóng đổ mềm */
@@ -89,7 +89,7 @@ body {
 
 /* Khi mở bìa: nền sách mở rộng ngay, không chạy layout animation
    nặng mỗi khung hình — giữ cú lật bìa mượt. */
-.book.opening { transition-duration: .45s; }
+.book.opening { transition-duration: .35s; }
 .book.opening::before { transition: none; }
 
 /* Trạng thái sách đóng: bìa đặt giữa, gáy + block giấy bên phải */
@@ -1125,12 +1125,12 @@ body {
 .cast-right {
   left: 50%;
   border-radius: 0 8px 8px 0;
-  background: linear-gradient(90deg, rgba(8, 20, 13, .6) 0%, rgba(8, 20, 13, .22) 45%, rgba(8, 20, 13, 0) 85%);
+  background: linear-gradient(90deg, rgba(8, 20, 13, .45) 0%, rgba(8, 20, 13, .16) 45%, rgba(8, 20, 13, 0) 85%);
 }
 .cast-left {
   left: 0;
   border-radius: 8px 0 0 8px;
-  background: linear-gradient(270deg, rgba(8, 20, 13, .6) 0%, rgba(8, 20, 13, .22) 45%, rgba(8, 20, 13, 0) 85%);
+  background: linear-gradient(270deg, rgba(8, 20, 13, .45) 0%, rgba(8, 20, 13, .16) 45%, rgba(8, 20, 13, 0) 85%);
 }
 .cast.on { animation: castTurn var(--flip-time, .9s) linear both; }
 @keyframes castTurn {
@@ -1159,6 +1159,9 @@ body {
   overflow: hidden;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
+  /* Chỉ vẽ phần dải giấy nằm trong khung — trình duyệt bỏ qua phần
+     bản sao nguyên trang tràn ra ngoài, bớt ~90% lượng raster mỗi khung */
+  contain: paint;
 }
 .curl .clip * { backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }
 .curl .cshade {

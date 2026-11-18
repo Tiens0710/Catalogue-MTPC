@@ -26,12 +26,12 @@
   var hasFlipped = false;
 
   var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  var DURATION = reduceMotion ? 60 : 1000;  // ms — thời lượng một cú lật
-  var STRIP_LEVELS = [16, 8];    // số dải dọc: mượt → nhẹ hơn (vẫn cong)
+  var DURATION = reduceMotion ? 60 : 650;   // ms — ngắn hơn để khung rơi ít thấy hơn
+  var STRIP_LEVELS = [12, 6];    // số dải dọc: ít dải hơn → ít lớp raster hơn, vẫn cong mượt
   var level = 0;
   var STRIPS = STRIP_LEVELS[0];
   var BEND = 50;                 // độ cong tối đa của trang (độ)
-  var SHADE_MAX = .16;           // độ tối tối đa của mặt giấy khi nghiêng
+  var SHADE_MAX = .12;           // độ tối tối đa của mặt giấy khi nghiêng (giảm bớt cho trang trắng)
   var CLIP_OVERLAP = 8;          // chồng mép giữa các dải (px) để không lộ mối nối
 
   var mqMobile = window.matchMedia("(max-width: 899px)");
@@ -77,6 +77,9 @@
       "transform:none;backface-visibility:visible;-webkit-backface-visibility:visible;";
     var shade = document.createElement("div");
     shade.className = "cshade";
+    // Chỉ phủ đúng phần dải (w px), KHÔNG tràn vào vùng chồng mép 8px —
+    // nếu không bóng của 2 dải liền kề xếp chồng → vệt sọc đen lặp đều trên trang.
+    shade.style.width = w + "px";
     clip.appendChild(clone);
     clip.appendChild(shade);
     return { el: clip, shade: shade };
@@ -121,15 +124,27 @@
   function setAngle(curl, theta) {
     var n = STRIPS;
     var c = curl.bend * Math.pow(Math.sin(theta * Math.PI / 180), .6);   // tổng độ cong
+    // Độ tối tại TỪNG BIÊN dải, rồi nội suy gradient liên tục qua cả trang —
+    // nếu tô mỗi dải một màu phẳng sẽ thành bậc thang → vệt sọc trên trang trắng.
+    var edge = [0];
     var cum = 0;
     for (var k = 0; k < n; k++) {
       var r = k === 0 ? theta - c : c / (n - 1);
-      curl.strips[k].el.style.transform = "rotateY(" + (-r) + "deg)";
-      var mid = cum + r / 2;
       cum += r;
-      var op = (SHADE_MAX * Math.abs(Math.sin(mid * Math.PI / 180))).toFixed(3);
-      curl.strips[k].cf.shade.style.opacity = op;
-      curl.strips[k].cb.shade.style.opacity = op;
+      edge.push(SHADE_MAX * Math.abs(Math.sin(cum * Math.PI / 180)));
+    }
+    for (k = 0; k < n; k++) {
+      var r2 = k === 0 ? theta - c : c / (n - 1);
+      var st = curl.strips[k];
+      st.el.style.transform = "rotateY(" + (-r2) + "deg)";
+      // Gradient 90deg vẽ trong mặt sau tự bị lật theo clip rotateY(180) →
+      // dùng chung một chuỗi cho cả 2 mặt là đúng chiều.
+      var g = "linear-gradient(90deg, rgba(8,20,13," + edge[k].toFixed(3) + ") 0%, rgba(8,20,13," + edge[k + 1].toFixed(3) + ") 100%)";
+      if (st.lastGrad !== g) {
+        st.lastGrad = g;
+        st.cf.shade.style.background = g;
+        st.cb.shade.style.background = g;
+      }
     }
   }
 
@@ -186,6 +201,12 @@
     sheet.style.visibility = "hidden";
     startCast(side);
 
+    // Chờ đúng 1 khung hình để trình duyệt raster lớp trang cong ở thế nằm phẳng
+    // (giống hệt trang thật) TRƯỚC khi bắt đầu xoay — khỏi khựng ở đầu cú lật.
+    window.requestAnimationFrame(function () {
+      window.requestAnimationFrame(step);
+    });
+
     var t0 = null, last = null, sum = 0, cnt = 0;
     function step(ts) {
       if (t0 === null) t0 = ts;
@@ -210,7 +231,6 @@
       }
       done();
     }
-    window.requestAnimationFrame(step);
   }
 
   /* ---------- Cập nhật giao diện ---------- */
