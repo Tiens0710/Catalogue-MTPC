@@ -61,7 +61,7 @@ body {
   transition: transform .95s cubic-bezier(.45, .06, .18, 1);
   will-change: transform;
   /* Chiều sâu 3D thật cho các tờ giấy khi lật */
-  perspective: 2600px;
+  perspective: 3400px;
   perspective-origin: 50% 45%;
   --flip-ease: cubic-bezier(.5, .05, .2, 1);
   --flip-time: .9s;
@@ -87,8 +87,10 @@ body {
               border-radius .7s ease, box-shadow .7s ease;
 }
 
-/* Khi mở bìa: block giấy chờ bìa lật qua rồi mới mở rộng */
-.book.opening::before { transition-delay: .4s; }
+/* Khi mở bìa: nền sách mở rộng ngay, không chạy layout animation
+   nặng mỗi khung hình — giữ cú lật bìa mượt. */
+.book.opening { transition-duration: .45s; }
+.book.opening::before { transition: none; }
 
 /* Trạng thái sách đóng: bìa đặt giữa, gáy + block giấy bên phải */
 .book.at-start {

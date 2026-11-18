@@ -26,13 +26,13 @@
   var hasFlipped = false;
 
   var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  var DURATION = reduceMotion ? 60 : 950;   // ms — thời lượng một cú lật
-  var STRIP_LEVELS = [10, 6];     // số dải dọc: mượt → nhẹ hơn (vẫn cong)
+  var DURATION = reduceMotion ? 60 : 1000;  // ms — thời lượng một cú lật
+  var STRIP_LEVELS = [16, 8];    // số dải dọc: mượt → nhẹ hơn (vẫn cong)
   var level = 0;
   var STRIPS = STRIP_LEVELS[0];
-  var BEND = 28;                  // độ cong tối đa của trang (độ)
-  var SHADE_MAX = .28;            // độ tối tối đa của mặt giấy khi nghiêng
-  var CLIP_OVERLAP = 3;           // chồng mép giữa các dải (px) để không lộ mối nối
+  var BEND = 50;                 // độ cong tối đa của trang (độ)
+  var SHADE_MAX = .16;           // độ tối tối đa của mặt giấy khi nghiêng
+  var CLIP_OVERLAP = 8;          // chồng mép giữa các dải (px) để không lộ mối nối
 
   var mqMobile = window.matchMedia("(max-width: 899px)");
   function isSingle() { return mqMobile.matches; }
@@ -120,7 +120,7 @@
   // nên mép ngoài đi trước gáy → trang cong như đang được nhấc lên.
   function setAngle(curl, theta) {
     var n = STRIPS;
-    var c = curl.bend * Math.sin(theta * Math.PI / 180);   // tổng độ cong
+    var c = curl.bend * Math.pow(Math.sin(theta * Math.PI / 180), .6);   // tổng độ cong
     var cum = 0;
     for (var k = 0; k < n; k++) {
       var r = k === 0 ? theta - c : c / (n - 1);
@@ -162,7 +162,7 @@
       [flipped, flipped - 1].forEach(function (i) {
         if (i >= 0 && i < N) getCurl(sheets[i]);
       });
-    }, 320);
+    }, 120);
   }
   var resizeTimer = null;
   window.addEventListener("resize", function () {
