@@ -80,6 +80,8 @@
     // Chỉ phủ đúng phần dải (w px), KHÔNG tràn vào vùng chồng mép 8px —
     // nếu không bóng của 2 dải liền kề xếp chồng → vệt sọc đen lặp đều trên trang.
     shade.style.width = w + "px";
+    // Bóng dùng alpha trong gradient nền (setAngle), nên mở khóa opacity mặc định
+    shade.style.opacity = "1";
     clip.appendChild(clone);
     clip.appendChild(shade);
     return { el: clip, shade: shade };

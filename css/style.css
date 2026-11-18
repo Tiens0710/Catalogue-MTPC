@@ -46,6 +46,7 @@ body {
 
 /* ============ Sân khấu & quyển sách ============ */
 .stage {
+  height: 100vh;
   height: 100dvh;
   display: flex; flex-direction: column; align-items: center; justify-content: center;
   gap: 22px;
@@ -54,6 +55,7 @@ body {
 
 .book {
   position: relative;
+  width: min(1180px, 95vw, calc((100vh - 200px) * 1.52));
   width: min(1180px, 95vw, calc((100dvh - 200px) * 1.52));
   aspect-ratio: 1.52;
   container-type: inline-size;
@@ -1166,10 +1168,10 @@ body {
 .curl .clip * { backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }
 .curl .cshade {
   position: absolute; inset: 0; z-index: 9;
+  /* Nền gradient + alpha được setAngle gán inline từng khung —
+     gradient nối liền giữa các dải nên không còn vệt sọc bậc thang */
   background: #08140d;
-  opacity: 0;
   pointer-events: none;
-  will-change: opacity;
 }
 
 /* Chế độ 1 trang & giảm chuyển động: không dùng bóng đổ */
@@ -1330,7 +1332,7 @@ body {
 /* ============================================================
    CHẾ ĐỘ MỘT TRANG (màn hình nhỏ)
    ============================================================ */
-.book.single { width: min(500px, 94vw, calc((100dvh - 200px) * .74)); aspect-ratio: .74; }
+.book.single { width: min(500px, 94vw, calc((100vh - 200px) * .74)); width: min(500px, 94vw, calc((100dvh - 200px) * .74)); aspect-ratio: .74; }
 .book.single .sheet {
   left: 0; width: 100%;
   transform: none !important;
@@ -1368,11 +1370,31 @@ body {
 
 /* Nội dung trên màn nhỏ */
 @media (max-width: 899px) {
-  .book.single .ed-photo { min-height: 8em; }
-  .book.single .ed-photo img { min-height: 7em; }
+  /* Trang dài hơn khung → cho phép cuộn dọc trong trang thay vì cắt mất nội dung.
+     Vùng lật vẫn hoạt động: chạm nhẹ lật trang, kéo dọc cuộn nội dung. */
+  .book.single .face { overflow-y: auto; overflow-x: hidden; -webkit-overflow-scrolling: touch; }
+  .book.single .page-inner { height: auto; min-height: 100%; }
+  /* Số trang chuyển về cuối nội dung (không còn neo đáy khung) */
+  .book.single .pg-foot {
+    position: static; left: auto; right: auto; bottom: auto;
+    text-align: right; padding: .7em .1em 0;
+  }
+  /* Nén bố cục mobile: đề mục, ảnh, hộp gọn hơn để vừa khung */
+  .book.single .page { padding: 2em 1.7em 1.6em; }
+  .book.single .h-serif { font-size: 2.4em; margin-bottom: .35em; }
+  .book.single .ed-title { font-size: 2.7em; margin-bottom: .4em; }
+  .book.single .hero-photo { margin: .35em 0 .55em; }
+  .book.single .curriculum-box { padding: .7em 1em; }
+  .book.single .register, .book.single .register.compact { padding: 1em 1.1em .9em; }
+  .book.single .reason-card { padding: .6em .7em; }
+  .book.single .ed-photo { min-height: 0; }
+  .book.single .ed-photo img { height: 6.5em; min-height: 0; flex: 0 0 auto; }
+  .book.single .strip-top .ph.banner { aspect-ratio: 16 / 6; }
+  .book.single .photo-row { grid-template-columns: 6.5em 1fr; gap: .9em; padding: .8em 0; }
+  .book.single .photo-row .ph { width: 6.5em; }
+  .book.single .photo-row.mirror { grid-template-columns: 1fr 6.5em; }
   .book.single .ed-stats li { padding: .8em .7em .75em 0; }
   .book.single .ed-quote { font-size: 1.05em; padding: .7em 0 .6em; }
-  .book.single .page-editorial .pg-foot { bottom: -1.9em; }
   .pg-head { margin-bottom: 1.4em; }
   .cover-header { padding: 1.6em 1.8em 0; gap: .8em; }
   .c-loc { display: none; }
@@ -1389,7 +1411,7 @@ body {
   .cover-footer { margin-top: 1.7em; }
   .cover-meta { font-size: .60em; letter-spacing: .06em; gap: .4em .8em; }
   .hint { display: none; }
-  .vision-grid, .why-gallery, .reasons-grid { grid-template-columns: 1fr; gap: .7em; }
+  .vision-grid, .reasons-grid { grid-template-columns: 1fr; gap: .7em; }
   .cols-2, .admission, .why, .audience { grid-template-columns: 1fr; gap: 1.2em; }
 }
 
