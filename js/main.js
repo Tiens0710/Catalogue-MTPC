@@ -1,5 +1,9 @@
 /* ============================================================
    CATALOGUE MTPC — điều khiển sách lật trang
+   Trang giấy được uốn cong khi lật: tờ giấy chia thành các dải
+   dọc xoay lệch nhau quanh gáy. Mỗi dải có 2 lớp (mặt trước và
+   mặt sau) nằm sẵn hai phía; trình duyệt tự chọn mặt hướng về
+   người xem, nên không có lúc nào dải giấy bị trống.
    ============================================================ */
 (function () {
   "use strict";
@@ -20,15 +24,202 @@
   var page = 1;                   // trang hiện tại (chế độ 1 trang)
   var animating = false;
   var hasFlipped = false;
-  var DURATION = 1150;            // khớp với transition CSS
+
+  var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var DURATION = reduceMotion ? 60 : 950;   // ms — thời lượng một cú lật
+  var STRIP_LEVELS = [10, 6];     // số dải dọc: mượt → nhẹ hơn (vẫn cong)
+  var level = 0;
+  var STRIPS = STRIP_LEVELS[0];
+  var BEND = 28;                  // độ cong tối đa của trang (độ)
+  var SHADE_MAX = .28;            // độ tối tối đa của mặt giấy khi nghiêng
+  var CLIP_OVERLAP = 3;           // chồng mép giữa các dải (px) để không lộ mối nối
 
   var mqMobile = window.matchMedia("(max-width: 899px)");
   function isSingle() { return mqMobile.matches; }
+
+  /* ---------- Bóng đổ xuống trang bên dưới ---------- */
+  var castL = document.createElement("div");
+  var castR = document.createElement("div");
+  castL.className = "cast cast-left";
+  castR.className = "cast cast-right";
+  castL.style.zIndex = castR.style.zIndex = N + 1;
+  book.insertBefore(castL, book.querySelector(".zone-left"));
+  book.insertBefore(castR, book.querySelector(".zone-left"));
+
+  function startCast(side) {
+    var cast = side === "right" ? castR : castL;
+    cast.style.animationDuration = DURATION + "ms";
+    cast.classList.remove("on");
+    void cast.offsetWidth;
+    cast.classList.add("on");
+  }
+  function stopCast() {
+    castL.classList.remove("on");
+    castR.classList.remove("on");
+  }
+
+  /* ---------- Trang giấy uốn cong (dải dọc lồng nhau) ---------- */
+  function makeClip(face, W, H, w, offset, isBack) {
+    var clip = document.createElement("div");
+    clip.className = "clip";
+    clip.style.width = (w + CLIP_OVERLAP) + "px";
+    var bg = window.getComputedStyle(face).backgroundColor;
+    if (bg && bg !== "rgba(0, 0, 0, 0)") clip.style.backgroundColor = bg;
+    if (isBack) {
+      clip.style.transformOrigin = (w / 2) + "px 50%";
+      clip.style.transform = "rotateY(180deg)";
+    }
+    var clone = face.cloneNode(true);
+    Array.prototype.forEach.call(clone.querySelectorAll("[id]"), function (n) { n.removeAttribute("id"); });
+    clone.removeAttribute("id");
+    clone.style.cssText =
+      "position:absolute;top:0;left:" + offset + "px;width:" + W + "px;height:" + H + "px;" +
+      "transform:none;backface-visibility:visible;-webkit-backface-visibility:visible;";
+    var shade = document.createElement("div");
+    shade.className = "cshade";
+    clip.appendChild(clone);
+    clip.appendChild(shade);
+    return { el: clip, shade: shade };
+  }
+
+  function buildCurl(sheet) {
+    var W = sheet.offsetWidth, H = sheet.offsetHeight;
+    var w = W / STRIPS;
+    var front = sheet.querySelector(".face.front");
+    var back = sheet.querySelector(".face.back");
+    var root = document.createElement("div");
+    root.className = "curl";
+    root.style.width = W + "px";
+    root.style.height = H + "px";
+    root.style.zIndex = N + 2;
+
+    var strips = [];
+    var parent = root;
+    for (var k = 0; k < STRIPS; k++) {
+      var s = document.createElement("div");
+      s.className = "strip";
+      s.style.width = w + "px";
+      s.style.left = (k === 0 ? 0 : w) + "px";
+      // Mặt trước và mặt sau của cùng một dải: luôn có một mặt hướng ra ngoài.
+      var cf = makeClip(front, W, H, w, -k * w, false);
+      var cb = makeClip(back, W, H, w, -(W - (k + 1) * w), true);
+      s.appendChild(cf.el);
+      s.appendChild(cb.el);
+      parent.appendChild(s);
+      parent = s;
+      strips.push({ el: s, cf: cf, cb: cb });
+    }
+    // Bìa trước và bìa sau cứng hơn: chỉ cong nhẹ
+    var idx = sheets.indexOf(sheet);
+    var stiff = (idx === 0 || idx === N - 1) ? .18 : 1;
+    return { root: root, strips: strips, bend: BEND * stiff };
+  }
+
+  // theta: 0 = trang nằm bên phải (chưa lật) · 180 = đã lật sang trái
+  // Dải đầu (sát gáy) xoay theo góc nền, các dải sau cùng uốn thêm một chút,
+  // nên mép ngoài đi trước gáy → trang cong như đang được nhấc lên.
+  function setAngle(curl, theta) {
+    var n = STRIPS;
+    var c = curl.bend * Math.sin(theta * Math.PI / 180);   // tổng độ cong
+    var cum = 0;
+    for (var k = 0; k < n; k++) {
+      var r = k === 0 ? theta - c : c / (n - 1);
+      curl.strips[k].el.style.transform = "rotateY(" + (-r) + "deg)";
+      var mid = cum + r / 2;
+      cum += r;
+      var op = (SHADE_MAX * Math.abs(Math.sin(mid * Math.PI / 180))).toFixed(3);
+      curl.strips[k].cf.shade.style.opacity = op;
+      curl.strips[k].cb.shade.style.opacity = op;
+    }
+  }
+
+  function easeInOut(p) {
+    return p < .5 ? 2 * p * p : 1 - Math.pow(-2 * p + 2, 2) / 2;
+  }
+
+  /* Dựng sẵn trang cong khi rảnh (tránh khựng lúc bấm lật) */
+  var curls = [];
+  var idleTimer = null;
+  function getCurl(sheet) {
+    var i = sheets.indexOf(sheet);
+    if (!curls[i]) {
+      var c = buildCurl(sheet);
+      c.root.style.display = "none";
+      book.insertBefore(c.root, book.querySelector(".zone-left"));
+      curls[i] = c;
+    }
+    return curls[i];
+  }
+  function clearCurls() {
+    curls.forEach(function (c) { if (c && c.root.parentNode) c.root.parentNode.removeChild(c.root); });
+    curls = [];
+    schedulePrefetch();
+  }
+  function schedulePrefetch() {
+    window.clearTimeout(idleTimer);
+    idleTimer = window.setTimeout(function () {
+      if (isSingle() || animating) return;
+      [flipped, flipped - 1].forEach(function (i) {
+        if (i >= 0 && i < N) getCurl(sheets[i]);
+      });
+    }, 320);
+  }
+  var resizeTimer = null;
+  window.addEventListener("resize", function () {
+    window.clearTimeout(resizeTimer);
+    resizeTimer = window.setTimeout(clearCurls, 250);
+  });
+
+  // Mức thấp nhất: lật bằng CSS thuần (nhẹ nhất)
+  function runTurnSimple(sheet, side, toFlipped, done) {
+    sheet.style.zIndex = N + 2;
+    startCast(side);
+    sheet.classList.toggle("flipped", toFlipped);
+    window.setTimeout(function () { stopCast(); done(); }, DURATION);
+  }
+
+  function runTurn(sheet, side, from, to, toFlipped, done) {
+    if (STRIPS === 0) { runTurnSimple(sheet, side, toFlipped, done); return; }
+    var curl = getCurl(sheet);
+    setAngle(curl, from);
+    curl.root.style.display = "";
+    sheet.style.visibility = "hidden";
+    startCast(side);
+
+    var t0 = null, last = null, sum = 0, cnt = 0;
+    function step(ts) {
+      if (t0 === null) t0 = ts;
+      if (last !== null) { sum += ts - last; cnt++; }
+      last = ts;
+      var p = Math.min(1, (ts - t0) / DURATION);
+      setAngle(curl, from + (to - from) * easeInOut(p));
+      if (p < 1) { window.requestAnimationFrame(step); return; }
+      // Kết thúc: trả tờ giấy thật về đúng vị trí, không hoạt ảnh
+      sheet.classList.add("no-anim");
+      sheet.classList.toggle("flipped", toFlipped);
+      void sheet.offsetWidth;
+      sheet.classList.remove("no-anim");
+      sheet.style.visibility = "";
+      curl.root.style.display = "none";
+      stopCast();
+      // Máy quá yếu (dưới ~25fps) → giảm bớt dải nhưng vẫn giữ độ cong
+      if (!reduceMotion && cnt > 6 && sum / cnt > 40 && level < STRIP_LEVELS.length - 1) {
+        level++;
+        STRIPS = STRIP_LEVELS[level];
+        clearCurls();
+      }
+      done();
+    }
+    window.requestAnimationFrame(step);
+  }
 
   /* ---------- Cập nhật giao diện ---------- */
   function update() {
     var single = isSingle();
     book.classList.toggle("single", single);
+    book.classList.toggle("at-start", !single && flipped === 0);
+    book.classList.toggle("at-end", !single && flipped === N);
+    book.classList.remove("opening");
 
     sheets.forEach(function (s, i) {
       var isFlipped = single ? (i < Math.floor(page / 2)) : (i < flipped);
@@ -67,6 +258,7 @@
 
     // Gợi ý lật trang
     hint.hidden = hasFlipped || !atStart;
+    schedulePrefetch();
   }
 
   /* ---------- Lật có hoạt ảnh ---------- */
@@ -82,14 +274,16 @@
     if (flipped >= N) return;
     animating = true;
     hasFlipped = true;
-    var s = sheets[flipped];
-    s.style.zIndex = N + 1;
-    s.classList.add("flipped");
-    window.setTimeout(function () {
+    if (flipped === 0) {
+      book.classList.add("opening");
+      book.classList.remove("at-start");
+    }
+    if (flipped === N - 1) book.classList.add("at-end");
+    runTurn(sheets[flipped], "right", 0, 180, true, function () {
       flipped++;
       animating = false;
       update();
-    }, DURATION);
+    });
   }
 
   function prev() {
@@ -102,25 +296,24 @@
     }
     if (flipped <= 0) return;
     animating = true;
-    var s = sheets[flipped - 1];
-    s.style.zIndex = N + 1;
-    s.classList.remove("flipped");
-    window.setTimeout(function () {
+    if (flipped === 1) book.classList.add("at-start");
+    if (flipped === N) book.classList.remove("at-end");
+    runTurn(sheets[flipped - 1], "left", 180, 0, false, function () {
       flipped--;
       animating = false;
       update();
-    }, DURATION);
+    });
   }
 
   /* ---------- Nhảy nhanh (không hoạt ảnh) ---------- */
   function jumpToSheet(targetFlipped) {
+    if (animating) return;
     targetFlipped = Math.max(0, Math.min(N, targetFlipped));
     if (targetFlipped === flipped) return;
     sheets.forEach(function (s) { s.classList.add("no-anim"); });
     flipped = targetFlipped;
-    page = Math.max(1, flipped * 2); // đồng bộ cho chế độ 1 trang
+    page = Math.max(1, flipped * 2);
     update();
-    // Buột trình duyệt tính toán lại trước khi bật lại hoạt ảnh
     void book.offsetWidth;
     sheets.forEach(function (s) { s.classList.remove("no-anim"); });
   }
@@ -136,7 +329,6 @@
   /* ---------- Chuyển giữa 2 trang / 1 trang khi đổi cỡ màn ---------- */
   function syncMode() {
     if (isSingle()) {
-      // đang ở spread (flipped) → quy đổi ra trang
       page = flipped === 0 ? 1 : flipped * 2;
     } else {
       flipped = Math.min(N, Math.floor(page / 2));
@@ -192,6 +384,7 @@
   });
 
   /* ---------- Ảnh thật: tự động thay placeholder nếu có file ---------- */
+  var imgTimer = null;
   document.querySelectorAll(".ph[data-img]").forEach(function (el) {
     var src = el.getAttribute("data-img");
     if (!el.getAttribute("data-label") && src) {
@@ -201,6 +394,8 @@
     img.onload = function () {
       el.style.backgroundImage = "url('" + src + "')";
       el.classList.add("has-img");
+      window.clearTimeout(imgTimer);
+      imgTimer = window.setTimeout(clearCurls, 400);
     };
     img.src = src;
   });

@@ -57,25 +57,115 @@ body {
   width: min(1180px, 95vw, calc((100dvh - 200px) * 1.52));
   aspect-ratio: 1.52;
   container-type: inline-size;
-  box-shadow:
-    0 35px 70px -20px rgba(16, 40, 25, .35),
-    0 15px 30px -12px rgba(16, 40, 25, .2);
-  transform: translateZ(0);
+  transform: translate3d(0, 0, 0);
+  transition: transform .95s cubic-bezier(.45, .06, .18, 1);
+  will-change: transform;
+  /* Chiều sâu 3D thật cho các tờ giấy khi lật */
+  perspective: 2600px;
+  perspective-origin: 50% 45%;
+  --flip-ease: cubic-bezier(.5, .05, .2, 1);
+  --flip-time: .9s;
 }
 
-/* Đế sách — mô phỏng các trang giấy xếp lớp tự nhiên, tinh tế */
+/* Đế sách — block giấy xếp lớp, bóng đổ mềm */
 .book::before {
   content: "";
-  position: absolute; inset: -3px -6px;
-  background: #E8F0EA;
+  position: absolute;
+  top: -4px; right: -9px; bottom: -9px; left: -9px;
+  background:
+    repeating-linear-gradient(180deg, rgba(93, 80, 54, .1) 0 1px, rgba(93, 80, 54, 0) 1px 3px),
+    linear-gradient(180deg, #FAF6EA 0%, #F1EADA 100%);
+  border: 3px solid #17311F;
   border-radius: 12px;
   box-shadow:
-    -3px 0 0 -1px #DFEBE2,
-    -5px 0 0 -2px #D0DFD4,
-    3px 0 0 -1px #DFEBE2,
-    5px 0 0 -2px #D0DFD4,
-    0 20px 40px -12px rgba(16, 40, 25, .3);
+    0 1px 0 rgba(255, 255, 255, .45) inset,
+    0 10px 18px -12px rgba(12, 32, 20, .5),
+    0 32px 60px -26px rgba(16, 40, 25, .42),
+    0 60px 100px -40px rgba(16, 40, 25, .4);
   z-index: 0;
+  transition: top .7s ease, right .7s ease, bottom .7s ease, left .7s ease,
+              border-radius .7s ease, box-shadow .7s ease;
+}
+
+/* Khi mở bìa: block giấy chờ bìa lật qua rồi mới mở rộng */
+.book.opening::before { transition-delay: .4s; }
+
+/* Trạng thái sách đóng: bìa đặt giữa, gáy + block giấy bên phải */
+.book.at-start {
+  transform: translateX(-25%) perspective(2800px) rotateY(-4deg);
+}
+.book.at-start::before {
+  top: 2px; right: -9px; bottom: -10px; left: calc(50% + 3px);
+  background:
+    repeating-linear-gradient(180deg, rgba(93, 80, 54, .1) 0 1px, rgba(93, 80, 54, 0) 1px 3px),
+    linear-gradient(90deg, #F2ECDD 0%, #FBF7EC 55%, #F5EFE1 100%);
+  border-radius: 3px 12px 12px 3px;
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, .45) inset,
+    -1px 0 0 rgba(27, 59, 41, .1),
+    0 10px 18px -12px rgba(12, 32, 20, .5),
+    0 26px 45px -16px rgba(12, 32, 20, .48),
+    0 55px 90px -34px rgba(12, 32, 20, .38);
+}
+.book.at-start::after {
+  content: "";
+  position: absolute;
+  top: 0; bottom: -7px; left: 50%;
+  width: 14px;
+  transform: translateX(-11px);
+  border-radius: 10px 0 0 10px;
+  background: linear-gradient(90deg, #0B1C13 0%, #163322 42%, #2A4A36 80%, #3D6049 100%);
+  box-shadow:
+    inset 1px 0 0 rgba(255, 255, 255, .18),
+    inset -2px 0 6px -2px rgba(0, 0, 0, .45),
+    0 16px 28px -12px rgba(8, 22, 14, .55);
+  z-index: 1;
+}
+.book.at-start .cover {
+  border-radius: 5px 11px 11px 5px;
+  box-shadow:
+    0 22px 40px -22px rgba(8, 22, 14, .55),
+    -2px 0 10px -4px rgba(8, 22, 14, .35);
+  transition: border-radius .6s ease, box-shadow .6s ease;
+}
+
+/* Trạng thái sách đóng ở bìa sau */
+.book.at-end {
+  transform: translateX(25%) perspective(2800px) rotateY(4deg);
+}
+.book.at-end::before {
+  top: 2px; right: calc(50% + 3px); bottom: -10px; left: -9px;
+  background:
+    repeating-linear-gradient(180deg, rgba(93, 80, 54, .1) 0 1px, rgba(93, 80, 54, 0) 1px 3px),
+    linear-gradient(270deg, #F2ECDD 0%, #FBF7EC 55%, #F5EFE1 100%);
+  border-radius: 12px 3px 3px 12px;
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, .45) inset,
+    1px 0 0 rgba(27, 59, 41, .1),
+    0 10px 18px -12px rgba(12, 32, 20, .5),
+    0 26px 45px -16px rgba(12, 32, 20, .48),
+    0 55px 90px -34px rgba(12, 32, 20, .38);
+}
+.book.at-end::after {
+  content: "";
+  position: absolute;
+  top: 0; bottom: -7px; right: 50%; left: auto;
+  width: 14px;
+  transform: translateX(11px);
+  border-radius: 0 10px 10px 0;
+  background: linear-gradient(270deg, #0B1C13 0%, #163322 42%, #2A4A36 80%, #3D6049 100%);
+  box-shadow:
+    inset -1px 0 0 rgba(255, 255, 255, .18),
+    inset 2px 0 6px -2px rgba(0, 0, 0, .45),
+    0 16px 28px -12px rgba(8, 22, 14, .55);
+  z-index: 1;
+}
+.book.at-end .backcover {
+  border-radius: 11px 5px 5px 11px;
+  box-shadow:
+    0 22px 40px -22px rgba(8, 22, 14, .55),
+    2px 0 10px -4px rgba(8, 22, 14, .35);
+  transition: border-radius .6s ease, box-shadow .6s ease;
 }
 
 /* ============ Tờ giấy ============ */
@@ -84,7 +174,7 @@ body {
   width: 50%; height: 100%;
   transform-origin: left center;
   transform-style: preserve-3d;
-  transition: transform 1.15s cubic-bezier(.45, .06, .18, 1);
+  transition: transform var(--flip-time, .9s) var(--flip-ease, cubic-bezier(.5, .05, .2, 1));
   will-change: transform;
 }
 .sheet.flipped { transform: rotateY(-180deg); }
@@ -100,29 +190,10 @@ body {
 }
 .face.back { transform: rotateY(180deg); }
 
-/* Rãnh gáy sách 3D tinh tế — độ cong giấy tự nhiên */
-.face::after {
-  content: "";
-  position: absolute; top: 0; bottom: 0;
-  pointer-events: none; z-index: 5;
-}
-.face.front::after {
-  left: 0; width: 12%;
-  background: linear-gradient(90deg,
-    rgba(20, 45, 30, .14) 0%,
-    rgba(20, 45, 30, .05) 5%,
-    rgba(20, 45, 30, 0) 100%);
-}
-.face.back::after {
-  right: 0; width: 12%;
-  background: linear-gradient(270deg,
-    rgba(20, 45, 30, .14) 0%,
-    rgba(20, 45, 30, .05) 5%,
-    rgba(20, 45, 30, 0) 100%);
-}
-
-.face.front { border-radius: 8px 0 0 8px; box-shadow: inset 1px 0 8px -4px rgba(27, 59, 41, .12); }
-.face.back  { border-radius: 0 8px 8px 0; box-shadow: inset -1px 0 8px -4px rgba(27, 59, 41, .12); }
+/* Hai trang gặp nhau tại gáy, không phủ bóng tối lên rãnh gáy:
+   tránh vệt xám/đen ở giữa spread và giữ cho trang liền mạch. */
+.face.front { border-radius: 8px 0 0 8px; }
+.face.back  { border-radius: 0 8px 8px 0; }
 
 /* Họa tiết góc trang mỹ thuật nét mảnh (Fine-line Corner Ornament) — sang trọng, không màu mè */
 .face:not(.cover):not(.backcover):not(.closing)::before {
@@ -144,7 +215,7 @@ body {
   top: 50%; left: 50%;
   transform: translate(-50%, -50%);
   width: 220px; height: 220px;
-  background-image: url("../images/logo.jpg");
+  background-image: url("../images/logo-mtpc.png");
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
@@ -422,18 +493,18 @@ body {
   display: block;
   width: 100%; height: 100%;
   object-fit: cover;
-  object-position: center 40%;
-  transform: scale(1.08) translateY(-5%);
+  object-position: center 38%;
+  transform: scale(1.01);
   transform-origin: center;
-  filter: saturate(.92) contrast(1.04) brightness(.96);
+  filter: saturate(1.02) contrast(1.03) brightness(.98);
 }
 .cover-photo::after {
   content: "";
   position: absolute; inset: 0;
-  background-color: rgba(15, 38, 27, .13);
+  background-color: transparent;
   background-image:
-    linear-gradient(180deg, rgba(8, 21, 14, .58) 0%, rgba(8, 21, 14, .30) 16%, rgba(8, 21, 14, 0) 40%),
-    linear-gradient(0deg, rgba(15, 38, 27, .45) 0%, rgba(15, 38, 27, 0) 34%);
+    linear-gradient(180deg, rgba(8, 10, 9, .52) 0%, rgba(8, 10, 9, .18) 14%, rgba(8, 10, 9, 0) 32%),
+    linear-gradient(0deg, rgba(7, 10, 8, .94) 0%, rgba(7, 10, 8, .86) 18%, rgba(7, 10, 8, .66) 38%, rgba(7, 10, 8, .40) 54%, rgba(7, 10, 8, .14) 64%, rgba(7, 10, 8, 0) 74%);
 }
 
 .cover-inner {
@@ -449,15 +520,17 @@ body {
   gap: 1.2em;
   padding: 2.2em 2.6em 0;
   border-bottom: 0;
+  text-shadow: 0 1px 10px rgba(0, 0, 0, .45);
 }
 .cover-brand { display: flex; align-items: center; gap: .85em; }
 .cover-logo-img {
-  width: 2.7em; height: 2.7em;
-  border-radius: 50%;
-  object-fit: cover;
-  background: #FFFFFF;
-  border: 1px solid rgba(255, 255, 255, .55);
-  box-shadow: 0 8px 18px -8px rgba(0, 0, 0, .5);
+  width: 3.6em; height: 3.6em;
+  object-fit: contain;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  filter: drop-shadow(0 3px 8px rgba(0, 0, 0, .42));
   flex-shrink: 0;
 }
 .cover-brand-text { display: flex; flex-direction: column; gap: 2px; }
@@ -475,57 +548,46 @@ body {
   white-space: nowrap;
 }
 
-/* Dải xanh đậm phía dưới */
+/* Vùng chữ đặt trực tiếp trên ảnh — không dải màu */
 .cover-lower {
   margin-top: auto;
-  padding: 3em 2.6em 1.9em;
-  background: linear-gradient(180deg, rgba(15, 38, 27, 0) 0, #0F261B 2.8em);
+  padding: 3.6em 2.6em 1.9em;
+  background: none;
+  text-shadow: 0 2px 18px rgba(0, 0, 0, .55), 0 1px 3px rgba(0, 0, 0, .45);
 }
 
 .cover-main { text-align: left; }
 .cover-kicker {
-  font-size: .60em; font-weight: 600; letter-spacing: .44em; text-transform: uppercase;
-  color: #C9A96A;
-  margin: 0 0 .95em;
+  font-size: .62em; font-weight: 600; letter-spacing: .40em; text-transform: uppercase;
+  color: #E2C78E;
+  margin: 0 0 .85em;
 }
 .cover-main-title {
   font-family: var(--serif);
-  font-size: clamp(2.6em, 7.7cqi, 6.4em);
+  font-size: clamp(2.6em, 7.2cqi, 6.4em);
   font-weight: 600; line-height: .92;
   letter-spacing: .015em;
   color: #FAF5E6;
-  text-shadow: 0 10px 36px rgba(0, 0, 0, .35);
-  margin: 0 0 .30em;
+  text-shadow: 0 4px 30px rgba(0, 0, 0, .55), 0 1px 4px rgba(0, 0, 0, .4);
+  margin: 0 0 .26em;
 }
 .cover-sub-title {
   font-family: var(--serif-italic); font-style: italic;
-  font-size: 1.12em; font-weight: 500;
+  font-size: 1.28em; font-weight: 500;
   letter-spacing: .015em;
-  color: rgba(246, 241, 228, .76);
+  color: rgba(250, 245, 230, .90);
   margin: 0;
 }
 
 /* Chân trang bìa */
-.cover-footer { width: 100%; margin-top: 1.6em; }
-.cover-philosophy {
-  font-family: var(--serif-italic); font-style: italic;
-  font-size: .88em;
-  letter-spacing: .02em;
-  text-align: left;
-  color: rgba(246, 241, 228, .72);
-  margin: 0 0 .85em;
-}
-.cover-rule {
-  width: 100%; height: 1px;
-  background: linear-gradient(90deg, rgba(201, 169, 106, .55), rgba(201, 169, 106, .10) 60%, rgba(201, 169, 106, 0));
-  margin-bottom: .75em;
-}
+.cover-footer { width: 100%; margin-top: 2.4em; }
 .cover-meta {
-  display: flex; justify-content: space-between; gap: 1em;
-  font-size: .56em; font-weight: 600; letter-spacing: .18em; text-transform: uppercase;
-  color: rgba(174, 213, 186, .78);
+  display: flex; justify-content: space-between; align-items: baseline;
+  flex-wrap: wrap; gap: .45em 1.2em;
+  font-size: .60em; font-weight: 600; letter-spacing: .12em; text-transform: uppercase;
+  color: rgba(250, 245, 230, .76);
 }
-.cover-meta span:last-child { color: #D9C08C; }
+.cover-meta span:last-child { color: #E2C78E; margin-left: auto; }
 
 /* Bìa ở khung hẹp */
 @container (max-width: 760px) {
@@ -670,12 +732,13 @@ body {
 }
 .backcover-inner { display: flex; flex-direction: column; align-items: center; gap: 1em; padding: 2em; }
 .backcover-logo-img {
-  width: 5.4em; height: 5.4em;
-  border-radius: 50%;
-  object-fit: cover;
-  background: #FFFFFF;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, .35);
-  border: 2px solid rgba(255, 255, 255, .85);
+  width: 6.2em; height: 6.2em;
+  object-fit: contain;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  filter: drop-shadow(0 6px 16px rgba(0, 0, 0, .32));
   margin-bottom: .2em;
 }
 .brand-mark.big {
@@ -1050,6 +1113,67 @@ body {
 .register.compact { padding: 1.1em 1.3em 1.05em; }
 .register.compact .form-row { margin-bottom: .45em; }
 
+/* ============ Ánh sáng & bóng khi lật trang ============ */
+/* Bóng đổ của tờ đang lật xuống trang bên dưới */
+.cast {
+  position: absolute; top: 0; bottom: 0; width: 50%;
+  pointer-events: none;
+  opacity: 0;
+}
+.cast-right {
+  left: 50%;
+  border-radius: 0 8px 8px 0;
+  background: linear-gradient(90deg, rgba(8, 20, 13, .6) 0%, rgba(8, 20, 13, .22) 45%, rgba(8, 20, 13, 0) 85%);
+}
+.cast-left {
+  left: 0;
+  border-radius: 8px 0 0 8px;
+  background: linear-gradient(270deg, rgba(8, 20, 13, .6) 0%, rgba(8, 20, 13, .22) 45%, rgba(8, 20, 13, 0) 85%);
+}
+.cast.on { animation: castTurn var(--flip-time, .9s) linear both; }
+@keyframes castTurn {
+  0%   { opacity: 0; }
+  35%  { opacity: .75; }
+  70%  { opacity: .45; }
+  100% { opacity: 0; }
+}
+
+/* Trang giấy uốn cong khi lật — các dải dọc lồng nhau.
+   Mỗi dải chứa sẵn cả mặt trước và mặt sau; trình duyệt tự chọn
+   mặt hướng ra ngoài nên không có dải nào bị trống giữa chừng. */
+.curl {
+  position: absolute; top: 0; left: 50%;
+  transform-style: preserve-3d;
+  pointer-events: none;
+}
+.curl .strip {
+  position: absolute; top: 0; height: 100%;
+  transform-style: preserve-3d;
+  transform-origin: left center;
+  will-change: transform;
+}
+.curl .clip {
+  position: absolute; top: 0; left: 0; height: 100%;
+  overflow: hidden;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+.curl .clip * { backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }
+.curl .cshade {
+  position: absolute; inset: 0; z-index: 9;
+  background: #08140d;
+  opacity: 0;
+  pointer-events: none;
+  will-change: opacity;
+}
+
+/* Chế độ 1 trang & giảm chuyển động: không dùng bóng đổ */
+.book.single .cast, .book.single .curl { display: none; }
+@media (prefers-reduced-motion: reduce) {
+  .cast { display: none; }
+  .book { --flip-time: .01s; }
+}
+
 /* ============ Vùng bấm lật trang ============ */
 .zone {
   position: absolute; top: 0; bottom: 0; width: 50%;
@@ -1215,6 +1339,7 @@ body {
   box-shadow: inset 0 0 12px -7px rgba(27, 59, 41, .15);
 }
 .book.single .page { font-size: clamp(10.5px, 3cqi, 14.5px); padding: 2.6em 2.2em 2.4em; }
+.book.single .cover { padding: 0; }
 .book.single .sheet.active .face.front { animation: pageIn .5s ease both; }
 .book.single .sheet.active .face.back { display: none; }
 .book.single .sheet.active.show-back .face.front { display: none; }
@@ -1244,10 +1369,20 @@ body {
   .book.single .ed-quote { font-size: 1.05em; padding: .7em 0 .6em; }
   .book.single .page-editorial .pg-foot { bottom: -1.9em; }
   .pg-head { margin-bottom: 1.4em; }
-  .cover-inner { padding: 1.9em 1.8em 1.7em; }
-  .cover-main { margin-top: 1.2em; }
-  .cover-main-title { font-size: 3.6em; }
-  .cover-photo { height: 34%; }
+  .cover-header { padding: 1.6em 1.8em 0; gap: .8em; }
+  .c-loc { display: none; }
+  .cover-year-tag { display: none; }
+  .c-school { font-size: .6em; letter-spacing: .16em; }
+  .cover-logo-img { width: 3em; height: 3em; }
+  .cover-lower {
+    padding: 3.6em 1.8em 1.6em;
+    background: none;
+  }
+  .cover-main-title { font-size: clamp(2.4em, 13cqi, 6.4em); }
+  .cover-kicker { letter-spacing: .30em; }
+  .cover-sub-title { font-size: 1.05em; }
+  .cover-footer { margin-top: 1.7em; }
+  .cover-meta { font-size: .60em; letter-spacing: .06em; gap: .4em .8em; }
   .hint { display: none; }
   .vision-grid, .why-gallery, .reasons-grid { grid-template-columns: 1fr; gap: .7em; }
   .cols-2, .admission, .why, .audience { grid-template-columns: 1fr; gap: 1.2em; }
@@ -1256,4 +1391,6 @@ body {
 @media (max-width: 480px) {
   .stage { padding: 56px 10px 84px; }
   .tb-btn { width: 34px; height: 34px; }
+  .cover-meta { flex-direction: column; align-items: flex-start; gap: .35em; }
+  .cover-meta span:last-child { margin-left: 0; }
 }
