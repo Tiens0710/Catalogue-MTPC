@@ -20,10 +20,10 @@
 /* Trang: bỏ padding/font mặc định của style.css, dựng lưới riêng */
 .page.skpg {
   padding: 0;
-  /* Co THUẦN theo cqi (tỉ lệ khung sách cố định 1.52:1). Hệ số 1.34: chữ lớn
-     hơn bản cũ ~7% mà vẫn vừa trang ở khổ cửa sổ thấp (1280×650). */
-  font-size: clamp(8.5px, 1.34cqi, 11.5px);
-  line-height: 1.62;
+  /* Co THUẦN theo cqi (tỉ lệ khung sách cố định 1.52:1). Hệ số 1.44: chữ to
+     dễ đọc; bù lại bằng lề trang hẹp hơn và các khối nội dung siết nhịp. */
+  font-size: clamp(8.5px, 1.44cqi, 12px);
+  line-height: 1.58;
   color: var(--ink);
   background: var(--paper);
   letter-spacing: .002em;
@@ -35,7 +35,7 @@
   flex-direction: column;
   justify-content: space-between;
   gap: 0;
-  padding: 1.9em 2.4em 1.7em;
+  padding: 1.55em 2.3em 1.4em;
 }
 
 /* ---------- Thanh đầu / chân trang ---------- */
@@ -77,7 +77,7 @@
   letter-spacing: .24em;
   text-transform: uppercase;
   color: var(--teal);
-  margin-top: .8em;
+  margin-top: .7em;
 }
 .sk-h1 {
   font-family: var(--serif);
@@ -86,7 +86,7 @@
   line-height: 1.03;
   letter-spacing: -.005em;
   color: var(--ink);
-  margin: .42em 0 0;
+  margin: .34em 0 0;
 }
 .sk-h1 em {
   display: block;
@@ -156,12 +156,12 @@
 }
 
 /* ---------- Danh sách đánh số ---------- */
-.sk-rows { margin-top: .75em; }
+.sk-rows { margin-top: .65em; }
 .sk-row {
   display: grid;
   grid-template-columns: 1.9em 1fr;
   gap: .85em;
-  padding: .42em 0;
+  padding: .38em 0;
   border-bottom: 1px solid var(--line);
 }
 .sk-row:last-child { border-bottom: 0; }
@@ -173,8 +173,8 @@
   color: var(--teal);
 }
 .sk-row p {
-  font-size: .84em;
-  line-height: 1.55;
+  font-size: .88em;
+  line-height: 1.5;
   color: var(--soft);
 }
 .sk-row p b { font-weight: 600; color: var(--ink); }
@@ -184,7 +184,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: .45em;
-  margin-top: .7em;
+  margin-top: .6em;
 }
 .sk-chips span {
   font-size: .66em;
@@ -463,7 +463,7 @@
   color: var(--mute);
   border-left: 2px solid #CFE7DF;
   padding-left: .8em;
-  margin-top: .9em;
+  margin-top: .7em;
 }
 
 /* ============================================================
@@ -698,11 +698,11 @@
 
 /* Cửa sổ thấp (laptop 1280×650): giãn dòng nhẹ hơn để nội dung + ảnh vừa trang */
 @media (max-height: 700px) and (min-width: 900px) {
-  .page.skpg { line-height: 1.52; }
-  .sk-lead { line-height: 1.5; }
-  .sk-row p { line-height: 1.42; }
-  .sk-spec { padding: .4em 0 .35em; }
-  .sk-row { padding: .34em 0; }
+  .page.skpg { line-height: 1.5; }
+  .sk-lead { line-height: 1.48; }
+  .sk-row p { line-height: 1.4; }
+  .sk-spec { padding: .35em 0 .3em; }
+  .sk-row { padding: .3em 0; }
   .sk-list { margin-top: .7em; }
   .sk-item { padding: .55em 0; }
   .sk-chips { margin-top: .5em; }
@@ -718,7 +718,7 @@
   .page-inner.sk { padding: 1.55em 1.6em 1.25em; height: auto; min-height: 100%; }
   /* Chữ mobile: cqi của sách đơn (~313–500px) quá nhỏ → co riêng cho trang,
      sàn 10.5px đảm bảo dễ đọc trên điện thoại (trang được phép cuộn). */
-  .page.skpg { font-size: clamp(10.5px, 3.2cqi, 13px); }
+  .page.skpg { font-size: clamp(11px, 3.4cqi, 13.5px); }
   .sk-bot { margin-top: 1.1em; position: static; }
   .sk-h1 { font-size: 2.35em; }
   .sk-kick { margin-top: .9em; }

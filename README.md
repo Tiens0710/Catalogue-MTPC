@@ -120,12 +120,14 @@ Mỗi trang dùng chung một hệ khung: **thanh đầu trang** (tên sổ tay 
 | `.skpg` + `.page-inner.sk` | Khung trang nội dung (thanh đầu/chân) |
 | `.sk-top` / `.sk-bot` | Thanh đầu trang / chân trang có số trang |
 | `.sk-kick` / `.sk-h1` / `.sk-lead` | Nhãn mục / tiêu đề lớn / đoạn dẫn |
-| `.sk-shot.hero` | Ảnh băng ngang (đầu trang hoặc giữa trang, xen kẽ theo trang) |
+| `.sk-shot.hero` | Ảnh băng ngang (đầu/giữa trang xen kẽ — tự lấp chỗ trống, trần 21em) |
 | `.frame-mat` / `.frame-line` / `.warm` / `.ph-cap` | Khung ảnh dùng chung catalogue tổng: tấm lót lệch / hairline / tông vàng đồng / caption serif trên ảnh |
-| `.sk-spec` | Dải 3 thông số (thời gian, hình thức, văn bằng) |
+| `.sk-spec` | Dải thông số 1 dòng mảnh (thời gian, hình thức, văn bằng) |
 | `.sk-rows` / `.sk-row` | Danh sách nội dung đánh số |
 | `.sk-list` / `.sk-item` | Danh mục 6 chương trình (trang 03) |
 | `.sk-tbl` | Bảng so sánh ba ngành |
+
+> Ảnh suc-khoe: 12/13 ảnh trong `suc-khoe/images/` đã dùng (P4–P9, P11, P12, P15, P16, P18); chỉ còn `closing.jpg` chưa gắn. Chữ co theo khổ sách (`cqi`), mobile có sàn riêng 10.5px; cửa sổ thấp (≤700px) tự siết giãn dòng để không tràn.
 | `.sk-pick` | Thẻ “chọn ngành nếu…” / 4 nhóm đối tượng |
 | `.sk-faq` | Khối hỏi đáp 2 cột |
 | `.sk-jobs` / `.sk-job` | Sáu hướng làm việc sau tốt nghiệp |
