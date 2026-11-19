@@ -76,7 +76,10 @@
     }
     return leaves[i];
   }
+  var pendingClear = false;
   function clearLeaves() {
+    if (animating) { pendingClear = true; return; }   // đang lật — hoãn tới khi xong
+    pendingClear = false;
     leaves.forEach(function (l) { if (l && l.el.parentNode) l.el.parentNode.removeChild(l.el); });
     leaves = [];
     schedulePrefetch();
@@ -193,6 +196,7 @@
 
   /* ---------- Cập nhật giao diện ---------- */
   function update() {
+    if (pendingClear) clearLeaves();   // dọn tờ lật bị hoãn (animating đã false)
     var single = isSingle();
     book.classList.toggle("single", single);
     book.classList.toggle("at-start", !single && flipped === 0);
@@ -373,8 +377,16 @@
                             : mqMobile.addListener(syncMode);
 
   /* ---------- Sự kiện ---------- */
-  book.querySelector(".zone-left").addEventListener("click", prev);
-  book.querySelector(".zone-right").addEventListener("click", next);
+  // Hai nút .zone chỉ còn là mốc chèn lớp (pointer-events: none trong CSS).
+  // Chia trái/phải ngay trên .book, và bỏ qua những bấm vào form/link/nút.
+  var INTERACTIVE = "a, input, select, textarea, button, label, form";
+
+  book.addEventListener("click", function (e) {
+    if (e.target.closest(INTERACTIVE)) return;                 // bấm form/link thì không lật
+    if (window.getSelection().toString()) return;              // đang bôi đen chữ thì không lật
+    var r = book.getBoundingClientRect();
+    (e.clientX - r.left < r.width / 2) ? prev() : next();
+  });
 
   btnNext.addEventListener("click", next);
   btnPrev.addEventListener("click", prev);
@@ -386,7 +398,16 @@
     else document.documentElement.requestFullscreen();
   });
 
+  // iOS Safari không có Fullscreen API — ẩn nút thay vì để nút chết
+  if (!document.fullscreenEnabled) {
+    btnFs.style.display = "none";
+    if (btnFs.previousElementSibling) btnFs.previousElementSibling.style.display = "none"; // vạch ngăn .tb-sep
+  }
+
   document.addEventListener("keydown", function (e) {
+    if (e.ctrlKey || e.metaKey || e.altKey) return;
+    if (e.target.closest("input, select, textarea, [contenteditable]")) return;
+    if (e.key === " " && e.target.closest("button, a")) return;   // Space đang bấm nút thanh công cụ
     if (e.key === "ArrowRight" || e.key === " " || e.key === "PageDown") {
       e.preventDefault(); next();
     } else if (e.key === "ArrowLeft" || e.key === "PageUp") {
@@ -395,16 +416,18 @@
     } else if (e.key === "End") { last(); }
   });
 
-  // Vuốt trên màn cảm ứng
-  var touchX = null;
+  // Vuốt trên màn cảm ứng — bỏ qua khi người dùng đang cuộn dọc
+  var touchX = null, touchY = null;
   book.addEventListener("touchstart", function (e) {
     touchX = e.changedTouches[0].clientX;
+    touchY = e.changedTouches[0].clientY;
   }, { passive: true });
   book.addEventListener("touchend", function (e) {
     if (touchX === null) return;
     var dx = e.changedTouches[0].clientX - touchX;
-    if (Math.abs(dx) > 42) { dx < 0 ? next() : prev(); }
-    touchX = null;
+    var dy = e.changedTouches[0].clientY - touchY;
+    if (Math.abs(dx) > 42 && Math.abs(dx) > Math.abs(dy) * 1.5) { dx < 0 ? next() : prev(); }
+    touchX = touchY = null;
   }, { passive: true });
 
   // Liên kết "xem ngành" ở trang tổng quan
@@ -433,6 +456,29 @@
     };
     img.src = src;
   });
+
+  /* ---------- Form đăng ký tư vấn ---------- */
+  // ENDPOINT: URL Google Apps Script (hoặc Formspree). Khi chưa thay URL thật
+  // (vẫn còn "XXXXXXXX"), form không gửi đi mà hiện lời nhắn gọi hotline.
+  var ENDPOINT = "https://script.google.com/macros/s/XXXXXXXX/exec";
+  var regForm = document.getElementById("regForm");
+  var regMsg = document.getElementById("regMsg");
+  if (regForm && regMsg) {
+    regForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+      if (!regForm.reportValidity()) return;
+      var btn = regForm.querySelector("button[type=submit]");
+      if (/XXXXXXXX/.test(ENDPOINT)) {
+        regMsg.textContent = "Gửi trực tuyến chưa kích hoạt — vui lòng gọi 0934 790 790.";
+        return;
+      }
+      btn.disabled = true; regMsg.textContent = "Đang gửi…";
+      fetch(ENDPOINT, { method: "POST", mode: "no-cors", body: new URLSearchParams(new FormData(regForm)) })
+        .then(function () { regMsg.textContent = "Đã nhận thông tin. Nhà trường sẽ liên hệ sớm!"; regForm.reset(); })
+        .catch(function () { regMsg.textContent = "Chưa gửi được, vui lòng gọi 0934 790 790."; })
+        .then(function () { btn.disabled = false; });
+    });
+  }
 
   update();
 })();

@@ -120,7 +120,8 @@ Mỗi trang dùng chung một hệ khung: **thanh đầu trang** (tên sổ tay 
 | `.skpg` + `.page-inner.sk` | Khung trang nội dung (thanh đầu/chân) |
 | `.sk-top` / `.sk-bot` | Thanh đầu trang / chân trang có số trang |
 | `.sk-kick` / `.sk-h1` / `.sk-lead` | Nhãn mục / tiêu đề lớn / đoạn dẫn |
-| `.sk-shot.wide` / `.sk-shot.thin` | Khung ảnh ngang lớn / dải ảnh mỏng |
+| `.sk-shot.hero` | Ảnh băng ngang (đầu trang hoặc giữa trang, xen kẽ theo trang) |
+| `.frame-mat` / `.frame-line` / `.warm` / `.ph-cap` | Khung ảnh dùng chung catalogue tổng: tấm lót lệch / hairline / tông vàng đồng / caption serif trên ảnh |
 | `.sk-spec` | Dải 3 thông số (thời gian, hình thức, văn bằng) |
 | `.sk-rows` / `.sk-row` | Danh sách nội dung đánh số |
 | `.sk-list` / `.sk-item` | Danh mục 6 chương trình (trang 03) |

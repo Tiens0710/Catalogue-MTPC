@@ -232,7 +232,9 @@ body {
 /* ============ Bố cục trang ============ */
 .page {
   padding: 2.6em 3.2em 2.3em;
-  font-size: var(--page-fs, clamp(9.2px, 1.23cqi, 13.4px));
+  /* Bỏ sàn px: sách giữ tỉ lệ khung cố định, chữ phải co THUẦN theo bề rộng
+     (cqi) để không tràn khi cửa sổ thấp; sàn px sẽ phá tỉ lệ này. */
+  font-size: var(--page-fs, clamp(6.5px, 1.23cqi, 13.4px));
   line-height: 1.6;
   letter-spacing: .011em;
 }
@@ -269,6 +271,12 @@ body {
 .pg-foot span::before { content: "— "; color: var(--green-500); }
 .face.front .pg-foot { right: 3.4em; }
 .face.back  .pg-foot { left: 3.4em; }
+
+/* Sàn cỡ chữ cho các nhãn nhỏ: giữ nhãn lớn hơn .62em một chút để đọc rõ,
+   nhưng co theo em (không dùng px cứng) để không phá tỉ lệ khi sách thu nhỏ. */
+.c-loc, .cover-year-tag, .cover-meta, .ed-stats span, .tag, .pg-foot, .ed-sub, .ed-photo figcaption {
+  font-size: max(var(--fs-label, .62em), 1.02em);
+}
 
 /* Kicker — nhãn phân mục thanh lịch, chuẩn mực sư phạm */
 .kicker {
@@ -1212,12 +1220,17 @@ body {
   .book { --flip-time: .01s; }
 }
 /* ============ Vùng bấm lật trang ============ */
+/* Hai nút .zone chỉ còn là mốc chèn lớp trong JS (pointer-events: none);
+   việc chia trái/phải để lật được xử lý trên .book trong main.js. */
 .zone {
   position: absolute; top: 0; bottom: 0; width: 50%;
-  background: transparent; border: 0; cursor: pointer; z-index: 30;
+  background: transparent; border: 0; z-index: 30;
+  pointer-events: none;
 }
 .zone-left  { left: 0; }
 .zone-right { right: 0; }
+.book { cursor: pointer; }
+.book :is(input, select, textarea, label) { cursor: auto; }
 
 /* Gợi ý lật trang */
 .hint {

@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Playfair+Display:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/style.css?v=2.70" />
+  <link rel="stylesheet" href="css/style.css?v=2.72" />
 </head>
 <body>
 
@@ -581,12 +581,20 @@
               </div>
             </div>
 
-            <form class="register compact" onsubmit="return false">
+            <form class="register compact" id="regForm" novalidate>
               <h3 class="h-sub">Đăng ký nhận tư vấn tuyển sinh</h3>
-              <div class="form-row"><label>Họ và tên</label><input type="text" placeholder="Nguyễn Văn A" /></div>
-              <div class="form-row"><label>Số điện thoại</label><input type="tel" placeholder="09xx xxx xxx" /></div>
-              <div class="form-row"><label>Ngành học</label>
-                <select>
+              <div class="form-row">
+                <label for="f-name">Họ và tên</label>
+                <input id="f-name" name="name" type="text" autocomplete="name" required placeholder="Nguyễn Văn A" />
+              </div>
+              <div class="form-row">
+                <label for="f-phone">Số điện thoại</label>
+                <input id="f-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel"
+                       required pattern="0[0-9 ]{9,11}" placeholder="09xx xxx xxx" />
+              </div>
+              <div class="form-row">
+                <label for="f-major">Ngành học</label>
+                <select id="f-major" name="major">
                   <option>Y sĩ đa khoa</option><option>Dược (Dược sĩ)</option><option>Điều dưỡng</option>
                   <option>Công nghệ thông tin (AI)</option><option>Sơn ô tô</option><option>Hàn công nghệ cao</option>
                   <option>Sửa chữa máy tính</option><option>Răng hàm mặt</option>
@@ -594,6 +602,7 @@
                 </select>
               </div>
               <button class="btn" type="submit">Gửi thông tin</button>
+              <p class="form-note" id="regMsg" role="status" aria-live="polite"></p>
             </form>
             <footer class="pg-foot"><span>16</span></footer>
           </div>
@@ -660,6 +669,6 @@
     <div class="hint" id="hint" hidden>Bấm vào trang để lật <span>→</span></div>
   </main>
 
-  <script src="js/main.js?v=4.1"></script>
+  <script src="js/main.js?v=4.2"></script>
 </body>
 </html>

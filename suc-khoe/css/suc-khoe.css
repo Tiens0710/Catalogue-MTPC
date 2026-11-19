@@ -20,7 +20,9 @@
 /* Trang: bỏ padding/font mặc định của style.css, dựng lưới riêng */
 .page.skpg {
   padding: 0;
-  font-size: clamp(8.6px, 2.47cqi, 11.4px);
+  /* Co THUẦN theo cqi (tỉ lệ khung sách cố định 1.52:1). Hệ số 1.34: chữ lớn
+     hơn bản cũ ~7% mà vẫn vừa trang ở khổ cửa sổ thấp (1280×650). */
+  font-size: clamp(8.5px, 1.34cqi, 11.5px);
   line-height: 1.62;
   color: var(--ink);
   background: var(--paper);
@@ -33,7 +35,7 @@
   flex-direction: column;
   justify-content: space-between;
   gap: 0;
-  padding: 2.1em 2.5em 1.9em;
+  padding: 1.9em 2.4em 1.7em;
 }
 
 /* ---------- Thanh đầu / chân trang ---------- */
@@ -75,7 +77,7 @@
   letter-spacing: .24em;
   text-transform: uppercase;
   color: var(--teal);
-  margin-top: 1.25em;
+  margin-top: .8em;
 }
 .sk-h1 {
   font-family: var(--serif);
@@ -96,58 +98,42 @@
 }
 .sk-lead {
   font-size: .93em;
-  line-height: 1.7;
+  line-height: 1.65;
   color: var(--soft);
-  margin-top: .8em;
+  margin-top: .55em;
   max-width: 40em;
 }
 .sk-lead b { color: var(--ink); font-weight: 600; }
 
-/* ---------- Ảnh ---------- */
-.sk-shot.ph {
-  display: block;
-  border: 0;
-  border-radius: 3px;
-  box-shadow: 0 10px 24px -16px rgba(11, 47, 42, .45);
-}
-.sk-shot { margin: 1.2em 0 0; }
-.sk-shot.wide {
-  aspect-ratio: 16 / 6.7;
-  border-radius: 3px;
-  overflow: hidden;
-}
-.sk-shot.thin {
-  aspect-ratio: 16 / 4.2;
-  border-radius: 3px;
-  overflow: hidden;
-}
-.sk-shot .ph-cap,
-.sk-shot figcaption {
-  position: absolute;
-  left: 0; right: 0; bottom: 0;
-  z-index: 3;
-  padding: 1.8em 1em .6em;
-  font-size: .62em;
-  letter-spacing: .04em;
-  color: #fff;
-  background: linear-gradient(0deg, rgba(4, 20, 16, .78), transparent);
+/* ---------- Ảnh — hệ khung editorial của catalogue tổng ----------
+   Dùng lại nguyên vẹn các class gốc của style.css (bản copy):
+   · .frame-mat — tấm lót màu lệch sau ảnh (trang trái lệch chiều đối xứng gáy)
+   · .frame-line — khung hairline thả nổi quanh ảnh
+   · .warm — biến thể tấm lót/khung màu cát vàng đồng
+   · .ph-cap — caption serif nghiêng in trên ảnh (chân ảnh tạp chí)
+   Suc-khoe chỉ giữ phần BỐ CỤC: hero (băng trên) · media (cột dọc biên).
+   Khung, bóng, bo góc, caption để style.css tự lo — giống hệ catalogue. */
+.sk-shot { margin: .85em 0 0; }
+.sk-shot.hero {
+  /* grow: hút hết chỗ trống còn lại của trang → ảnh luôn cao tối đa;
+     basis 44% + trần 21em giữ ảnh không phình quá mức trên trang thưa */
+  flex: 1 1 44%;
+  min-height: 8em;
+  max-height: 21em;
+  background-position: center 32%;
 }
 
-/* ---------- Dải thông số 3 cột ---------- */
+/* ---------- Dải thông số — 1 dòng mảnh (tiết kiệm chỗ cho ảnh) ---------- */
 .sk-spec {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  margin-top: 1.25em;
+  display: flex;
+  flex-wrap: wrap;
+  gap: .3em 1.9em;
+  margin-top: .95em;
+  padding: .5em 0 .45em;
   border-top: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
 }
-.sk-spec > div { padding: .75em .9em .85em 0; }
-.sk-spec > div + div {
-  border-left: 1px solid var(--line);
-  padding-left: 1em;
-}
+.sk-spec > div { display: inline-flex; align-items: baseline; gap: .55em; }
 .sk-spec span {
-  display: block;
   font-size: .6em;
   font-weight: 700;
   letter-spacing: .2em;
@@ -155,29 +141,27 @@
   color: var(--mute);
 }
 .sk-spec b {
-  display: block;
   font-family: var(--serif);
-  font-size: 1.16em;
+  font-size: 1.05em;
   font-weight: 600;
   color: var(--teal-deep);
-  margin-top: .18em;
-  line-height: 1.2;
+  line-height: 1.25;
 }
 .sk-spec b.todo {
   font-family: var(--sans);
-  font-size: .74em;
+  font-size: .7em;
   font-weight: 600;
   letter-spacing: .02em;
   color: var(--sand);
 }
 
 /* ---------- Danh sách đánh số ---------- */
-.sk-rows { margin-top: 1.1em; }
+.sk-rows { margin-top: .75em; }
 .sk-row {
   display: grid;
   grid-template-columns: 1.9em 1fr;
   gap: .85em;
-  padding: .62em 0;
+  padding: .42em 0;
   border-bottom: 1px solid var(--line);
 }
 .sk-row:last-child { border-bottom: 0; }
@@ -189,7 +173,7 @@
   color: var(--teal);
 }
 .sk-row p {
-  font-size: .8em;
+  font-size: .84em;
   line-height: 1.55;
   color: var(--soft);
 }
@@ -200,7 +184,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: .45em;
-  margin-top: 1em;
+  margin-top: .7em;
 }
 .sk-chips span {
   font-size: .66em;
@@ -712,21 +696,37 @@
   color: #6E9689;
 }
 
+/* Cửa sổ thấp (laptop 1280×650): giãn dòng nhẹ hơn để nội dung + ảnh vừa trang */
+@media (max-height: 700px) and (min-width: 900px) {
+  .page.skpg { line-height: 1.52; }
+  .sk-lead { line-height: 1.5; }
+  .sk-row p { line-height: 1.42; }
+  .sk-spec { padding: .4em 0 .35em; }
+  .sk-row { padding: .34em 0; }
+  .sk-list { margin-top: .7em; }
+  .sk-item { padding: .55em 0; }
+  .sk-chips { margin-top: .5em; }
+  .sk-note { margin-top: .55em; }
+  .sk-rows { margin-top: .55em; }
+  .sk-shot { margin-top: .6em; }
+}
+
 /* ============================================================
    MOBILE
    ============================================================ */
 @media (max-width: 899px) {
   .page-inner.sk { padding: 1.55em 1.6em 1.25em; height: auto; min-height: 100%; }
+  /* Chữ mobile: cqi của sách đơn (~313–500px) quá nhỏ → co riêng cho trang,
+     sàn 10.5px đảm bảo dễ đọc trên điện thoại (trang được phép cuộn). */
+  .page.skpg { font-size: clamp(10.5px, 3.2cqi, 13px); }
   .sk-bot { margin-top: 1.1em; position: static; }
   .sk-h1 { font-size: 2.35em; }
   .sk-kick { margin-top: .9em; }
   .sk-lead { font-size: .88em; margin-top: .6em; }
   .sk-shot { margin-top: .9em; }
-  .sk-shot.wide { aspect-ratio: 16 / 6; }
-  .sk-shot.thin { aspect-ratio: 16 / 3.6; }
+  /* Mobile cuộn được → ảnh về tỉ lệ cứng cho gọn */
+  .sk-shot.hero { flex: 0 0 auto; min-height: 0; max-height: none; aspect-ratio: 16 / 8.2; }
   .sk-spec { margin-top: 1em; }
-  .sk-spec > div { padding: .6em .8em .7em 0; }
-  .sk-spec b { font-size: 1.05em; }
   .sk-rows { margin-top: .8em; }
   .sk-row { padding: .55em 0; }
   .sk-chips { margin-top: .8em; }

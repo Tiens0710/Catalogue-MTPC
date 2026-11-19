@@ -457,5 +457,28 @@
     img.src = src;
   });
 
+  /* ---------- Form đăng ký tư vấn ---------- */
+  // ENDPOINT: URL Google Apps Script (hoặc Formspree). Khi chưa thay URL thật
+  // (vẫn còn "XXXXXXXX"), form không gửi đi mà hiện lời nhắn gọi hotline.
+  var ENDPOINT = "https://script.google.com/macros/s/XXXXXXXX/exec";
+  var regForm = document.getElementById("regForm");
+  var regMsg = document.getElementById("regMsg");
+  if (regForm && regMsg) {
+    regForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+      if (!regForm.reportValidity()) return;
+      var btn = regForm.querySelector("button[type=submit]");
+      if (/XXXXXXXX/.test(ENDPOINT)) {
+        regMsg.textContent = "Gửi trực tuyến chưa kích hoạt — vui lòng gọi 0934 790 790.";
+        return;
+      }
+      btn.disabled = true; regMsg.textContent = "Đang gửi…";
+      fetch(ENDPOINT, { method: "POST", mode: "no-cors", body: new URLSearchParams(new FormData(regForm)) })
+        .then(function () { regMsg.textContent = "Đã nhận thông tin. Nhà trường sẽ liên hệ sớm!"; regForm.reset(); })
+        .catch(function () { regMsg.textContent = "Chưa gửi được, vui lòng gọi 0934 790 790."; })
+        .then(function () { btn.disabled = false; });
+    });
+  }
+
   update();
 })();
