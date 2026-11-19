@@ -105,18 +105,35 @@ suc-khoe/
 
 > **Lưu ý đồng bộ:** `css/style.css` và `js/main.js` trong `suc-khoe/` là **bản copy**. Khi sửa hiệu ứng lật ở catalogue tổng, phải chép lại 2 file này sang `suc-khoe/` để hai bên giống nhau.
 
-## Thành phần CSS mới (chỉ có trong sách sức khỏe)
+## Ngôn ngữ thiết kế
+
+Mỗi trang dùng chung một hệ khung: **thanh đầu trang** (tên sổ tay + nhãn mục) → **nội dung** → **đường kẻ chân trang** (ghi chú + số trang). Nhờ vậy 20 trang nhìn như một ấn phẩm được thiết kế, không phải các trang rời ghép lại.
+
+- Màu: giấy kem `#FDFBF6`, mực xanh đậm `#0B2F2A`, teal y khoa `#0E8F79` / `#0A5E50`, mint `#E7F4EF`, vàng đồng `#B98F44` cho số liệu chờ cập nhật.
+- Chữ: Cormorant Garamond cho tiêu đề lớn, Be Vietnam Pro cho nội dung.
+- Khoảng trắng được chia đều giữa các khối (không dồn một cục ở đáy trang).
+
+## Thành phần CSS (chỉ có trong sách sức khỏe)
 
 | Class | Dùng cho |
 |---|---|
-| `.sk-table` | Bảng so sánh chương trình |
+| `.skpg` + `.page-inner.sk` | Khung trang nội dung (thanh đầu/chân) |
+| `.sk-top` / `.sk-bot` | Thanh đầu trang / chân trang có số trang |
+| `.sk-kick` / `.sk-h1` / `.sk-lead` | Nhãn mục / tiêu đề lớn / đoạn dẫn |
+| `.sk-shot.wide` / `.sk-shot.thin` | Khung ảnh ngang lớn / dải ảnh mỏng |
+| `.sk-spec` | Dải 3 thông số (thời gian, hình thức, văn bằng) |
+| `.sk-rows` / `.sk-row` | Danh sách nội dung đánh số |
+| `.sk-list` / `.sk-item` | Danh mục 6 chương trình (trang 03) |
+| `.sk-tbl` | Bảng so sánh ba ngành |
+| `.sk-pick` | Thẻ “chọn ngành nếu…” / 4 nhóm đối tượng |
 | `.sk-faq` | Khối hỏi đáp 2 cột |
-| `.sk-role-grid` / `.sk-role` | Lộ trình nghề nghiệp |
-| `.sk-info-grid` / `.sk-info` | Thẻ học phí, chính sách |
+| `.sk-jobs` / `.sk-job` | Sáu hướng làm việc sau tốt nghiệp |
+| `.sk-hot` | Dải nổi bật (hotline / lịch học) |
 | `.sk-quote` | Cảm nhận người học |
-| `.sk-flag` | Nhãn “Khối ngành Sức khỏe” trên bìa |
-| `.sk-note` | Ghi chú nhỏ chân trang |
-| `.sk-todo` | **Đánh dấu số liệu còn thiếu** (nền vàng, gạch chân nét đứt) |
+| `.skcover` / `.skcv` | Bìa |
+| `.skback` | Bìa sau |
+| `.sk-note` | Ghi chú nhỏ |
+| `.sk-todo` | **Đánh dấu số liệu còn thiếu** (chữ vàng đồng) |
 
 ## Việc cần làm trước khi phát hành
 

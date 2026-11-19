@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="vi"><head><meta charset="utf-8">
+<style>html,body{margin:0;background:#1b3326;display:flex;gap:20px;padding:10px;font-family:sans-serif}
+iframe{border:0;background:#fff}</style></head>
+<body>
+<iframe id="m" src="../suc-khoe/index.html" width="420" height="740"></iframe>
+<iframe id="t" src="../suc-khoe/index.html" width="360" height="640"></iframe>
+<script>
+  window.rAF = function (win) { win.requestAnimationFrame = function (cb) { return setTimeout(function () { cb(performance.now()); }, 8); }; };
+  ['m', 't'].forEach(function (id) {
+    var f = document.getElementById(id);
+    f.addEventListener('load', function () { try { window.rAF(f.contentWindow); } catch (e) { console.log('patch err ' + e.message); } });
+  });
+  window.ready = Promise.all(['m', 't'].map(function (id) {
+    return new Promise(function (res) { var f = document.getElementById(id); if (f.contentDocument && f.contentDocument.readyState === 'complete') res(f); else f.addEventListener('load', function () { res(f); }); });
+  }));
+</script>
+</body></html>

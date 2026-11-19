@@ -1,9 +1,9 @@
 /* ============================================================
    CATALOGUE MTPC — điều khiển sách lật trang
-   Trang giấy được uốn cong khi lật: tờ giấy chia thành các dải
-   dọc xoay lệch nhau quanh gáy. Mỗi dải có 2 lớp (mặt trước và
-   mặt sau) nằm sẵn hai phía; trình duyệt tự chọn mặt hướng về
-   người xem, nên không có lúc nào dải giấy bị trống.
+   Tờ giấy đang lật là một mặt phẳng 3D duy nhất (leaf) mang bản
+   sao cả hai mặt, xoay quanh gáy. Độ cong của giấy được gợi bằng
+   bóng đổ lên trang bên dưới + dải sáng chạy trên mặt trang,
+   thay vì chia nhiều dải dọc (gây vệt sọc và rất nặng khi render).
    ============================================================ */
 (function () {
   "use strict";
@@ -26,13 +26,12 @@
   var hasFlipped = false;
 
   var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  var DURATION = reduceMotion ? 60 : 650;   // ms — ngắn hơn để khung rơi ít thấy hơn
-  var STRIP_LEVELS = [12, 6];    // số dải dọc: ít dải hơn → ít lớp raster hơn, vẫn cong mượt
-  var level = 0;
-  var STRIPS = STRIP_LEVELS[0];
-  var BEND = 50;                 // độ cong tối đa của trang (độ)
-  var SHADE_MAX = .12;           // độ tối tối đa của mặt giấy khi nghiêng (giảm bớt cho trang trắng)
-  var CLIP_OVERLAP = 8;          // chồng mép giữa các dải (px) để không lộ mối nối
+  var DURATION = reduceMotion ? 60 : 620;   // ms
+
+  var SHADE_MAX = .46;      // độ tối của mặt trang khi quay cạnh vào trong
+  var GLOSS_MAX = .15;      // dải sáng chạy trên mặt trang giữa cú lật
+  var EDGE_MAX = .34;       // nét sáng ở mép ngoài của tờ đang lật
+  var CAST_MAX = .8;        // bóng của tờ đang lật đổ xuống trang bên dưới
 
   var mqMobile = window.matchMedia("(max-width: 899px)");
   function isSingle() { return mqMobile.matches; }
@@ -42,214 +41,153 @@
   var castR = document.createElement("div");
   castL.className = "cast cast-left";
   castR.className = "cast cast-right";
-  castL.style.zIndex = castR.style.zIndex = N + 1;
+  castL.style.zIndex = castR.style.zIndex = N + 2;
   book.insertBefore(castL, book.querySelector(".zone-left"));
   book.insertBefore(castR, book.querySelector(".zone-left"));
 
-  function startCast(side) {
-    var cast = side === "right" ? castR : castL;
-    cast.style.animationDuration = DURATION + "ms";
-    cast.classList.remove("on");
-    void cast.offsetWidth;
-    cast.classList.add("on");
-  }
-  function stopCast() {
-    castL.classList.remove("on");
-    castR.classList.remove("on");
+  function hideCast() {
+    castL.style.opacity = castR.style.opacity = "";
   }
 
-  /* ---------- Trang giấy uốn cong (dải dọc lồng nhau) ---------- */
-  function makeClip(face, W, H, w, offset, isBack) {
-    var clip = document.createElement("div");
-    clip.className = "clip";
-    clip.style.width = (w + CLIP_OVERLAP) + "px";
-    var bg = window.getComputedStyle(face).backgroundColor;
-    if (bg && bg !== "rgba(0, 0, 0, 0)") clip.style.backgroundColor = bg;
-    if (isBack) {
-      clip.style.transformOrigin = (w / 2) + "px 50%";
-      clip.style.transform = "rotateY(180deg)";
+  /* ---------- Tờ lật (leaf) ---------- */
+  function cloneFace(face) {
+    var c = face.cloneNode(true);
+    Array.prototype.forEach.call(c.querySelectorAll("[id]"), function (n) { n.removeAttribute("id"); });
+    c.removeAttribute("id");
+    return c;
+  }
+
+  var leaves = [];
+  function getLeaf(sheet) {
+    var i = sheets.indexOf(sheet);
+    if (!leaves[i]) {
+      var el = document.createElement("div");
+      el.className = "leaf";
+      el.style.zIndex = N + 3;
+      el.appendChild(cloneFace(sheet.querySelector(".face.front")));
+      el.appendChild(cloneFace(sheet.querySelector(".face.back")));
+      var shF = document.createElement("div"); shF.className = "leaf-shade front";
+      var shB = document.createElement("div"); shB.className = "leaf-shade back";
+      el.appendChild(shF);
+      el.appendChild(shB);
+      el.style.display = "none";
+      book.insertBefore(el, book.querySelector(".zone-left"));
+      leaves[i] = { el: el, shF: shF, shB: shB };
     }
-    var clone = face.cloneNode(true);
-    Array.prototype.forEach.call(clone.querySelectorAll("[id]"), function (n) { n.removeAttribute("id"); });
-    clone.removeAttribute("id");
-    clone.style.cssText =
-      "position:absolute;top:0;left:" + offset + "px;width:" + W + "px;height:" + H + "px;" +
-      "transform:none;backface-visibility:visible;-webkit-backface-visibility:visible;";
-    var shade = document.createElement("div");
-    shade.className = "cshade";
-    // Chỉ phủ đúng phần dải (w px), KHÔNG tràn vào vùng chồng mép 8px —
-    // nếu không bóng của 2 dải liền kề xếp chồng → vệt sọc đen lặp đều trên trang.
-    shade.style.width = w + "px";
-    // Bóng dùng alpha trong gradient nền (setAngle), nên mở khóa opacity mặc định
-    shade.style.opacity = "1";
-    clip.appendChild(clone);
-    clip.appendChild(shade);
-    return { el: clip, shade: shade };
+    return leaves[i];
   }
-
-  function buildCurl(sheet) {
-    var dm = sheetDims(sheet);
-    var W = dm.W, H = dm.H;
-    var w = W / STRIPS;
-    var front = sheet.querySelector(".face.front");
-    var back = sheet.querySelector(".face.back");
-    var root = document.createElement("div");
-    root.className = "curl";
-    root.style.width = W + "px";
-    root.style.height = H + "px";
-    root.style.zIndex = N + 2;
-
-    var strips = [];
-    var parent = root;
-    for (var k = 0; k < STRIPS; k++) {
-      var s = document.createElement("div");
-      s.className = "strip";
-      s.style.width = w + "px";
-      s.style.left = (k === 0 ? 0 : w) + "px";
-      // Mặt trước và mặt sau của cùng một dải: luôn có một mặt hướng ra ngoài.
-      var cf = makeClip(front, W, H, w, -k * w, false);
-      var cb = makeClip(back, W, H, w, -(W - (k + 1) * w), true);
-      s.appendChild(cf.el);
-      s.appendChild(cb.el);
-      parent.appendChild(s);
-      parent = s;
-      strips.push({ el: s, cf: cf, cb: cb });
-    }
-    // Bìa trước và bìa sau cứng hơn: chỉ cong nhẹ
-    var idx = sheets.indexOf(sheet);
-    var stiff = (idx === 0 || idx === N - 1) ? .18 : 1;
-    return { root: root, strips: strips, bend: BEND * stiff };
+  function clearLeaves() {
+    leaves.forEach(function (l) { if (l && l.el.parentNode) l.el.parentNode.removeChild(l.el); });
+    leaves = [];
+    schedulePrefetch();
   }
 
   // theta: 0 = trang nằm bên phải (chưa lật) · 180 = đã lật sang trái
-  // Dải đầu (sát gáy) xoay theo góc nền, các dải sau cùng uốn thêm một chút,
-  // nên mép ngoài đi trước gáy → trang cong như đang được nhấc lên.
-  function setAngle(curl, theta) {
-    var n = STRIPS;
-    var c = curl.bend * Math.pow(Math.sin(theta * Math.PI / 180), .6);   // tổng độ cong
-    // Độ tối tại TỪNG BIÊN dải, rồi nội suy gradient liên tục qua cả trang —
-    // nếu tô mỗi dải một màu phẳng sẽ thành bậc thang → vệt sọc trên trang trắng.
-    var edge = [0];
-    var cum = 0;
-    for (var k = 0; k < n; k++) {
-      var r = k === 0 ? theta - c : c / (n - 1);
-      cum += r;
-      edge.push(SHADE_MAX * Math.abs(Math.sin(cum * Math.PI / 180)));
-    }
-    for (k = 0; k < n; k++) {
-      var r2 = k === 0 ? theta - c : c / (n - 1);
-      var st = curl.strips[k];
-      st.el.style.transform = "rotateY(" + (-r2) + "deg)";
-      // Gradient 90deg vẽ trong mặt sau tự bị lật theo clip rotateY(180) →
-      // dùng chung một chuỗi cho cả 2 mặt là đúng chiều.
-      var g = "linear-gradient(90deg, rgba(8,20,13," + edge[k].toFixed(3) + ") 0%, rgba(8,20,13," + edge[k + 1].toFixed(3) + ") 100%)";
-      if (st.lastGrad !== g) {
-        st.lastGrad = g;
-        st.cf.shade.style.background = g;
-        st.cb.shade.style.background = g;
-      }
-    }
+  function setLeaf(lf, theta) {
+    var rad = theta * Math.PI / 180;
+    var facing = Math.abs(Math.cos(rad));   // 1 khi trang phẳng, 0 khi quay cạnh
+    var s = Math.sin(rad);                  // 0 → 1 → 0 trong suốt cú lật
+    lf.el.style.transform = "rotateY(" + (-theta) + "deg)";
+
+    var dark = SHADE_MAX * (1 - facing);
+    var gloss = GLOSS_MAX * s;
+    var edge = EDGE_MAX * s;
+    lf.shF.style.background = shadeGrad(dark, gloss, edge, false);
+    lf.shB.style.background = shadeGrad(dark, gloss, edge, true);
+
+    var cast = (CAST_MAX * s).toFixed(3);
+    if (theta <= 90) { castR.style.opacity = cast; castL.style.opacity = "0"; }
+    else { castL.style.opacity = cast; castR.style.opacity = "0"; }
   }
 
-  /* Đo kích thước tờ giấy — tờ ẩn (display:none) cần bật tạm để đo */
-  function sheetDims(sheet) {
-    if (sheet.offsetWidth > 0) return { W: sheet.offsetWidth, H: sheet.offsetHeight };
-    var prev = sheet.style.display;
-    sheet.style.display = "block";
-    var d = { W: sheet.offsetWidth, H: sheet.offsetHeight };
-    sheet.style.display = prev;
-    return d;
+  // Ba lớp phủ cho một mặt trang, vẽ theo hướng gáy → mép ngoài:
+  //   1) tối dần về phía gáy (nơi giấy bị bẻ xuống trang bên dưới)
+  //   2) dải sáng broaden giữa trang khi tờ giấy nghiêng về phía người xem
+  //   3) nét sáng mảnh sát mép ngoài — nhìn ra là mép giấy, không phải card
+  // Mặt sau được gương lại vì bản sao của nó đã xoay 180° trong leaf.
+  function shadeGrad(dark, gloss, edge, mirror) {
+    var dir = mirror ? "270deg" : "90deg";
+    var a = dark.toFixed(3), b = (dark * .5).toFixed(3), c = (dark * .12).toFixed(3);
+    var g = gloss.toFixed(3), g2 = (gloss * .3).toFixed(3), e = edge.toFixed(3);
+    return "linear-gradient(" + dir + ", rgba(6,22,16," + a + ") 0%, rgba(6,22,16," + b +
+      ") 46%, rgba(6,22,16," + c + ") 100%), linear-gradient(" + (mirror ? "100deg" : "80deg") +
+      ", rgba(255,255,255,0) 4%, rgba(255,255,255," + g + ") 40%, rgba(255,255,255," + g2 +
+      ") 60%, rgba(255,255,255,0) 90%), linear-gradient(" + dir +
+      ", rgba(255,255,255,0) 88%, rgba(255,255,255," + e + ") 98%, rgba(255,255,255,0) 100%)";
   }
 
-  function easeInOut(p) {
-    return p < .5 ? 2 * p * p : 1 - Math.pow(-2 * p + 2, 2) / 2;
+  /* Trộn smoothstep (giữ đà giữa và cuối cú lật) với ease-out (trang bật
+     lên ngay khi bấm) → không còn khoảng trơ ở đầu, cũng không "áp" hẳn
+     vào giữa rồi nằm lại quá lâu. */
+  function ease(p) {
+    return .55 * (p * p * (3 - 2 * p)) + .45 * (1 - Math.pow(1 - p, 1.6));
   }
 
-  /* Dựng sẵn trang cong khi rảnh (tránh khựng lúc bấm lật) */
-  var curls = [];
+  /* Dựng sẵn tờ lật khi rảnh (tránh khựng lúc bấm lật) */
   var idleTimer = null;
-  function getCurl(sheet) {
-    var i = sheets.indexOf(sheet);
-    if (!curls[i]) {
-      var c = buildCurl(sheet);
-      c.root.style.display = "none";
-      book.insertBefore(c.root, book.querySelector(".zone-left"));
-      curls[i] = c;
-    }
-    return curls[i];
-  }
-  function clearCurls() {
-    curls.forEach(function (c) { if (c && c.root.parentNode) c.root.parentNode.removeChild(c.root); });
-    curls = [];
-    schedulePrefetch();
-  }
   function schedulePrefetch() {
     window.clearTimeout(idleTimer);
     idleTimer = window.setTimeout(function () {
       if (animating) return;
       if (isSingle()) {
         var s0 = Math.floor((page - 1) / 2);
-        [s0 + 1, s0 - 1].forEach(function (i) {
-          if (i >= 0 && i < N) getCurl(sheets[i]);
-        });
+        [s0 + 1, s0 - 1].forEach(function (i) { if (i >= 0 && i < N) getLeaf(sheets[i]); });
         return;
       }
-      [flipped, flipped - 1].forEach(function (i) {
-        if (i >= 0 && i < N) getCurl(sheets[i]);
-      });
+      [flipped, flipped - 1].forEach(function (i) { if (i >= 0 && i < N) getLeaf(sheets[i]); });
     }, 120);
   }
   var resizeTimer = null;
   window.addEventListener("resize", function () {
     window.clearTimeout(resizeTimer);
-    resizeTimer = window.setTimeout(clearCurls, 250);
+    resizeTimer = window.setTimeout(clearLeaves, 250);
   });
 
-  // Mức thấp nhất: lật bằng CSS thuần (nhẹ nhất)
-  function runTurnSimple(sheet, side, toFlipped, done) {
+  // Mức thấp nhất (prefers-reduced-motion): lật bằng CSS thuần
+  function runTurnSimple(sheet, toFlipped, done) {
     sheet.style.zIndex = N + 2;
-    startCast(side);
     sheet.classList.toggle("flipped", toFlipped);
-    window.setTimeout(function () { stopCast(); done(); }, DURATION);
+    window.setTimeout(done, DURATION);
   }
 
-  function runTurn(sheet, side, from, to, toFlipped, done) {
-    if (STRIPS === 0) { runTurnSimple(sheet, side, toFlipped, done); return; }
-    var curl = getCurl(sheet);
-    setAngle(curl, from);
-    curl.root.style.display = "";
+  function runTurn(sheet, from, to, toFlipped, done) {
+    if (reduceMotion) { runTurnSimple(sheet, toFlipped, done); return; }
+    var lf = getLeaf(sheet);
+    setLeaf(lf, from);
+    lf.el.style.display = "block";
     sheet.style.visibility = "hidden";
-    startCast(side);
 
-    // Chờ đúng 1 khung hình để trình duyệt raster lớp trang cong ở thế nằm phẳng
-    // (giống hệt trang thật) TRƯỚC khi bắt đầu xoay — khỏi khựng ở đầu cú lật.
+    // Chờ đúng 1 khung hình để trình duyệt raster tờ lật ở thế phẳng
+    // (giống hệt trang thật) TRƯỚC khi bắt đầu xoay — khỏi khựng đầu cú lật.
     window.requestAnimationFrame(function () {
       window.requestAnimationFrame(step);
     });
 
-    var t0 = null, last = null, sum = 0, cnt = 0;
-    function step(ts) {
-      if (t0 === null) t0 = ts;
-      if (last !== null) { sum += ts - last; cnt++; }
-      last = ts;
-      var p = Math.min(1, (ts - t0) / DURATION);
-      setAngle(curl, from + (to - from) * easeInOut(p));
-      if (p < 1) { window.requestAnimationFrame(step); return; }
-      // Kết thúc: trả tờ giấy thật về đúng vị trí, không hoạt ảnh
+    var t0 = null;
+    var finished = false;
+    // Bảo hiểm: nếu rAF bị ngưng giữa chừng (tab bị ẩn, máy quá tải),
+    // vẫn phải kết thúc cú lật đúng trạng thái — không để trang kẹt lơ lửng.
+    var guard = window.setTimeout(finish, DURATION * 3 + 1200);
+    function finish() {
+      if (finished) return;
+      finished = true;
+      window.clearTimeout(guard);
       sheet.classList.add("no-anim");
       sheet.classList.toggle("flipped", toFlipped);
       void sheet.offsetWidth;
       sheet.classList.remove("no-anim");
       sheet.style.visibility = "";
-      curl.root.style.display = "none";
-      stopCast();
-      // Máy quá yếu (dưới ~25fps) → giảm bớt dải nhưng vẫn giữ độ cong
-      if (!reduceMotion && cnt > 6 && sum / cnt > 40 && level < STRIP_LEVELS.length - 1) {
-        level++;
-        STRIPS = STRIP_LEVELS[level];
-        clearCurls();
-      }
+      lf.el.style.display = "none";
+      hideCast();
       done();
+    }
+    function step(ts) {
+      if (finished) return;
+      if (t0 === null) t0 = ts;
+      var p = Math.min(1, (ts - t0) / DURATION);
+      setLeaf(lf, from + (to - from) * ease(p));
+      if (p < 1) { window.requestAnimationFrame(step); return; }
+      finish();
     }
   }
 
@@ -317,7 +255,7 @@
       book.classList.remove("at-start");
     }
     if (flipped === N - 1) book.classList.add("at-end");
-    runTurn(sheets[flipped], "right", 0, 180, true, function () {
+    runTurn(sheets[flipped], 0, 180, true, function () {
       flipped++;
       animating = false;
       update();
@@ -335,7 +273,7 @@
     animating = true;
     if (flipped === 1) book.classList.add("at-start");
     if (flipped === N) book.classList.remove("at-end");
-    runTurn(sheets[flipped - 1], "left", 180, 0, false, function () {
+    runTurn(sheets[flipped - 1], 180, 0, false, function () {
       flipped--;
       animating = false;
       update();
@@ -343,9 +281,11 @@
   }
 
   /* ---------- Lật trang ở chế độ 1 trang (mobile) ----------
-     Dùng lại cơ chế trang giấy cong: trang hiện tại quét sang trái quanh
-     cạnh gáy (như trang phải của quyển sách), lộ trang đích nằm tĩnh bên
-     dưới; kết thúc trả tờ giấy thật về đúng trạng thái — không chênh hình. */
+     Tờ lật chỉ quét trong khoang 0°→90° quanh cạnh gáy trái: ngoài khoảng
+     này trang quay ra ngoài khung (màn hình dọc không có nửa trái).
+     Quy tắc: trang nào nằm ngửa được thì nhấc nó lên (0°→90°) và để trang
+     đích hiện ra tĩnh bên dưới; trang nằm úp thì cho nó áp xuống (90°→0°)
+     trên trang hiện tại — nhờ vậy không bao giờ loá nhầm trang khác. */
   var underFlip = null;
   function makeUnder(face) {
     if (!underFlip) {
@@ -354,14 +294,13 @@
       underFlip.style.zIndex = N + 1;
       book.insertBefore(underFlip, book.querySelector(".zone-left"));
     }
-    var clone = face.cloneNode(true);
-    Array.prototype.forEach.call(clone.querySelectorAll("[id]"), function (n) { n.removeAttribute("id"); });
-    clone.removeAttribute("id");
     underFlip.innerHTML = "";
-    underFlip.appendChild(clone);
+    underFlip.appendChild(cloneFace(face));
     underFlip.style.display = "block";
   }
   function hideUnder() { if (underFlip) underFlip.style.display = "none"; }
+
+  function faceOf(sheet, side) { return sheet.querySelector(".face." + side); }
 
   function singleTurn(delta) {
     if (animating) return;
@@ -369,27 +308,30 @@
     if (target < 1 || target > TOTAL) return;
     var s = Math.floor((page - 1) / 2);
     var showingFront = page % 2 === 1;
-    var turned, from, to, destFace;
-    // Mobile chỉ quét trong khoang 0°→90° quanh cạnh gáy trái: ngoài khoảng này
-    // trang phản chiếu ra ngoài khung sách (màn hình dọc không có nửa trái).
+    var turned, from, to, underFace;
+
     if (delta > 0) {
-      if (showingFront)      { turned = sheets[s];     from = 0;  to = 90; destFace = turned.querySelector(".face.back"); }
-      else                   { turned = sheets[s + 1]; from = 90; to = 0;  destFace = sheets[s].querySelector(".face.back"); }
+      if (showingFront) {
+        turned = sheets[s]; from = 0; to = 90;
+        underFace = faceOf(sheets[s], "back");
+      } else {
+        turned = sheets[s + 1]; from = 90; to = 0;
+        underFace = faceOf(sheets[s], "back");
+      }
     } else {
-      if (showingFront)      { turned = sheets[s - 1]; from = 0;  to = 90; destFace = turned.querySelector(".face.back"); }
-      else                   { turned = sheets[s];     from = 90; to = 0;  destFace = turned.querySelector(".face.front"); }
+      if (showingFront) {
+        turned = sheets[s]; from = 0; to = 90;
+        underFace = faceOf(sheets[s - 1], "back");
+      } else {
+        turned = sheets[s]; from = 90; to = 0;
+        underFace = faceOf(sheets[s], "back");
+      }
     }
+
     animating = true;
     hasFlipped = true;
-    makeUnder(destFace);
-    var cur = sheets[s];
-    cur.style.visibility = "hidden";
-    // Tờ ẩn (display:none) cần tạm hiện để có kích thước dựng trang cong
-    var tempShown = turned !== cur && turned.offsetParent === null;
-    if (tempShown) turned.style.display = "block";
-    runTurn(turned, delta > 0 ? "right" : "left", from, to, from < to, function () {
-      if (tempShown) turned.style.display = "";
-      cur.style.visibility = "";
+    makeUnder(underFace);
+    runTurn(turned, from, to, from < to, function () {
       hideUnder();
       page = target;
       animating = false;
@@ -487,7 +429,7 @@
       el.style.backgroundImage = "url('" + src + "')";
       el.classList.add("has-img");
       window.clearTimeout(imgTimer);
-      imgTimer = window.setTimeout(clearCurls, 400);
+      imgTimer = window.setTimeout(clearLeaves, 400);
     };
     img.src = src;
   });

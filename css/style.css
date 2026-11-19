@@ -60,10 +60,10 @@ body {
   aspect-ratio: 1.52;
   container-type: inline-size;
   transform: translate3d(0, 0, 0);
-  transition: transform .65s cubic-bezier(.45, .06, .18, 1);
+  transition: transform .42s cubic-bezier(.22, .72, .2, 1);
   will-change: transform;
   /* Chiều sâu 3D thật cho các tờ giấy khi lật */
-  perspective: 3400px;
+  perspective: 5200px;
   perspective-origin: 50% 45%;
   --flip-ease: cubic-bezier(.5, .05, .2, 1);
   --flip-time: .65s;
@@ -75,7 +75,7 @@ body {
   position: absolute;
   top: -4px; right: -9px; bottom: -9px; left: -9px;
   background:
-    repeating-linear-gradient(180deg, rgba(93, 80, 54, .1) 0 1px, rgba(93, 80, 54, 0) 1px 3px),
+    repeating-linear-gradient(180deg, rgba(93, 80, 54, .055) 0 1px, rgba(93, 80, 54, 0) 1px 4px),
     linear-gradient(180deg, #FAF6EA 0%, #F1EADA 100%);
   border: 3px solid #17311F;
   border-radius: 12px;
@@ -85,13 +85,13 @@ body {
     0 32px 60px -26px rgba(16, 40, 25, .42),
     0 60px 100px -40px rgba(16, 40, 25, .4);
   z-index: 0;
-  transition: top .7s ease, right .7s ease, bottom .7s ease, left .7s ease,
-              border-radius .7s ease, box-shadow .7s ease;
+  transition: top .45s ease, right .45s ease, bottom .45s ease, left .45s ease,
+              border-radius .45s ease, box-shadow .45s ease;
 }
 
 /* Khi mở bìa: nền sách mở rộng ngay, không chạy layout animation
    nặng mỗi khung hình — giữ cú lật bìa mượt. */
-.book.opening { transition-duration: .35s; }
+.book.opening { transition-duration: .3s; }
 .book.opening::before { transition: none; }
 
 /* Trạng thái sách đóng: bìa đặt giữa, gáy + block giấy bên phải */
@@ -1134,7 +1134,7 @@ body {
   border-radius: 8px 0 0 8px;
   background: linear-gradient(270deg, rgba(8, 20, 13, .45) 0%, rgba(8, 20, 13, .16) 45%, rgba(8, 20, 13, 0) 85%);
 }
-.cast.on { animation: castTurn var(--flip-time, .9s) linear both; }
+.cast.on { animation: castTurn var(--flip-time, .65s) linear both; }
 @keyframes castTurn {
   0%   { opacity: 0; }
   35%  { opacity: .75; }
@@ -1142,41 +1142,59 @@ body {
   100% { opacity: 0; }
 }
 
-/* Trang giấy uốn cong khi lật — các dải dọc lồng nhau.
-   Mỗi dải chứa sẵn cả mặt trước và mặt sau; trình duyệt tự chọn
-   mặt hướng ra ngoài nên không có dải nào bị trống giữa chừng. */
-.curl {
+/* ============================================================
+   TỜ LẬT (leaf)
+   Một mặt phẳng 3D duy nhất mang bản sao cả hai mặt của tờ giấy,
+   xoay quanh gáy. Không chia dải dọc → không còn vệt sọc ở giữa
+   cú lật, và chỉ tốn 2 bản sao thay vì 24.
+   Hai lớp phủ (leaf-shade) nằm cùng mặt phẳng với từng phía trang:
+     · mặt trước hiển thị khi 0°→90°, mặt sau khi 90°→180° (backface)
+     · JS đổi gradient của chúng theo từng khung hình
+   Khi theta = 0 hoặc 180, cả hai lớp phủ trong suốt → tờ lật trùng
+   khít trang thật, không có bước nhảy lúc đóng/mở hoạt ảnh.
+   ============================================================ */
+.leaf {
   position: absolute; top: 0; left: 50%;
-  transform-style: preserve-3d;
-  pointer-events: none;
-}
-.curl .strip {
-  position: absolute; top: 0; height: 100%;
+  width: 50%; height: 100%;
   transform-style: preserve-3d;
   transform-origin: left center;
+  pointer-events: none;
   will-change: transform;
+  display: none;
 }
-.curl .clip {
-  position: absolute; top: 0; left: 0; height: 100%;
-  overflow: hidden;
+.leaf > .face {
+  border-radius: 0;
+  box-shadow: none;
+}
+.leaf > .face.front { border-radius: 8px 0 0 8px; }
+.leaf > .face.back  { border-radius: 0 8px 8px 0; }
+.leaf-shade {
+  position: absolute; inset: 0;
+  z-index: 5;
+  pointer-events: none;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
-  /* Chỉ vẽ phần dải giấy nằm trong khung — trình duyệt bỏ qua phần
-     bản sao nguyên trang tràn ra ngoài, bớt ~90% lượng raster mỗi khung */
-  contain: paint;
 }
-.curl .clip * { backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }
-.curl .cshade {
-  position: absolute; inset: 0; z-index: 9;
-  /* Nền gradient + alpha được setAngle gán inline từng khung —
-     gradient nối liền giữa các dải nên không còn vệt sọc bậc thang */
-  background: #08140d;
-  pointer-events: none;
+.leaf-shade.front { border-radius: 8px 0 0 8px; }
+.leaf-shade.back {
+  border-radius: 0 8px 8px 0;
+  transform: rotateY(180deg);
 }
 
-/* Chế độ 1 trang: không dùng bóng cast; trang giấy cong vẫn hoạt động */
-.book.single .cast { display: none; }
-.book.single .curl { left: 0; }
+/* Chế độ 1 trang: tờ lật phủ cả khung, bóng đổ theo từ mép gáy trái */
+.book.single .leaf {
+  left: 0; width: 100%;
+}
+.book.single .leaf > .face,
+.book.single .leaf-shade {
+  border-radius: 10px;
+}
+.book.single .cast-left { display: none; }
+.book.single .cast-right {
+  left: 0; width: 100%;
+  border-radius: 10px;
+  background: linear-gradient(90deg, rgba(8, 20, 13, .5) 0%, rgba(8, 20, 13, .18) 42%, rgba(8, 20, 13, 0) 80%);
+}
 
 /* Lớp trang đích tĩnh nằm dưới trang đang lật (chế độ 1 trang):
    trang hiện tại quét sang trái quanh cạnh gáy, lộ trang kế tiếp bên dưới */
@@ -1193,7 +1211,6 @@ body {
   .cast { display: none; }
   .book { --flip-time: .01s; }
 }
-
 /* ============ Vùng bấm lật trang ============ */
 .zone {
   position: absolute; top: 0; bottom: 0; width: 50%;

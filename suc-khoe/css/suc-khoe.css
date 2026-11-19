@@ -1,201 +1,758 @@
 /* ============================================================
    SỔ TAY NGÀNH SỨC KHỎE — MTPC
-   Theme phụ: giữ nền sage/kem của trường, thêm sắc teal y khoa.
-   File này CHỈ override + bổ sung thành phần mới, không sửa
-   css/style.css (dùng chung engine lật trang).
+   Design system riêng cho ebook sức khỏe.
+   Dùng chung engine lật trang (css/style.css) cho khung sách;
+   file này thay toàn bộ phần trình bày BÊN TRONG trang.
    ============================================================ */
 
 :root {
-  --sk-teal:      #0E6B5B;
-  --sk-teal-600:  #0B5749;
-  --sk-teal-100:  #E4F1EE;
-  --sk-teal-200:  #C9E3DD;
-  --sk-ink:       #123A32;
+  --ink:        #0B2F2A;
+  --teal:       #0E8F79;
+  --teal-deep:  #0A5E50;
+  --mint:       #E7F4EF;
+  --paper:      #FDFBF6;
+  --sand:       #B98F44;
+  --line:       #DFEBE5;
+  --soft:       #4C6660;
+  --mute:       #7E948D;
 }
 
-/* ---------- Sắc teal cho các điểm nhấn nhỏ ---------- */
-.tag::before        { color: var(--sk-teal); }
-.tag                { color: var(--sk-teal-600); background: var(--sk-teal-100); border-color: var(--sk-teal-200); }
-.chip               { color: var(--sk-teal-600); background: var(--sk-teal-100); border-color: var(--sk-teal-200); }
-.pg-foot span::before { color: var(--sk-teal); }
-.major-no           { color: var(--sk-teal); }
-.major-row .arrow   { color: var(--sk-teal-200); }
-.major-row:hover    { background: rgba(14, 107, 91, .07); }
-.major-row:hover .arrow { color: var(--sk-teal); }
-.ticks li::before   { background: var(--sk-teal); }
-.num-list li::before { color: var(--sk-teal); }
-.reason-check       { background: var(--sk-teal-100); color: var(--sk-teal-600); }
-.reason-card        { border-left-color: var(--sk-teal); }
-.vision-item        { border-left-color: var(--sk-teal); }
-.feat-no            { background: var(--sk-teal-100); border-color: var(--sk-teal-200); color: var(--sk-teal-600); }
-
-/* ---------- Bìa: nhãn khối ngành ---------- */
-.sk-flag {
-  display: inline-flex; align-items: center; gap: .7em;
-  font-size: .58em; font-weight: 700; letter-spacing: .26em;
-  text-transform: uppercase; color: #EAE0C4;
-  border: 1px solid rgba(234, 224, 196, .42);
-  border-radius: 999px;
-  padding: .6em 1.35em;
-  margin-bottom: 1.15em;
-  backdrop-filter: blur(2px);
+/* Trang: bỏ padding/font mặc định của style.css, dựng lưới riêng */
+.page.skpg {
+  padding: 0;
+  font-size: clamp(8.6px, 2.47cqi, 11.4px);
+  line-height: 1.62;
+  color: var(--ink);
+  background: var(--paper);
+  letter-spacing: .002em;
 }
-.sk-flag svg { width: 1.15em; height: 1.15em; flex: 0 0 auto; }
 
-/* ---------- Nhãn tạm: số liệu chờ xác nhận ---------- */
-.sk-todo {
-  font-style: normal;
-  background: #FFF6E2;
-  border-bottom: 1px dashed #C9A24A;
-  color: #8A6520;
-  padding: 0 .16em;
+.page-inner.sk {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 0;
+  padding: 2.1em 2.5em 1.9em;
+}
+
+/* ---------- Thanh đầu / chân trang ---------- */
+.sk-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1em;
+  font-size: .66em;
+  font-weight: 600;
+  letter-spacing: .26em;
+  text-transform: uppercase;
+  color: var(--mute);
+  padding-bottom: .75em;
+  border-bottom: 1px solid var(--line);
+}
+.sk-top b { color: var(--teal-deep); font-weight: 700; }
+
+.sk-bot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1em;
+  padding-top: .8em;
+  border-top: 1px solid var(--line);
+  font-size: .64em;
+  font-weight: 600;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: var(--mute);
+}
+.sk-bot i { font-style: normal; color: var(--teal); }
+.face.back .sk-bot { flex-direction: row-reverse; }
+
+/* ---------- Kiểu chữ ---------- */
+.sk-kick {
+  font-size: .68em;
+  font-weight: 700;
+  letter-spacing: .24em;
+  text-transform: uppercase;
+  color: var(--teal);
+  margin-top: 1.25em;
+}
+.sk-h1 {
+  font-family: var(--serif);
+  font-size: 2.95em;
+  font-weight: 600;
+  line-height: 1.03;
+  letter-spacing: -.005em;
+  color: var(--ink);
+  margin: .42em 0 0;
+}
+.sk-h1 em {
+  display: block;
+  font-style: italic;
+  font-weight: 500;
+  font-size: .68em;
+  color: var(--teal-deep);
+  margin-top: .12em;
+}
+.sk-lead {
+  font-size: .93em;
+  line-height: 1.7;
+  color: var(--soft);
+  margin-top: .8em;
+  max-width: 40em;
+}
+.sk-lead b { color: var(--ink); font-weight: 600; }
+
+/* ---------- Ảnh ---------- */
+.sk-shot.ph {
+  display: block;
+  border: 0;
+  border-radius: 3px;
+  box-shadow: 0 10px 24px -16px rgba(11, 47, 42, .45);
+}
+.sk-shot { margin: 1.2em 0 0; }
+.sk-shot.wide {
+  aspect-ratio: 16 / 6.7;
+  border-radius: 3px;
+  overflow: hidden;
+}
+.sk-shot.thin {
+  aspect-ratio: 16 / 4.2;
+  border-radius: 3px;
+  overflow: hidden;
+}
+.sk-shot .ph-cap,
+.sk-shot figcaption {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  z-index: 3;
+  padding: 1.8em 1em .6em;
+  font-size: .62em;
+  letter-spacing: .04em;
+  color: #fff;
+  background: linear-gradient(0deg, rgba(4, 20, 16, .78), transparent);
+}
+
+/* ---------- Dải thông số 3 cột ---------- */
+.sk-spec {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  margin-top: 1.25em;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+.sk-spec > div { padding: .75em .9em .85em 0; }
+.sk-spec > div + div {
+  border-left: 1px solid var(--line);
+  padding-left: 1em;
+}
+.sk-spec span {
+  display: block;
+  font-size: .6em;
+  font-weight: 700;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--mute);
+}
+.sk-spec b {
+  display: block;
+  font-family: var(--serif);
+  font-size: 1.16em;
+  font-weight: 600;
+  color: var(--teal-deep);
+  margin-top: .18em;
+  line-height: 1.2;
+}
+.sk-spec b.todo {
+  font-family: var(--sans);
+  font-size: .74em;
+  font-weight: 600;
+  letter-spacing: .02em;
+  color: var(--sand);
+}
+
+/* ---------- Danh sách đánh số ---------- */
+.sk-rows { margin-top: 1.1em; }
+.sk-row {
+  display: grid;
+  grid-template-columns: 1.9em 1fr;
+  gap: .85em;
+  padding: .62em 0;
+  border-bottom: 1px solid var(--line);
+}
+.sk-row:last-child { border-bottom: 0; }
+.sk-row > i {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 1.1em;
+  line-height: 1.3;
+  color: var(--teal);
+}
+.sk-row p {
+  font-size: .8em;
+  line-height: 1.55;
+  color: var(--soft);
+}
+.sk-row p b { font-weight: 600; color: var(--ink); }
+
+/* ---------- Chip ---------- */
+.sk-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .45em;
+  margin-top: 1em;
+}
+.sk-chips span {
+  font-size: .66em;
+  font-weight: 500;
+  letter-spacing: .04em;
+  color: var(--teal-deep);
+  background: var(--mint);
+  border: 1px solid #CFE7DF;
   border-radius: 2px;
+  padding: .5em 1.05em;
 }
 
-/* Danh mục chương trình: 6 dòng nên siết nhẹ hơn mặc định */
-.major-list .major-row { padding: .58em .4em; gap: 1.05em; }
-
-/* ---------- Bảng so sánh chương trình ---------- */
-.sk-table {
+/* ---------- Bảng so sánh ---------- */
+.sk-tbl {
   width: 100%;
   border-collapse: collapse;
+  margin-top: 1.15em;
   font-size: .72em;
   line-height: 1.45;
-  margin: .2em 0 .1em;
 }
-.sk-table th,
-.sk-table td {
+.sk-tbl th,
+.sk-tbl td {
   text-align: left;
-  padding: .55em .6em;
-  border-bottom: 1px solid var(--hairline);
   vertical-align: top;
+  padding: .62em .62em;
+  border-bottom: 1px solid var(--line);
 }
-.sk-table thead th {
+.sk-tbl thead th {
   font-size: .92em;
   font-weight: 700;
-  color: var(--sk-ink);
-  border-bottom: 1.5px solid var(--sk-teal-200);
-  background: var(--sk-teal-100);
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--mute);
+  padding-bottom: .55em;
 }
-.sk-table thead th:first-child { border-top-left-radius: 6px; }
-.sk-table thead th:last-child  { border-top-right-radius: 6px; }
-.sk-table tbody th {
+.sk-tbl thead th.hl {
+  color: var(--teal-deep);
+  background: var(--mint);
+}
+.sk-tbl tbody th {
   font-weight: 600;
-  color: var(--sk-teal-600);
-  white-space: nowrap;
-  width: 24%;
+  color: var(--teal-deep);
+  width: 21%;
+  letter-spacing: .02em;
 }
-.sk-table td { color: var(--soft); }
-.sk-table tbody tr:last-child th,
-.sk-table tbody tr:last-child td { border-bottom: 0; }
+.sk-tbl td { color: var(--soft); }
+.sk-tbl tbody tr:nth-child(even) td { background: #F6FBF8; }
+.sk-tbl .span { font-size: .98em; }
+.sk-todo { color: var(--sand); font-weight: 600; }
+
+/* ---------- Thẻ "chọn ngành nếu…" ---------- */
+.sk-pick {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: .6em;
+  margin-top: 1.1em;
+}
+.sk-pick.two { grid-template-columns: 1fr 1fr; }
+.sk-pick > div {
+  background: #F4FAF7;
+  border-top: 2px solid var(--teal);
+  padding: .72em .75em .8em;
+}
+.sk-pick h4 {
+  font-family: var(--serif);
+  font-size: 1.12em;
+  font-weight: 600;
+  line-height: 1.15;
+  color: var(--ink);
+}
+.sk-pick p {
+  font-size: .68em;
+  line-height: 1.5;
+  color: var(--soft);
+  margin-top: .28em;
+}
 
 /* ---------- Hỏi đáp ---------- */
 .sk-faq {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: .5em 1.4em;
-  margin-top: .3em;
+  gap: 0 1.8em;
+  margin-top: .9em;
 }
 .sk-faq > div {
-  border-top: 1px solid var(--hairline);
-  padding: .6em 0 .55em;
+  padding: .8em 0 .72em;
+  border-top: 1px solid var(--line);
 }
 .sk-faq dt {
-  font-size: .82em;
+  position: relative;
+  padding-left: 1.5em;
+  font-size: .77em;
   font-weight: 600;
-  color: var(--sk-ink);
-  margin-bottom: .22em;
-  line-height: 1.4;
+  line-height: 1.42;
+  color: var(--ink);
+}
+.sk-faq dt::before {
+  content: "?";
+  position: absolute;
+  left: 0; top: 0;
+  font-family: var(--serif);
+  font-size: 1.15em;
+  font-weight: 700;
+  color: var(--teal);
 }
 .sk-faq dd {
-  font-size: .74em;
-  color: var(--soft);
+  font-size: .7em;
   line-height: 1.55;
+  color: var(--soft);
+  margin-top: .28em;
+  padding-left: 1.5em;
 }
 
-/* ---------- Lộ trình nghề nghiệp ---------- */
-.sk-role-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: .55em .9em;
-  margin-top: .25em;
-}
-.sk-role {
+/* Dải hotline nổi */
+.sk-hot {
   display: flex;
-  gap: .7em;
-  align-items: flex-start;
-  padding: .6em .75em;
-  background: #F7FAF8;
-  border: 1px solid rgba(14, 107, 91, .14);
-  border-radius: 6px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1em;
+  margin-top: 1.25em;
+  padding: .8em 1.1em;
+  background: var(--teal-deep);
+  color: #EAF6F1;
+  border-radius: 3px;
 }
-.sk-role-no {
-  font-family: var(--serif-italic); font-style: italic;
-  font-size: 1.1em; color: var(--sk-teal);
-  line-height: 1.2;
-  flex: 0 0 auto;
+.sk-hot b { font-family: var(--serif); font-size: 1.25em; letter-spacing: .02em; }
+.sk-hot span {
+  font-size: .68em;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  opacity: .82;
 }
-.sk-role h4 { font-size: .82em; font-weight: 600; color: var(--sk-ink); }
-.sk-role p  { font-size: .73em; color: var(--muted); line-height: 1.45; margin-top: .1em; }
-
-/* ---------- Thẻ thông tin (học phí, chính sách) ---------- */
-.sk-info-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: .6em;
-  margin-top: .3em;
-}
-.sk-info {
-  padding: .8em .9em;
-  background: linear-gradient(160deg, #F5FBF9, #FFFFFF);
-  border: 1px solid var(--sk-teal-200);
-  border-radius: 8px;
-}
-.sk-info h4 {
-  font-size: .78em; font-weight: 700; color: var(--sk-teal-600);
-  letter-spacing: .1em; text-transform: uppercase;
-  margin-bottom: .3em;
-}
-.sk-info p { font-size: .76em; color: var(--soft); line-height: 1.5; }
 
 /* ---------- Cảm nhận người học ---------- */
-.sk-quotes { display: grid; gap: .7em; margin-top: .3em; }
+.sk-quotes { display: grid; gap: .7em; margin-top: 1em; }
 .sk-quote {
   position: relative;
-  padding: 1.05em 1.2em .95em 1.5em;
-  background: #F7FAF8;
-  border-left: 3px solid var(--sk-teal);
-  border-radius: 6px;
+  padding: .95em 1.1em .9em 1.4em;
+  background: #F4FAF7;
+  border-left: 2px solid var(--teal);
 }
 .sk-quote p {
-  font-family: var(--serif-italic); font-style: italic;
-  font-size: .96em; line-height: 1.6; color: var(--sk-ink);
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 1em;
+  line-height: 1.55;
+  color: var(--ink);
 }
 .sk-quote cite {
-  display: block; margin-top: .55em;
-  font-family: var(--sans); font-style: normal;
-  font-size: .7em; font-weight: 600; letter-spacing: .12em;
-  text-transform: uppercase; color: var(--muted);
+  display: block;
+  margin-top: .5em;
+  font-family: var(--sans);
+  font-style: normal;
+  font-size: .62em;
+  font-weight: 600;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--mute);
 }
 
-/* ---------- Ghi chú chân trang nhỏ ---------- */
-.sk-note {
+/* ---------- Nghề nghiệp ---------- */
+.sk-jobs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 1.6em;
+  margin-top: .9em;
+}
+.sk-job {
+  display: grid;
+  grid-template-columns: 2em 1fr;
+  gap: .7em;
+  padding: .72em 0;
+  border-top: 1px solid var(--line);
+}
+.sk-job > i {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 1.16em;
+  line-height: 1.25;
+  color: var(--teal);
+}
+.sk-job h4 { font-size: .79em; font-weight: 600; color: var(--ink); }
+.sk-job p { font-size: .68em; line-height: 1.5; color: var(--soft); margin-top: .1em; }
+
+/* ---------- Danh mục chương trình (P3) ---------- */
+.sk-list { margin-top: 1.1em; }
+.sk-item {
+  display: grid;
+  grid-template-columns: 2.1em 1fr auto;
+  gap: .95em;
+  align-items: baseline;
+  padding: .82em 0;
+  border-bottom: 1px solid var(--line);
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+  transition: background .25s ease;
+}
+.sk-item:first-child { border-top: 1px solid var(--line); }
+.sk-item:hover { background: var(--mint); }
+.sk-item > i {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 1.35em;
+  color: var(--teal);
+  line-height: 1.1;
+}
+.sk-item h4 {
+  font-family: var(--serif);
+  font-size: 1.28em;
+  font-weight: 600;
+  line-height: 1.15;
+  color: var(--ink);
+}
+.sk-item h4 em { font-style: italic; font-size: .78em; color: var(--mute); }
+.sk-item p { font-size: .68em; line-height: 1.45; color: var(--soft); margin-top: .15em; }
+.sk-item > span:last-child { font-size: .95em; color: var(--teal); opacity: .45; }
+.sk-item:hover > span:last-child { opacity: 1; }
+
+/* ---------- Liên hệ ---------- */
+.sk-contact { margin-top: 1em; }
+.sk-crow {
+  display: grid;
+  grid-template-columns: 6.2em 1fr;
+  gap: .8em;
+  padding: .6em 0;
+  border-bottom: 1px solid var(--line);
   font-size: .74em;
-  color: var(--muted);
   line-height: 1.5;
-  border-left: 2px solid var(--sk-teal-200);
-  padding-left: .8em;
-  margin-top: .22em;
+  color: var(--soft);
+}
+.sk-crow:first-child { border-top: 1px solid var(--line); }
+.sk-crow span:first-child {
+  font-size: .86em;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--mute);
+}
+.sk-crow .strong { font-weight: 600; color: var(--teal-deep); }
+
+/* ---------- Form đăng ký (dùng class gốc, đổi màu) ---------- */
+.page.skpg .register {
+  background: #F4FAF7;
+  border: 1px solid #CFE7DF;
+  border-radius: 3px;
+  box-shadow: none;
+}
+.page.skpg .register .h-sub {
+  font-family: var(--sans);
+  font-size: .74em;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--teal-deep);
+  margin-bottom: .8em;
+}
+.page.skpg .form-row label { font-size: .68em; color: var(--mute); }
+.page.skpg .form-row input,
+.page.skpg .form-row select {
+  border-radius: 2px;
+  border-color: #CFE7DF;
+  font-size: .76em;
+}
+.page.skpg .btn {
+  background: var(--teal-deep);
+  border-radius: 2px;
+  font-size: .74em;
+  letter-spacing: .12em;
 }
 
-/* ---------- Mobile ---------- */
+/* ---------- Ghi chú ---------- */
+.sk-note {
+  font-size: .68em;
+  line-height: 1.5;
+  color: var(--mute);
+  border-left: 2px solid #CFE7DF;
+  padding-left: .8em;
+  margin-top: .9em;
+}
+
+/* ============================================================
+   BÌA
+   Ảnh phủ toàn trang (giữ nguyên bố cục full-bleed).
+   Phần chữ nằm ở nửa dưới trên lớp phủ tối dần nên luôn đọc rõ,
+   không phụ thuộc vùng sáng/tối của ảnh phía sau.
+   ============================================================ */
+.page.skcover {
+  padding: 0;
+  background: #0B2F2A;
+  color: #F4EFE2;
+  overflow: hidden;
+  position: relative;
+}
+/* Chế độ 1 trang: style.css tăng padding cho .page — bìa phải giữ 0. */
+.book.single .page.skcover { padding: 0; }
+.skcover > .ph,
+.skcover > img {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 35%;
+  border: 0;
+  border-radius: 0;
+}
+.skcover > .ph {
+  background-color: #13332c;
+  background-size: cover;
+  background-position: center 35%;
+}
+
+/* Khối chữ phía trên: nền xanh đậm che bảng hiệu trong ảnh,
+   chừa lại phần giữa cho nhóm sinh viên. */
+.skcv::before {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; top: 0;
+  height: 48%;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg,
+      #0B2F2A 0%,
+      #0B2F2A 82%,
+      rgba(11, 47, 42, .97) 90%,
+      rgba(11, 47, 42, .72) 96%,
+      rgba(11, 47, 42, 0) 100%);
+}
+
+/* Dải thông tin phía dưới: chỉ phủ phần nền/đất, không che mặt người. */
+.skcv::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 12%;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg,
+      rgba(6, 26, 22, 0) 0%,
+      rgba(6, 26, 22, .55) 40%,
+      rgba(6, 26, 22, .90) 70%,
+      rgba(6, 26, 22, .97) 100%);
+}
+
+.skcv {
+  position: relative;
+  z-index: 2;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 2.1em 2.5em 1.9em;
+}
+.skcv-head { display: flex; align-items: center; gap: .8em; }
+.skcv-head img {
+  width: 2.7em; height: 2.7em;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, .5));
+}
+.skcv-head > div { display: flex; flex-direction: column; }
+.skcv-head b {
+  font-size: .74em; font-weight: 600;
+  letter-spacing: .22em; text-transform: uppercase;
+}
+.skcv-head span {
+  font-size: .6em; letter-spacing: .18em; text-transform: uppercase;
+  color: #B9D7CA; margin-top: .2em;
+}
+.skcv-year {
+  margin-left: auto;
+  font-size: .64em; letter-spacing: .26em; text-transform: uppercase;
+  color: #D9B26A;
+}
+.skcv-body { margin-top: 1.5em; }
+.skcv-flag {
+  display: inline-flex;
+  align-items: center;
+  gap: .6em;
+  font-size: .64em;
+  font-weight: 700;
+  letter-spacing: .24em;
+  text-transform: uppercase;
+  color: #DCEFE6;
+  background: rgba(8, 34, 28, .55);
+  border: 1px solid rgba(207, 233, 223, .45);
+  padding: .55em 1.05em;
+  border-radius: 2px;
+}
+.skcv-flag svg { width: .95em; height: .95em; }
+.skcv-pre {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 1.55em;
+  color: #F0DFB9;
+  margin: 1em 0 .05em;
+}
+.skcv-title {
+  font-family: var(--serif);
+  font-size: 5.2em;
+  font-weight: 700;
+  line-height: .98;
+  letter-spacing: .008em;
+  color: #FBF6E8;
+  white-space: nowrap;
+  text-shadow: 0 3px 28px rgba(0, 0, 0, .5);
+}
+.skcv-foot {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1em;
+  margin-top: auto;
+  padding-top: .8em;
+  border-top: 1px solid rgba(217, 178, 106, .32);
+  font-size: .62em;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: #B9D7CA;
+}
+.skcv-sub {
+  font-size: .82em;
+  line-height: 1.6;
+  letter-spacing: .005em;
+  color: #D8ECE3;
+  max-width: 34em;
+  margin: .95em 0 0;
+}
+.skcv-list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: #CFE4DA;
+}
+.skcv-list span + span::before {
+  content: "·";
+  margin: 0 .8em;
+  color: #6E9689;
+}
+.skcv-hotline {
+  display: flex;
+  align-items: baseline;
+  gap: .7em;
+  white-space: nowrap;
+}
+.skcv-hotline b { color: #D9B26A; letter-spacing: .08em; font-size: 1.55em; }
+
+/* ============================================================
+   BÌA SAU
+   ============================================================ */
+.page.skback {
+  padding: 0;
+  background: #0B2F2A;
+  color: #F4EFE2;
+  overflow: hidden;
+}
+.skback-inner {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: .9em;
+  padding: 2.5em;
+  background:
+    radial-gradient(ellipse 90% 70% at 50% 0%, rgba(14, 143, 121, .22), transparent 70%),
+    #0B2F2A;
+}
+.skback-inner img {
+  width: 3.6em; height: 3.6em;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, .5));
+}
+.skback-inner h2 {
+  font-family: var(--serif);
+  font-size: 2.1em;
+  font-weight: 600;
+  line-height: 1.15;
+  color: #FBF6E8;
+}
+.skback-slogan {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: .92em;
+  color: #CFE9DF;
+}
+.skback-rule {
+  width: 3.2em;
+  height: 1px;
+  background: rgba(217, 178, 106, .7);
+  margin: .3em 0;
+}
+.skback-contact {
+  font-size: .7em;
+  line-height: 1.9;
+  color: #A9C7BA;
+  letter-spacing: .04em;
+}
+.skback-copy {
+  margin-top: 1.4em;
+  font-size: .6em;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: #6E9689;
+}
+
+/* ============================================================
+   MOBILE
+   ============================================================ */
 @media (max-width: 899px) {
-  .sk-faq,
-  .sk-role-grid,
-  .sk-info-grid { grid-template-columns: 1fr; }
-  .sk-table { font-size: .78em; }
-  .sk-table th, .sk-table td { padding: .45em .45em; }
-  .sk-table tbody th { white-space: normal; width: 30%; }
-  .sk-quote p { font-size: 1.02em; }
-  .sk-flag { font-size: .54em; letter-spacing: .18em; padding: .55em 1.1em; }
+  .page-inner.sk { padding: 1.55em 1.6em 1.25em; height: auto; min-height: 100%; }
+  .sk-bot { margin-top: 1.1em; position: static; }
+  .sk-h1 { font-size: 2.35em; }
+  .sk-kick { margin-top: .9em; }
+  .sk-lead { font-size: .88em; margin-top: .6em; }
+  .sk-shot { margin-top: .9em; }
+  .sk-shot.wide { aspect-ratio: 16 / 6; }
+  .sk-shot.thin { aspect-ratio: 16 / 3.6; }
+  .sk-spec { margin-top: 1em; }
+  .sk-spec > div { padding: .6em .8em .7em 0; }
+  .sk-spec b { font-size: 1.05em; }
+  .sk-rows { margin-top: .8em; }
+  .sk-row { padding: .55em 0; }
+  .sk-chips { margin-top: .8em; }
+  .sk-jobs { margin-top: .7em; }
+  .sk-job { padding: .55em 0; }
+  .sk-item { padding: .62em 0; }
+  .sk-item h4 { font-size: 1.15em; }
+  .sk-tbl { font-size: .78em; }
+  .sk-tbl th, .sk-tbl td { padding: .48em .42em; }
+  .sk-tbl tbody th { white-space: normal; width: 26%; }
+  .sk-pick { margin-top: .8em; }
+  .sk-pick > div { padding: .6em .65em .65em; }
+  .sk-faq, .sk-jobs, .sk-pick, .sk-pick.two { grid-template-columns: 1fr; }
+  .sk-hot { margin-top: .9em; padding: .7em .9em; }
+  .skcv-title { font-size: 4.35em; }
+  .skcv { padding: 1.7em 1.75em 1.5em; }
+  .skcv-head span, .skcv-year { display: none; }
+  .skcv-body { margin-top: 1.2em; }
+  .skcv-foot { font-size: .58em; }
+  .skcv-sub { font-size: .76em; }
+  .skcv-hotline b { font-size: 1.5em; }
+  .skback-inner { padding: 1.8em; }
+  .page.skpg .register { padding: .9em 1em .85em; }
+}
+
+@media (max-width: 480px) {
+  .skcv-title { font-size: 3.85em; }
+  .skcv-list span + span::before { margin: 0 .55em; }
 }
