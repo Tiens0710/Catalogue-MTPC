@@ -1,0 +1,201 @@
+/* ============================================================
+   SỔ TAY NGÀNH SỨC KHỎE — MTPC
+   Theme phụ: giữ nền sage/kem của trường, thêm sắc teal y khoa.
+   File này CHỈ override + bổ sung thành phần mới, không sửa
+   css/style.css (dùng chung engine lật trang).
+   ============================================================ */
+
+:root {
+  --sk-teal:      #0E6B5B;
+  --sk-teal-600:  #0B5749;
+  --sk-teal-100:  #E4F1EE;
+  --sk-teal-200:  #C9E3DD;
+  --sk-ink:       #123A32;
+}
+
+/* ---------- Sắc teal cho các điểm nhấn nhỏ ---------- */
+.tag::before        { color: var(--sk-teal); }
+.tag                { color: var(--sk-teal-600); background: var(--sk-teal-100); border-color: var(--sk-teal-200); }
+.chip               { color: var(--sk-teal-600); background: var(--sk-teal-100); border-color: var(--sk-teal-200); }
+.pg-foot span::before { color: var(--sk-teal); }
+.major-no           { color: var(--sk-teal); }
+.major-row .arrow   { color: var(--sk-teal-200); }
+.major-row:hover    { background: rgba(14, 107, 91, .07); }
+.major-row:hover .arrow { color: var(--sk-teal); }
+.ticks li::before   { background: var(--sk-teal); }
+.num-list li::before { color: var(--sk-teal); }
+.reason-check       { background: var(--sk-teal-100); color: var(--sk-teal-600); }
+.reason-card        { border-left-color: var(--sk-teal); }
+.vision-item        { border-left-color: var(--sk-teal); }
+.feat-no            { background: var(--sk-teal-100); border-color: var(--sk-teal-200); color: var(--sk-teal-600); }
+
+/* ---------- Bìa: nhãn khối ngành ---------- */
+.sk-flag {
+  display: inline-flex; align-items: center; gap: .7em;
+  font-size: .58em; font-weight: 700; letter-spacing: .26em;
+  text-transform: uppercase; color: #EAE0C4;
+  border: 1px solid rgba(234, 224, 196, .42);
+  border-radius: 999px;
+  padding: .6em 1.35em;
+  margin-bottom: 1.15em;
+  backdrop-filter: blur(2px);
+}
+.sk-flag svg { width: 1.15em; height: 1.15em; flex: 0 0 auto; }
+
+/* ---------- Nhãn tạm: số liệu chờ xác nhận ---------- */
+.sk-todo {
+  font-style: normal;
+  background: #FFF6E2;
+  border-bottom: 1px dashed #C9A24A;
+  color: #8A6520;
+  padding: 0 .16em;
+  border-radius: 2px;
+}
+
+/* Danh mục chương trình: 6 dòng nên siết nhẹ hơn mặc định */
+.major-list .major-row { padding: .58em .4em; gap: 1.05em; }
+
+/* ---------- Bảng so sánh chương trình ---------- */
+.sk-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: .72em;
+  line-height: 1.45;
+  margin: .2em 0 .1em;
+}
+.sk-table th,
+.sk-table td {
+  text-align: left;
+  padding: .55em .6em;
+  border-bottom: 1px solid var(--hairline);
+  vertical-align: top;
+}
+.sk-table thead th {
+  font-size: .92em;
+  font-weight: 700;
+  color: var(--sk-ink);
+  border-bottom: 1.5px solid var(--sk-teal-200);
+  background: var(--sk-teal-100);
+}
+.sk-table thead th:first-child { border-top-left-radius: 6px; }
+.sk-table thead th:last-child  { border-top-right-radius: 6px; }
+.sk-table tbody th {
+  font-weight: 600;
+  color: var(--sk-teal-600);
+  white-space: nowrap;
+  width: 24%;
+}
+.sk-table td { color: var(--soft); }
+.sk-table tbody tr:last-child th,
+.sk-table tbody tr:last-child td { border-bottom: 0; }
+
+/* ---------- Hỏi đáp ---------- */
+.sk-faq {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: .5em 1.4em;
+  margin-top: .3em;
+}
+.sk-faq > div {
+  border-top: 1px solid var(--hairline);
+  padding: .6em 0 .55em;
+}
+.sk-faq dt {
+  font-size: .82em;
+  font-weight: 600;
+  color: var(--sk-ink);
+  margin-bottom: .22em;
+  line-height: 1.4;
+}
+.sk-faq dd {
+  font-size: .74em;
+  color: var(--soft);
+  line-height: 1.55;
+}
+
+/* ---------- Lộ trình nghề nghiệp ---------- */
+.sk-role-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: .55em .9em;
+  margin-top: .25em;
+}
+.sk-role {
+  display: flex;
+  gap: .7em;
+  align-items: flex-start;
+  padding: .6em .75em;
+  background: #F7FAF8;
+  border: 1px solid rgba(14, 107, 91, .14);
+  border-radius: 6px;
+}
+.sk-role-no {
+  font-family: var(--serif-italic); font-style: italic;
+  font-size: 1.1em; color: var(--sk-teal);
+  line-height: 1.2;
+  flex: 0 0 auto;
+}
+.sk-role h4 { font-size: .82em; font-weight: 600; color: var(--sk-ink); }
+.sk-role p  { font-size: .73em; color: var(--muted); line-height: 1.45; margin-top: .1em; }
+
+/* ---------- Thẻ thông tin (học phí, chính sách) ---------- */
+.sk-info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: .6em;
+  margin-top: .3em;
+}
+.sk-info {
+  padding: .8em .9em;
+  background: linear-gradient(160deg, #F5FBF9, #FFFFFF);
+  border: 1px solid var(--sk-teal-200);
+  border-radius: 8px;
+}
+.sk-info h4 {
+  font-size: .78em; font-weight: 700; color: var(--sk-teal-600);
+  letter-spacing: .1em; text-transform: uppercase;
+  margin-bottom: .3em;
+}
+.sk-info p { font-size: .76em; color: var(--soft); line-height: 1.5; }
+
+/* ---------- Cảm nhận người học ---------- */
+.sk-quotes { display: grid; gap: .7em; margin-top: .3em; }
+.sk-quote {
+  position: relative;
+  padding: 1.05em 1.2em .95em 1.5em;
+  background: #F7FAF8;
+  border-left: 3px solid var(--sk-teal);
+  border-radius: 6px;
+}
+.sk-quote p {
+  font-family: var(--serif-italic); font-style: italic;
+  font-size: .96em; line-height: 1.6; color: var(--sk-ink);
+}
+.sk-quote cite {
+  display: block; margin-top: .55em;
+  font-family: var(--sans); font-style: normal;
+  font-size: .7em; font-weight: 600; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--muted);
+}
+
+/* ---------- Ghi chú chân trang nhỏ ---------- */
+.sk-note {
+  font-size: .74em;
+  color: var(--muted);
+  line-height: 1.5;
+  border-left: 2px solid var(--sk-teal-200);
+  padding-left: .8em;
+  margin-top: .22em;
+}
+
+/* ---------- Mobile ---------- */
+@media (max-width: 899px) {
+  .sk-faq,
+  .sk-role-grid,
+  .sk-info-grid { grid-template-columns: 1fr; }
+  .sk-table { font-size: .78em; }
+  .sk-table th, .sk-table td { padding: .45em .45em; }
+  .sk-table tbody th { white-space: normal; width: 30%; }
+  .sk-quote p { font-size: 1.02em; }
+  .sk-flag { font-size: .54em; letter-spacing: .18em; padding: .55em 1.1em; }
+}

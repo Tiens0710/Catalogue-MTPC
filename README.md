@@ -54,11 +54,86 @@ Toàn bộ nội dung nằm trong `index.html`, đánh dấu rõ theo từng tra
 
 ```
 catalogue/
-├── index.html      # Nội dung 18 trang catalogue
-├── css/style.css   # Toàn bộ giao diện (màu sắc, hiệu ứng lật)
+├── index.html      # Catalogue tổng — 18 trang
+├── css/style.css   # Giao diện dùng chung (màu sắc, hiệu ứng lật)
 ├── js/main.js      # Logic lật trang, bàn phím, vuốt, fullscreen
-└── images/         # Ảnh thật của trường (đặt đúng tên theo bảng trên)
+├── images/         # Ảnh thật của trường
+└── suc-khoe/       # ★ Ebook riêng cho khối ngành sức khỏe (xem dưới)
 ```
+
+---
+
+# ★ Sổ tay ngành Sức khỏe (`suc-khoe/`)
+
+Ebook **riêng** cho khối sức khỏe — 20 trang / 10 tờ, **tự chứa toàn bộ** (css, js, ảnh riêng) nên có thể copy nguyên thư mục `suc-khoe/` đi nơi khác, nén gửi Zalo hoặc upload host riêng mà vẫn chạy.
+
+## Chạy thử
+
+Mở `suc-khoe/index.html` bằng trình duyệt (nhấp đúp). Không cần cài gì.
+
+## Nội dung 20 trang
+
+| Trang | Nội dung |
+|---|---|
+| 01 | Bìa — khối ngành Sức khỏe |
+| 02 | Lời ngỏ: vì sao chọn nghề chăm sóc sức khỏe |
+| 03 | Sáu chương trình (menu, chạm để mở trang chi tiết) |
+| 04–06 | Y sĩ đa khoa · Dược sĩ · Điều dưỡng (trung cấp) |
+| 07–09 | Răng hàm mặt · Chứng chỉ chuyển đổi Điều dưỡng · Xoa bóp bấm huyệt – VLTL |
+| 10 | Bảng so sánh 3 ngành trung cấp |
+| 11 | Môi trường học &amp; thực hành |
+| 12 | Lộ trình nghề nghiệp sau tốt nghiệp |
+| 13 | Điều kiện tuyển sinh &amp; hồ sơ |
+| 14 | Học phí &amp; chính sách hỗ trợ |
+| 15 | Liên thông &amp; học lên |
+| 16 | Cảm nhận người học |
+| 17 | Hỏi &amp; đáp (FAQ) |
+| 18 | Đối tác &amp; cơ sở thực hành |
+| 19 | Đăng ký tư vấn + liên hệ |
+| 20 | Bìa sau |
+
+## Cấu trúc folder
+
+```
+suc-khoe/
+├── index.html          # Nội dung 20 trang (đánh dấu SHEET / P1…P20)
+├── css/style.css       # Bản copy engine giao diện dùng chung
+├── css/suc-khoe.css    # Theme riêng: sắc teal y khoa + thành phần mới
+├── js/main.js          # Bản copy engine lật trang
+└── images/             # Ảnh riêng của ebook
+```
+
+> **Lưu ý đồng bộ:** `css/style.css` và `js/main.js` trong `suc-khoe/` là **bản copy**. Khi sửa hiệu ứng lật ở catalogue tổng, phải chép lại 2 file này sang `suc-khoe/` để hai bên giống nhau.
+
+## Thành phần CSS mới (chỉ có trong sách sức khỏe)
+
+| Class | Dùng cho |
+|---|---|
+| `.sk-table` | Bảng so sánh chương trình |
+| `.sk-faq` | Khối hỏi đáp 2 cột |
+| `.sk-role-grid` / `.sk-role` | Lộ trình nghề nghiệp |
+| `.sk-info-grid` / `.sk-info` | Thẻ học phí, chính sách |
+| `.sk-quote` | Cảm nhận người học |
+| `.sk-flag` | Nhãn “Khối ngành Sức khỏe” trên bìa |
+| `.sk-note` | Ghi chú nhỏ chân trang |
+| `.sk-todo` | **Đánh dấu số liệu còn thiếu** (nền vàng, gạch chân nét đứt) |
+
+## Việc cần làm trước khi phát hành
+
+Tìm các chỗ `<span class="sk-todo">…</span>` trong `suc-khoe/index.html` (nền vàng) và thay bằng số liệu thật:
+
+1. Thời gian đào tạo từng ngành (P4, P5, P6, P10)
+2. Điều kiện tuyển sinh / hồ sơ chính thức (P4–P9, P13)
+3. Học phí &amp; chính sách ưu đãi (P14)
+4. Cảm nhận người học thật + tên (P16)
+5. Thời lượng các khóa sơ cấp/chứng chỉ (P7, P8, P9)
+
+**Ảnh:** 10 ảnh hiện dùng lại từ catalogue tổng. Nên bổ sung ảnh riêng cho bìa (`images/sk-cover.jpg`, ảnh dọc) và trang thực hành.
+
+## Đồng bộ hotline
+
+HTML đang dùng: **0934 790 790 · 0292 222 6677 · 0292 222 5577**. README gốc có nhắc số 0375 711 766 — cần chốt một số chính thức rồi cập nhật cả hai nơi (bìa, P19, P20).
+
 
 > Thông tin trong catalogue lấy từ website chính thức **mtpc.edu.vn** (tháng 11/2026):
 > 4 ngành Y sỹ đa khoa, Dược, Điều dưỡng, CNTT định hướng AI · Hotline/Zalo 0375 711 766 ·
