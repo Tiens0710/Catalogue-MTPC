@@ -1,0 +1,525 @@
+/* Sổ tay Kỹ thuật — mặt sách, kiểu chữ và màu của từng chuyên mục. */
+.book {
+  --kt-font: "Be Vietnam Pro", system-ui, sans-serif;
+  --kt-paper: #f3f1e7;
+  --kt-ink: #15241e;
+  --kt-muted: #465750;
+  --kt-green: #172f28;
+  --kt-mint: #dce8de;
+  --kt-ochre: #edbf67;
+  --kt-amber-paper: #efdcaf;
+  --kt-line: #203a2d32;
+  --kt-inset: clamp(1.15rem, 2.4cqi, 2.35rem);
+  --kt-gap: clamp(.8rem, 1.35cqi, 1.3rem);
+}
+
+/* Bìa trước — chữ và nút đặt trên ảnh tràn khung. */
+.book .kt-cover .cover-photo {
+  position: absolute;
+  inset: 0;
+}
+
+.book .kt-cover .cover-photo > img { object-position: center; }
+
+.book .kt-cover .cover-photo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, #10231b91, transparent 23% 54%, #101e17ed 100%);
+  pointer-events: none;
+}
+
+.kt-cover-top {
+  display: flex;
+  align-items: center;
+  gap: .8rem;
+  padding: var(--kt-inset);
+  font: 700 clamp(.78rem, 1.4cqi, 1rem)/1.28 var(--kt-font);
+  color: #fff;
+}
+
+.kt-cover-top img,
+.kt-backcover-brand img {
+  display: block;
+  width: clamp(2rem, 4.7cqi, 3.25rem);
+  height: auto;
+}
+
+.book .kt-cover .cover-inner { margin-top: auto; }
+
+.book .kt-cover .cover-lower {
+  align-items: center;
+  padding: var(--kt-inset);
+  background: transparent;
+}
+
+.book .kt-cover .cover-main-title {
+  font: 800 clamp(3.1rem, 8cqi, 7.4rem)/.99 var(--kt-font);
+  letter-spacing: -.065em;
+  color: #fffef5;
+}
+
+.kt-cover-edition {
+  margin-bottom: .65em;
+  color: var(--kt-ochre);
+  font: 700 clamp(.78rem, 1.45cqi, 1rem)/1.3 var(--kt-font);
+}
+
+.kt-cover-credit {
+  margin-top: .8em;
+  color: #f3f1e7;
+  font: 400 .72rem/1.35 var(--kt-font);
+}
+
+.book .kt-cover .cover-open {
+  padding: .75rem 1rem;
+  background: var(--kt-ochre);
+  color: var(--kt-ink);
+  font-family: var(--kt-font);
+}
+
+.book .kt-cover .cover-open:hover { background: #ffe0a4; }
+.kt-cover .cover-open span { margin-inline-start: .35em; }
+
+.book .kt-page {
+  --reader-ink: var(--kt-ink);
+  --reader-green: var(--kt-green);
+  font-family: var(--kt-font);
+}
+
+.book .page.kt-page:not(.cover, .backcover, .closing) {
+  padding: var(--kt-inset);
+  padding-bottom: calc(var(--kt-inset) * .57);
+  background: var(--kt-field, var(--kt-paper));
+  font-size: clamp(.875rem, 1.35cqi, 1rem);
+  line-height: 1.48;
+}
+
+.book .kt-page .page-inner {
+  width: 100%;
+  min-width: 0;
+  gap: var(--kt-gap);
+}
+
+.kt-title {
+  font: 800 clamp(2.5rem, 4.9cqi, 4.7rem)/1.02 var(--kt-font);
+  letter-spacing: -.057em;
+  overflow-wrap: normal;
+}
+
+.kt-specialty {
+  margin-top: .42em;
+  font: 600 clamp(1.05rem, 2.45cqi, 2rem)/1.15 var(--kt-font);
+  letter-spacing: -.034em;
+}
+
+.kt-level {
+  margin-top: .65em;
+  font-size: .82em;
+  font-weight: 600;
+}
+
+.kt-caption,
+.kt-note {
+  color: var(--kt-muted);
+  font-size: .85em;
+}
+
+.book .kt-page .pg-foot {
+  align-self: stretch;
+  justify-self: stretch;
+  padding-top: .52em;
+  border-top: 1px solid var(--kt-line);
+  font: 600 .78em/1.35 var(--kt-font);
+  font-variant-numeric: tabular-nums;
+}
+
+.kt-photo {
+  position: relative;
+  min-width: 0;
+  background: var(--kt-green);
+}
+
+.kt-photo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.kt-photo-fill img {
+  position: absolute;
+  inset: 0;
+}
+
+.kt-photo figcaption {
+  position: absolute;
+  bottom: .7rem;
+  left: .7rem;
+  max-width: calc(100% - 1.4rem);
+  padding: .35em .6em;
+  background: #142a22f0;
+  color: #fff;
+  font: 500 .72rem/1.35 var(--kt-font);
+}
+
+.kt-link {
+  display: inline-flex;
+  align-self: start;
+  align-items: center;
+  gap: .8em;
+  min-height: 44px;
+  padding: .5em .8em;
+  background: var(--kt-green);
+  color: #fff;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.kt-link:hover { background: #2e4e41; }
+.kt-link span { font-size: 1.15em; }
+.book :is(.kt-page, .kt-cover, .kt-backcover) :is(a, button):focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 3px;
+  text-decoration: underline;
+}
+
+.kt-intro { --kt-field: var(--kt-mint); }
+.book .kt-intro .page-inner {
+  display: grid;
+  grid-template-rows: auto minmax(13em, 1fr) auto auto;
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.kt-intro .kt-photo img { object-position: center 52%; }
+.kt-graduation { --kt-field: var(--kt-mint); }
+
+.book .kt-events .page-inner {
+  display: grid;
+  height: 100%;
+  grid-template: auto minmax(0, 1fr) auto / minmax(0, 1fr);
+}
+
+.kt-event-pair {
+  display: grid;
+  grid-template-rows: repeat(2, minmax(0, 1fr));
+  gap: .85em;
+}
+
+.kt-event-pair .kt-photo {
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto;
+  min-height: 0;
+  background: transparent;
+}
+.kt-event-pair .kt-photo img {
+  min-height: 0;
+  object-fit: contain;
+  object-position: center bottom;
+}
+.kt-event-pair .kt-photo figcaption {
+  position: static;
+  max-width: none;
+  padding: .4em 0 0;
+  background: transparent;
+  color: var(--kt-muted);
+  text-align: center;
+}
+
+.kt-paths {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--kt-gap);
+}
+
+.kt-paths section { padding-top: .75em; border-top: 2px solid var(--kt-green); }
+.kt-paths h3 { margin-bottom: .3em; font-size: 1.12em; line-height: 1.25; }
+
+.kt-index {
+  display: grid;
+  flex: 1 0 auto;
+  align-content: stretch;
+  gap: .32em;
+}
+
+.kt-index a {
+  display: grid;
+  grid-template-columns: clamp(3.6rem, 7.4cqi, 7rem) minmax(0, 1fr) auto;
+  align-items: center;
+  gap: clamp(.65rem, 1.4cqi, 1.2rem);
+  min-height: 4.5em;
+  padding: .45em .65em .45em .45em;
+  border-bottom: 1px solid var(--kt-line);
+  color: var(--kt-ink);
+  text-decoration: none;
+}
+
+.kt-index a:hover { background: var(--kt-mint); }
+
+.kt-index img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1.15;
+  object-fit: cover;
+}
+
+.kt-index a:nth-child(2) img { object-position: 72% center; }
+.kt-index a:nth-child(3) img { object-position: 43% center; }
+.kt-index a:nth-child(4) img { object-position: 62% center; }
+.kt-index strong { display: block; font-size: clamp(.94rem, 1.75cqi, 1.25rem); line-height: 1.22; }
+.kt-index small { display: block; margin-top: .3em; color: var(--kt-muted); font-size: .78em; }
+.kt-index-page { font-size: .88em; font-weight: 700; font-variant-numeric: tabular-nums; }
+
+.book .kt-computing .page-inner {
+  display: grid;
+  grid-template-rows: auto minmax(9em, 1fr) auto auto auto;
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.kt-computing .kt-photo img { object-position: center 42%; }
+
+.kt-facts {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: .85em;
+  padding: .8em 1em;
+  background: var(--kt-mint);
+}
+
+.kt-facts > div + div { padding-left: .8em; border-inline-start: 1px solid var(--kt-line); }
+.kt-facts dt { font-size: clamp(1.25rem, 2.4cqi, 1.9rem); font-weight: 800; line-height: 1.08; }
+.kt-facts dd { margin: .25em 0 0; font-size: .83em; }
+
+.kt-learn h3 {
+  margin-bottom: .35em;
+  font-size: .86em;
+  font-weight: 800;
+}
+
+.kt-learn ul {
+  display: grid;
+  gap: .3em;
+  padding-inline-start: 1.18em;
+}
+
+.kt-learn li::marker { color: var(--reader-green); }
+
+.kt-paint { --kt-field: var(--kt-amber-paper); }
+
+.book .kt-paint .page-inner {
+  display: grid;
+  grid-template: "heading image" minmax(min-content, .9fr)
+                 "skills image" auto
+                 "note image" minmax(min-content, .65fr)
+                 "foot foot" auto / minmax(0, .86fr) minmax(0, 1fr);
+  column-gap: var(--kt-gap);
+}
+
+.kt-paint header { grid-area: heading; align-self: end; }
+.kt-paint .kt-photo { grid-area: image; min-height: 16em; }
+.kt-paint .kt-photo img { object-position: 55% center; }
+.kt-paint .kt-learn { grid-area: skills; padding-top: .7em; border-top: 2px solid var(--kt-green); }
+.kt-paint .kt-note { grid-area: note; }
+.kt-paint .pg-foot { grid-area: foot; }
+
+.book .kt-weld {
+  --kt-field: #1b2b25;
+  --kt-ink: #f9f4e8;
+  --kt-muted: #d5ddd4;
+  --kt-line: #f1e9d44d;
+  --reader-green: var(--kt-ochre);
+}
+
+.book .kt-weld .page-inner {
+  display: grid;
+  grid-template-rows: minmax(16em, 1fr) auto auto auto;
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.kt-weld-hero {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  isolation: isolate;
+  min-width: 0;
+}
+
+.kt-weld-hero .kt-photo { position: absolute; inset: 0; z-index: -1; }
+.kt-weld .kt-photo img { object-position: 53% 52%; }
+.kt-weld .kt-photo figcaption { top: .7rem; bottom: auto; }
+
+.kt-weld-hero header {
+  width: 100%;
+  padding: 2.5em clamp(.85rem, 2cqi, 1.5rem) 1em;
+  background: linear-gradient(transparent, #101b16eb 64%);
+}
+
+.kt-weld .kt-level { color: var(--kt-ochre); }
+.kt-weld .kt-learn { padding-top: .3em; }
+
+.kt-repair { --kt-field: var(--kt-mint); }
+.book .kt-repair .page-inner {
+  display: grid;
+  grid-template: "heading skills" auto
+                 "image image" minmax(14em, 1fr)
+                 "note note" auto
+                 "foot foot" auto / minmax(0, 1.12fr) minmax(0, 1fr);
+}
+
+.kt-repair header { grid-area: heading; }
+.kt-repair .kt-learn { grid-area: skills; align-self: end; padding-inline-start: .85em; border-inline-start: 2px solid var(--kt-green); }
+.kt-repair .kt-photo { grid-area: image; }
+.kt-repair .kt-photo img { object-position: center 52%; }
+.kt-repair .kt-note { grid-area: note; }
+.kt-repair .pg-foot { grid-area: foot; }
+
+.kt-track {
+  display: grid;
+  gap: .5em;
+  padding: .9em 1.05em;
+  background: #e7e4d8;
+}
+
+.kt-track-featured { background: var(--kt-ochre); }
+.kt-track h3 { font-size: .83em; }
+.kt-track ul { display: grid; gap: .48em; list-style: none; padding: 0; }
+.kt-track li + li { padding-top: .45em; border-top: 1px solid var(--kt-line); }
+
+.kt-track a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: .5em;
+  min-height: 28px;
+  color: var(--kt-ink);
+  font-weight: 800;
+  text-underline-offset: .18em;
+}
+
+.kt-track-featured a { font-size: clamp(1rem, 2.1cqi, 1.38rem); line-height: 1.25; }
+.kt-track p { font-size: .89em; }
+
+.book .kt-admissions .page-inner {
+  display: grid;
+  justify-items: start;
+  grid-template-rows: auto minmax(11em, 1fr) auto auto auto;
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.kt-admissions .kt-photo { justify-self: stretch; }
+.kt-admissions .kt-photo img { object-position: center 47%; }
+
+.kt-contact {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  justify-self: stretch;
+  gap: var(--kt-gap);
+}
+
+.kt-contact h3 { margin-bottom: .25em; font-size: .82em; font-weight: 800; }
+.kt-contact address { font-size: .9em; }
+.book :is(.kt-contact, .kt-backcover) address { font-style: normal; }
+.kt-contact a, .kt-backcover a { color: inherit; text-underline-offset: .18em; }
+
+.kt-hotline {
+  display: inline-block;
+  font: 800 clamp(1.2rem, 2.9cqi, 2.45rem)/1.15 var(--kt-font);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -.04em;
+}
+
+.kt-landlines {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .16em .75em;
+  margin-top: .45em;
+  font-size: .78em;
+}
+
+.kt-landlines a { white-space: nowrap; }
+
+.book .page.kt-backcover {
+  display: flex;
+  align-items: stretch;
+  justify-content: flex-start;
+  padding: var(--kt-inset);
+  gap: var(--kt-gap);
+  overflow: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  text-align: left;
+  background: var(--kt-green);
+  color: var(--kt-paper);
+  font: 400 clamp(.875rem, 1.4cqi, 1rem)/1.5 var(--kt-font);
+}
+
+.kt-backcover-brand { display: flex; align-items: center; gap: .8rem; font-weight: 800; line-height: 1.25; }
+.kt-backcover-title { margin: auto 0 0; padding-block: 1.15em; }
+
+.kt-backcover-title h2 {
+  color: var(--kt-ochre);
+  font: 800 clamp(2.25rem, 5.8cqi, 5.2rem)/1.02 var(--kt-font);
+  letter-spacing: -.06em;
+}
+
+.kt-backcover-title p { margin-top: .65em; }
+
+.kt-backcover-contact { padding: 1em 1.15em; background: var(--kt-paper); color: var(--kt-ink); }
+.kt-backcover-contact > p { margin-bottom: .25em; font-weight: 800; font-size: .84em; }
+.kt-backcover-contact address { margin-top: .65em; font-size: .86em; }
+.kt-backcover-credit { color: #dce8de; font-size: .77em; }
+
+@media (max-width: 899px) {
+  .book { --kt-inset: clamp(1rem, 5.2vw, 1.7rem); --kt-gap: .9rem; }
+  .book .kt-cover .cover-main-title { font-size: clamp(2.7rem, 12.5cqi, 5.9rem); }
+  .kt-title { font-size: clamp(2.05rem, 8.4cqi, 3.8rem); }
+  .book .kt-intro .page-inner { grid-template-rows: auto minmax(12em, 1fr) auto auto; }
+  .book .kt-paint .page-inner { grid-template: "heading" auto "image" minmax(12em, 1fr) "skills" auto "note" auto "foot" auto / minmax(0, 1fr); }
+  .kt-paint .kt-photo { min-height: 12em; }
+  .kt-paint .kt-photo img { object-position: center 55%; }
+  .book .kt-repair .page-inner { grid-template: "heading" auto "image" minmax(12em, 1fr) "skills" auto "note" auto "foot" auto / minmax(0, 1fr); }
+  .kt-repair .kt-learn { padding-inline-start: 0; border-inline-start: 0; }
+  .kt-hotline { font-size: clamp(1.55rem, 6.4cqi, 2.3rem); }
+  .kt-backcover-title h2 { font-size: clamp(2.25rem, 9.5cqi, 4.25rem); }
+}
+
+@media (max-width: 420px) {
+  .book .kt-cover .cover-lower { gap: .5rem; }
+  .book .kt-cover .cover-open { padding-inline: .72rem; font-size: .8rem; }
+  .kt-contact { grid-template-columns: minmax(0, 1fr); gap: .7rem; }
+}
+
+@media (max-height: 700px) {
+  .book { --kt-gap: .7rem; }
+  .kt-computing .kt-title br,
+  .kt-compare .kt-title br { display: none; }
+  .kt-computing .kt-title,
+  .kt-compare .kt-title { font-size: clamp(1.75rem, 4.5cqi, 2.65rem); }
+  .kt-track { padding: .65em .75em; }
+  .kt-track ul { gap: .25em; }
+  .kt-track li + li { padding-top: .25em; }
+}
+
+@media (min-width: 900px) and (max-height: 700px) {
+  .kt-track li {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    align-items: center;
+    gap: .65em;
+  }
+}
+
+@media (max-width: 380px) and (max-height: 700px) {
+  .book { --kt-gap: .5rem; }
+  .kt-computing .kt-title { font-size: 1.6rem; }
+  .book .kt-intro .page-inner { grid-template-rows: auto minmax(9em, 1fr) auto auto; }
+  .book .kt-computing .page-inner { grid-template-rows: auto minmax(6em, 1fr) auto auto auto; }
+  .book .kt-paint .page-inner,
+  .book .kt-repair .page-inner { grid-template-rows: auto minmax(8em, 1fr) auto auto auto; }
+  .kt-paint .kt-photo { min-height: 8em; }
+  .book .kt-admissions .page-inner { grid-template-rows: auto minmax(8em, 1fr) auto auto auto; }
+  .kt-track { gap: .25em; }
+  .kt-track a { min-height: 24px; }
+  .kt-track li + li { padding-top: .16em; }
+}
+

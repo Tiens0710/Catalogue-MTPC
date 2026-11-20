@@ -4,15 +4,48 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Sổ tay ngành Sức khỏe 2026 — Trường Trung cấp Miền Tây (MTPC)</title>
-  <meta name="description" content="Sổ tay riêng cho khối ngành sức khỏe của Trường Trung cấp Miền Tây: Y sĩ đa khoa, Dược sĩ, Điều dưỡng, Răng hàm mặt, chứng chỉ chuyển đổi Điều dưỡng, Xoa bóp bấm huyệt – VLTL." />
+  <meta name="description" content="Sổ tay riêng cho khối ngành sức khỏe của Trường Trung cấp Miền Tây: Y sĩ đa khoa, Dược, Điều dưỡng, Răng hàm mặt, chứng chỉ chuyển đổi Điều dưỡng, Xoa bóp bấm huyệt – VLTL." />
   <link rel="icon" type="image/png" href="images/logo-mtpc.png?v=1" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/style.css?v=2.72" />
-  <link rel="stylesheet" href="css/suc-khoe.css?v=2.15" />
+  <link rel="stylesheet" href="css/catalogue.css?v=6" />
+  <link rel="stylesheet" href="css/suc-khoe.css?v=8.4" />
+  <link rel="stylesheet" href="../css/ebook-library.css?v=1" />
 </head>
-<body>
+<body class="ebook-home">
+
+  <details class="ebook-library" open>
+    <summary>Danh sách ebook</summary>
+    <nav class="ebook-library-menu" aria-label="Thư viện ebook">
+      <div class="ebook-library-brand">
+        <img src="../images/logo-mtpc.png?v=1" alt="" width="36" height="36" />
+        <span>Trường Trung cấp<br>Miền Tây</span>
+      </div>
+      <h2>Thư viện ebook</h2>
+      <ul>
+        <li>
+          <a href="../index.html">
+            <img class="ebook-library-cover" src="../images/cover-2026.jpg" alt="" width="43" height="56" />
+            <span>Catalogue chính</span>
+          </a>
+        </li>
+        <li>
+          <a href="index.html" aria-current="page">
+            <img class="ebook-library-cover" src="../suc-khoe/images/y-si.jpg" alt="" width="43" height="56" />
+            <span>Sổ tay Sức khỏe</span>
+          </a>
+        </li>
+        <li>
+          <a href="../ky-thuat/index.html">
+            <img class="ebook-library-cover" src="../ky-thuat/images/bia-ky-thuat.webp" alt="" width="43" height="56" />
+            <span>Sổ tay Kỹ thuật</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </details>
 
   <main class="stage">
     <div class="book" id="book" aria-label="Sổ tay ngành Sức khỏe của Trường Trung cấp Miền Tây">
@@ -20,62 +53,46 @@
       <!-- ============ SHEET 1 : Bìa + Lời ngỏ ============ -->
       <section class="sheet">
         <!-- P1 · BÌA -->
-        <article class="face front page skcover">
-          <figure class="ph" data-img="images/y-si.jpg"></figure>
-          <div class="skcv">
-            <div class="skcv-head">
-              <img src="images/logo-mtpc.png?v=1" alt="Logo Trường Trung Cấp Miền Tây" />
+        <article class="face front page cover sk-cover">
+          <figure class="cover-photo">
+            <img src="images/y-si.jpg" width="2560" height="1920" fetchpriority="high" alt="Ảnh nhóm học viên khối Sức khỏe tại Trạm Y tế phường An Khánh" />
+          </figure>
+          <div class="sk-cover-brand">
+            <img src="images/logo-mtpc.png?v=1" alt="" width="48" height="48" />
+            <p>Trường Trung cấp<br>Miền Tây</p>
+          </div>
+
+          <div class="cover-inner">
+            <div class="cover-lower">
               <div>
-                <b>Trường Trung cấp Miền Tây</b>
-                <span>Cần Thơ · Đồng bằng sông Cửu Long</span>
+                <p class="cover-edition">Sổ tay tuyển sinh 2026</p>
+                <h1 class="cover-main-title">Sức khỏe</h1>
               </div>
-              <span class="skcv-year">Ấn bản 2026</span>
-            </div>
-
-            <div class="skcv-body">
-              <span class="skcv-flag">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
-                Khối ngành Sức khỏe
-              </span>
-              <p class="skcv-pre">Sổ tay ngành</p>
-              <h1 class="skcv-title">SỨC KHỎE</h1>
-              <p class="skcv-sub">Sáu chương trình: Y sĩ đa khoa · Dược sĩ · Điều dưỡng · Răng hàm mặt · Chuyển đổi Điều dưỡng · Xoa bóp bấm huyệt – VLTL.</p>
-            </div>
-
-            <div class="skcv-foot">
-              <div class="skcv-list">
-                <span>Trung cấp</span><span>Sơ cấp</span><span>Chứng chỉ</span>
-              </div>
-              <div class="skcv-hotline">
-                <span>Tư vấn tuyển sinh</span>
-                <b>0934 790 790</b>
-              </div>
+              <button class="cover-open" type="button" data-goto="2">Mở sổ tay <span aria-hidden="true">→</span></button>
             </div>
           </div>
         </article>
 
         <!-- P2 · LỜI NGỎ -->
-        <article class="face back page skpg">
-          <div class="page-inner sk">
-            <header class="sk-top"><span>Sổ tay Sức khỏe</span><span>Lời ngỏ</span></header>
+        <article class="face back page skpg page-editorial">
+          <div class="page-inner">
+            <h2 class="h-serif">Mỗi ngày đi làm <em>là một ngày có ích</em></h2>
+            <p class="sk-topic">Vì sao chọn nghề chăm sóc</p>
+            <p class="sk-lead">Chăm sóc sức khỏe là nghề mà kết quả lao động nằm ở người khác: <b>một lời động viên, một thao tác kỹ thuật đúng, một liều thuốc được tư vấn cẩn thận</b> đều trực tiếp tác động đến sức khỏe và niềm tin của người bệnh.</p>
 
-            <figure class="ph sk-shot hero frame-line" data-img="images/dieu-duong.jpg">
+            <figure class="ph hero-photo ratio-16-7" data-img="images/dieu-duong.jpg">
               <figcaption class="ph-cap">Thực hành kỹ năng chăm sóc người bệnh</figcaption>
             </figure>
 
-            <p class="sk-kick">Vì sao chọn nghề chăm sóc</p>
-            <h1 class="sk-h1">Mỗi ngày đi làm<em>là một ngày có ích</em></h1>
-            <p class="sk-lead">Chăm sóc sức khỏe là nghề mà kết quả lao động nằm ở người khác: <b>một lời động viên, một thao tác kỹ thuật đúng, một liều thuốc được tư vấn cẩn thận</b> đều trực tiếp tác động đến sức khỏe và niềm tin của người bệnh.</p>
-
             <div class="sk-spec">
-              <div><span>Chương trình</span><b>03 trung cấp</b></div>
-              <div><span>Song song</span><b>03 sơ cấp</b></div>
+              <div><span>Chương trình</span><b>3 trung cấp</b></div>
+              <div><span>Đào tạo ngắn hạn</span><b>3 sơ cấp / chứng chỉ</b></div>
               <div><span>Lịch học</span><b>6h – 22h</b></div>
             </div>
 
             <p class="sk-lead">Sổ tay này tổng hợp <b>sáu chương trình sức khỏe</b> của nhà trường để bạn so sánh, chọn đúng hướng đi và biết rõ mình sẽ học gì, làm gì sau khi tốt nghiệp.</p>
 
-            <footer class="sk-bot"><span>Trường Trung cấp Miền Tây</span><i>— 02</i></footer>
+            <footer class="pg-foot"><span>02</span></footer>
           </div>
         </article>
       </section>
@@ -84,78 +101,69 @@
       <section class="sheet">
         <!-- P3 · SÁU CHƯƠNG TRÌNH -->
         <article class="face front page skpg">
-          <div class="page-inner sk">
-            <header class="sk-top"><span>Sổ tay Sức khỏe</span><span>Danh mục</span></header>
-
-            <p class="sk-kick">Sáu chương trình</p>
-            <h1 class="sk-h1">Chọn hướng<em>phù hợp với bạn</em></h1>
+          <div class="page-inner">
+            <h2 class="h-serif">Các chương trình đào tạo</h2>
             <p class="sk-lead">Ba chương trình trung cấp và ba chương trình sơ cấp / chứng chỉ — chạm vào từng dòng để mở trang chi tiết.</p>
 
-            <div class="sk-list">
-              <a class="sk-item" href="#ysy" data-goto="4">
-                <i>01</i>
-                <div><h4>Y sĩ đa khoa</h4><p>Trung cấp · Chăm sóc sức khỏe ban đầu, y học cơ sở &amp; lâm sàng</p></div>
-                <span>→</span>
+            <nav class="major-list" aria-label="Mục lục các chương trình">
+              <a class="major-row" href="#ysy" data-goto="4">
+                <div class="major-info"><h3>Y sĩ đa khoa</h3><p>Trung cấp · Chăm sóc sức khỏe ban đầu, y học cơ sở &amp; lâm sàng</p></div>
+                <span class="arrow" aria-hidden="true">→</span>
               </a>
-              <a class="sk-item" href="#duoc" data-goto="5">
-                <i>02</i>
-                <div><h4>Dược sĩ <em>(Dược)</em></h4><p>Trung cấp · Dược lý, bào chế, quản lý &amp; tư vấn sử dụng thuốc</p></div>
-                <span>→</span>
+              <a class="major-row" href="#duoc" data-goto="5">
+                <div class="major-info"><h3>Dược</h3><p>Trung cấp · Dược lý, bào chế, quản lý &amp; tư vấn sử dụng thuốc</p></div>
+                <span class="arrow" aria-hidden="true">→</span>
               </a>
-              <a class="sk-item" href="#dieuDuong" data-goto="6">
-                <i>03</i>
-                <div><h4>Điều dưỡng</h4><p>Trung cấp · Chăm sóc người bệnh, phòng bệnh &amp; phục hồi</p></div>
-                <span>→</span>
+              <a class="major-row" href="#dieuDuong" data-goto="6">
+                <div class="major-info"><h3>Điều dưỡng</h3><p>Trung cấp · Chăm sóc người bệnh, phòng bệnh &amp; phục hồi</p></div>
+                <span class="arrow" aria-hidden="true">→</span>
               </a>
-              <a class="sk-item" href="#rhm" data-goto="7">
-                <i>04</i>
-                <div><h4>Răng hàm mặt</h4><p>Sơ cấp · Hỗ trợ nha khoa &amp; chăm sóc sức khỏe răng miệng</p></div>
-                <span>→</span>
+              <a class="major-row" href="#rhm" data-goto="7">
+                <div class="major-info"><h3>Răng hàm mặt</h3><p>Khóa từng được công bố · Hỏi lịch mở lớp</p></div>
+                <span class="arrow" aria-hidden="true">→</span>
               </a>
-              <a class="sk-item" href="#chuyenDoi" data-goto="8">
-                <i>05</i>
-                <div><h4>Chứng chỉ chuyển đổi Điều dưỡng</h4><p>Chứng chỉ · Bổ sung kiến thức cho người đã có bằng sức khỏe</p></div>
-                <span>→</span>
+              <a class="major-row" href="#chuyenDoi" data-goto="8">
+                <div class="major-info"><h3>Chứng chỉ chuyển đổi Điều dưỡng</h3><p>Hướng bổ sung kiến thức điều dưỡng · Hỏi lịch mở lớp</p></div>
+                <span class="arrow" aria-hidden="true">→</span>
               </a>
-              <a class="sk-item" href="#xoaBop" data-goto="9">
-                <i>06</i>
-                <div><h4>Xoa bóp bấm huyệt – VLTL</h4><p>Chứng chỉ · Xoa bóp, bấm huyệt &amp; hỗ trợ phục hồi chức năng</p></div>
-                <span>→</span>
+              <a class="major-row" href="#xoaBop" data-goto="9">
+                <div class="major-info"><h3>Xoa bóp bấm huyệt – VLTL</h3><p>Hướng kỹ năng · Hỏi lịch mở lớp</p></div>
+                <span class="arrow" aria-hidden="true">→</span>
               </a>
-            </div>
+            </nav>
 
-            <footer class="sk-bot"><span>Điều kiện &amp; giá trị chứng chỉ theo quy định</span><i>— 03</i></footer>
+            <footer class="pg-foot"><span class="sk-footer-note">Điều kiện &amp; giá trị chứng chỉ theo quy định</span><span>03</span></footer>
           </div>
         </article>
 
         <!-- P4 · Y SĨ ĐA KHOA -->
-        <article class="face back page skpg" id="ysy">
-          <div class="page-inner sk">
-            <header class="sk-top"><span>Sổ tay Sức khỏe</span><span><b>01</b> / 06 chương trình</span></header>
-
-            <figure class="ph sk-shot hero frame-mat" data-img="images/y-si.jpg">
-              <figcaption class="ph-cap">Thực hành chăm sóc sức khỏe ban đầu</figcaption>
+        <article class="face back page skpg sk-program sk-layout-opening" id="ysy">
+          <div class="page-inner">
+            <figure class="sk-photo">
+              <img src="images/y-si.jpg" alt="" />
+              <figcaption>Ảnh nhóm tại Trạm Y tế phường An Khánh</figcaption>
             </figure>
 
-            <p class="sk-kick">Trình độ trung cấp</p>
-            <h1 class="sk-h1">Y sĩ đa khoa</h1>
-            <p class="sk-lead">Kiến thức y học cơ sở, y học lâm sàng và kỹ năng chăm sóc sức khỏe ban đầu — <b>nghề của những quyết định đầu tiên</b>.</p>
+            <header class="sk-program-title">
+              <h2 class="h-serif">Y sĩ đa khoa</h2>
+              <p class="sk-topic">Trình độ trung cấp</p>
+            </header>
+
+            <p class="sk-lead sk-note"><strong>Lưu ý hành nghề:</strong> Người được cấp bằng Y sĩ trung cấp sau <strong>31/12/2026</strong> không được cấp giấy phép hành nghề với chức danh Y sĩ (<a href="https://datafiles.chinhphu.vn/cpp/files/vbpq/2026/3/26-vbhn-vpqh.pdf#page=71">khoản 10 Điều 121</a>).</p>
 
             <div class="sk-spec">
-              <div><span>Thời gian</span><b class="todo">cần cập nhật</b></div>
-              <div><span>Hình thức</span><b>Tập trung</b></div>
-              <div><span>Văn bằng</span><b>Trung cấp</b></div>
+              <div><span>Hình thức</span><b>Chính quy</b></div>
             </div>
 
             <div class="sk-rows">
-              <div class="sk-row"><i>01</i><p><b>Y học cơ sở &amp; lâm sàng</b> — bệnh học, nguyên tắc y đức, nhận định ban đầu.</p></div>
-              <div class="sk-row"><i>02</i><p><b>Kỹ thuật thăm khám</b> — sơ cứu và xử trí ban đầu theo quy định.</p></div>
-              <div class="sk-row"><i>03</i><p><b>Thực hành tại cơ sở y tế</b> — hỗ trợ chăm sóc sức khỏe cộng đồng.</p></div>
+              <h3 class="h-sub">Bạn sẽ học</h3>
+              <div class="sk-row"><p><b>Y học cơ sở &amp; lâm sàng</b> — bệnh học, nguyên tắc y đức, nhận định ban đầu.</p></div>
+              <div class="sk-row"><p><b>Kỹ thuật thăm khám</b> — sơ cứu và xử trí ban đầu theo quy định.</p></div>
+              <div class="sk-row"><p><b>Thực hành tại cơ sở y tế</b> — hỗ trợ chăm sóc sức khỏe cộng đồng.</p></div>
             </div>
 
-            <div class="sk-chips"><span>Trạm y tế</span><span>Phòng khám</span><span>Sức khỏe ban đầu</span></div>
 
-            <footer class="sk-bot"><span>Trường Trung cấp Miền Tây</span><i>— 04</i></footer>
+            <footer class="pg-foot"><span>04</span></footer>
           </div>
         </article>
       </section>
@@ -163,64 +171,67 @@
       <!-- ============ SHEET 3 : Dược + Điều dưỡng ============ -->
       <section class="sheet">
         <!-- P5 · DƯỢC SĨ -->
-        <article class="face front page skpg" id="duoc">
-          <div class="page-inner sk">
-            <header class="sk-top"><span>Sổ tay Sức khỏe</span><span><b>02</b> / 06 chương trình</span></header>
+        <article class="face front page skpg sk-program sk-layout-pair" id="duoc">
+          <div class="page-inner">
+            <header class="sk-program-title">
+              <h2 class="h-serif">Dược</h2>
+              <p class="sk-topic">Trình độ trung cấp</p>
+            </header>
 
-            <p class="sk-kick">Trình độ trung cấp</p>
-            <h1 class="sk-h1">Dược sĩ</h1>
-            <p class="sk-lead">Dược lý, dược lâm sàng, bào chế, kiểm nghiệm và quản lý thuốc — <b>nghề của sự chính xác</b>.</p>
+            <p class="sk-lead">Học dược lý, bào chế, kiểm nghiệm và quản lý thuốc.</p>
 
-            <figure class="ph sk-shot hero frame-line warm" data-img="images/duoc.jpg">
-              <figcaption class="ph-cap">Thực hành dược lý &amp; bào chế</figcaption>
+            <figure class="sk-photo sk-photo-pair">
+              <img src="images/duoc.jpg?v=2" alt="Nhóm mặc áo blouse cạnh các khay thuốc" />
+              <img src="images/kho-duoc.jpg" alt="Ảnh nhóm trước biển Kho Dược" />
+              <figcaption>Hai góc nhìn tại khu vực kho dược</figcaption>
             </figure>
 
+            <div class="sk-rows">
+              <h3 class="h-sub">Bạn sẽ học</h3>
+              <div class="sk-row"><p><b>Dược lý &amp; dược lâm sàng</b> — cách dùng thuốc an toàn, hợp lý.</p></div>
+              <div class="sk-row"><p><b>Bào chế &amp; kiểm nghiệm</b> — quy trình và tiêu chuẩn chất lượng thuốc.</p></div>
+              <div class="sk-row"><p><b>Bảo quản &amp; quản lý dược</b> — sắp xếp, bảo quản theo chuẩn, đạo đức hành nghề.</p></div>
+            </div>
+
             <div class="sk-spec">
-                <div><span>Thời gian</span><b class="todo">cần cập nhật</b></div>
-                <div><span>Hình thức</span><b>Tập trung</b></div>
-                <div><span>Văn bằng</span><b>Trung cấp</b></div>
-              </div>
+              <div><span>Hình thức</span><b>Chính quy</b></div>
+            </div>
 
-              <div class="sk-rows">
-                <div class="sk-row"><i>01</i><p><b>Dược lý &amp; dược lâm sàng</b> — cách dùng thuốc an toàn, hợp lý.</p></div>
-                <div class="sk-row"><i>02</i><p><b>Bào chế &amp; kiểm nghiệm</b> — quy trình và tiêu chuẩn chất lượng thuốc.</p></div>
-                <div class="sk-row"><i>03</i><p><b>Bảo quản &amp; quản lý dược</b> — sắp xếp, bảo quản theo chuẩn, đạo đức hành nghề.</p></div>
-              </div>
+            <div class="sk-chips"><span>Nhà thuốc GPP</span><span>Cơ sở y tế</span><span>Phân phối dược</span></div>
 
-              <div class="sk-chips"><span>Nhà thuốc GPP</span><span>Cơ sở y tế</span><span>Phân phối dược</span></div>
-
-            <footer class="sk-bot"><span>Trường Trung cấp Miền Tây</span><i>— 05</i></footer>
+            <footer class="pg-foot"><span>05</span></footer>
           </div>
         </article>
 
         <!-- P6 · ĐIỀU DƯỠNG -->
-        <article class="face back page skpg" id="dieuDuong">
-          <div class="page-inner sk">
-            <header class="sk-top"><span>Sổ tay Sức khỏe</span><span><b>03</b> / 06 chương trình</span></header>
+        <article class="face back page skpg sk-program sk-layout-portrait" id="dieuDuong">
+          <div class="page-inner">
+            <header class="sk-program-title">
+              <h2 class="h-serif">Điều dưỡng</h2>
+              <p class="sk-topic">Trình độ trung cấp</p>
+            </header>
 
-            <figure class="ph sk-shot hero frame-line" data-img="images/dieu-duong.jpg">
-              <figcaption class="ph-cap">Thực tập tại bệnh viện &amp; cơ sở y tế</figcaption>
+            <p class="sk-lead">Chăm sóc người bệnh trong phòng bệnh, điều trị và phục hồi.</p>
+
+            <figure class="sk-photo">
+              <img src="images/dieu-duong.jpg" alt="" />
+              <figcaption>Thực tập tại bệnh viện &amp; cơ sở y tế</figcaption>
             </figure>
 
-            <p class="sk-kick">Trình độ trung cấp</p>
-            <h1 class="sk-h1">Điều dưỡng</h1>
-            <p class="sk-lead">Chăm sóc người bệnh trong cả ba giai đoạn phòng bệnh, điều trị và phục hồi — <b>nghề ở gần người bệnh nhất</b>.</p>
-
-            <div class="sk-spec">
-              <div><span>Thời gian</span><b class="todo">cần cập nhật</b></div>
-              <div><span>Hình thức</span><b>Tập trung</b></div>
-              <div><span>Văn bằng</span><b>Trung cấp</b></div>
+            <div class="sk-rows">
+              <h3 class="h-sub">Bạn sẽ học</h3>
+              <div class="sk-row"><p><b>Quy trình kỹ thuật điều dưỡng</b> — thực hành cơ bản và kỹ năng theo dõi.</p></div>
+              <div class="sk-row"><p><b>Chăm sóc &amp; giao tiếp</b> — hỗ trợ người bệnh, phối hợp cùng nhân viên y tế.</p></div>
+              <div class="sk-row"><p><b>Y đức &amp; trách nhiệm</b> — thái độ tận tâm trong suốt quá trình học.</p></div>
             </div>
 
-            <div class="sk-rows">
-              <div class="sk-row"><i>01</i><p><b>Quy trình kỹ thuật điều dưỡng</b> — thực hành cơ bản và kỹ năng theo dõi.</p></div>
-              <div class="sk-row"><i>02</i><p><b>Chăm sóc &amp; giao tiếp</b> — hỗ trợ người bệnh, phối hợp cùng nhân viên y tế.</p></div>
-              <div class="sk-row"><i>03</i><p><b>Y đức &amp; trách nhiệm</b> — thái độ tận tâm trong suốt quá trình học.</p></div>
+            <div class="sk-spec">
+              <div><span>Hình thức</span><b>Chính quy</b></div>
             </div>
 
             <div class="sk-chips"><span>Bệnh viện</span><span>Phòng bệnh</span><span>Trung tâm chăm sóc</span></div>
 
-            <footer class="sk-bot"><span>Trường Trung cấp Miền Tây</span><i>— 06</i></footer>
+            <footer class="pg-foot"><span>06</span></footer>
           </div>
         </article>
       </section>
@@ -228,64 +239,68 @@
       <!-- ============ SHEET 4 : Răng hàm mặt + Chuyển đổi ============ -->
       <section class="sheet">
         <!-- P7 · RĂNG HÀM MẶT -->
-        <article class="face front page skpg" id="rhm">
-          <div class="page-inner sk">
-            <header class="sk-top"><span>Sổ tay Sức khỏe</span><span><b>04</b> / 06 chương trình</span></header>
+        <article class="face front page skpg sk-program sk-layout-centered" id="rhm">
+          <div class="page-inner">
+            <header class="sk-program-title">
+              <h2 class="h-serif">Răng hàm mặt</h2>
+              <p class="sk-topic">Hỏi lịch mở lớp</p>
+            </header>
 
-            <p class="sk-kick">Sơ cấp · Chứng chỉ</p>
-            <h1 class="sk-h1">Răng hàm mặt</h1>
-            <p class="sk-lead">Từ giải phẫu vùng răng hàm mặt đến kỹ thuật hỗ trợ điều trị — <b>dành cho người muốn làm trong nha khoa</b>.</p>
+            <p class="sk-lead">Tìm hiểu giải phẫu răng hàm mặt và thực hành kỹ thuật hỗ trợ nha khoa.</p>
 
-            <figure class="ph sk-shot hero frame-mat" data-img="images/rang-ham-mat.jpg">
-              <figcaption class="ph-cap">Thực hành hỗ trợ nha khoa</figcaption>
+            <figure class="sk-photo">
+              <img src="images/minh-hoa-nha-khoa.webp" alt="Chuẩn bị dụng cụ bên ghế nha khoa mô phỏng" />
+              <figcaption>Thực hành hỗ trợ nha khoa · Minh họa AI</figcaption>
             </figure>
 
+            <div class="sk-rows">
+              <h3 class="h-sub">Bạn sẽ học</h3>
+              <div class="sk-row"><p><b>Giải phẫu – sinh lý</b> vùng răng hàm mặt, nguyên tắc vô khuẩn.</p></div>
+              <div class="sk-row"><p><b>Kỹ thuật hỗ trợ nha khoa</b> — chuẩn bị dụng cụ, vật liệu, theo dõi điều trị.</p></div>
+              <div class="sk-row"><p><b>Chăm sóc răng miệng</b> — hướng dẫn và tư vấn dự phòng cho người bệnh.</p></div>
+            </div>
+
             <div class="sk-spec">
-                <div><span>Thời gian</span><b class="todo">cần cập nhật</b></div>
-                <div><span>Hình thức</span><b>Thực hành</b></div>
-                <div><span>Chứng chỉ</span><b>Sơ cấp</b></div>
-              </div>
+              <div><span>Lịch học và chứng chỉ</span><b>Hỏi Phòng Tuyển sinh</b></div>
+            </div>
 
-              <div class="sk-rows">
-                <div class="sk-row"><i>01</i><p><b>Giải phẫu – sinh lý</b> vùng răng hàm mặt, nguyên tắc vô khuẩn.</p></div>
-                <div class="sk-row"><i>02</i><p><b>Kỹ thuật hỗ trợ nha khoa</b> — chuẩn bị dụng cụ, vật liệu, theo dõi điều trị.</p></div>
-                <div class="sk-row"><i>03</i><p><b>Chăm sóc răng miệng</b> — hướng dẫn và tư vấn dự phòng cho người bệnh.</p></div>
-              </div>
+            <div class="sk-chips"><span>Phòng khám nha khoa</span><span>Chăm sóc dự phòng</span></div>
 
-              <div class="sk-chips"><span>Phòng khám nha khoa</span><span>Chăm sóc dự phòng</span></div>
-
-            <footer class="sk-bot"><span>Trường Trung cấp Miền Tây</span><i>— 07</i></footer>
+            <footer class="pg-foot"><span>07</span></footer>
           </div>
         </article>
 
         <!-- P8 · CHUYỂN ĐỔI ĐIỀU DƯỠNG -->
-        <article class="face back page skpg" id="chuyenDoi">
-          <div class="page-inner sk">
-            <header class="sk-top"><span>Sổ tay Sức khỏe</span><span><b>05</b> / 06 chương trình</span></header>
+        <article class="face back page skpg sk-program sk-layout-feature" id="chuyenDoi">
+          <div class="page-inner">
+            <header class="sk-program-title">
+              <h2 class="h-serif">Chuyển đổi <em>Điều dưỡng</em></h2>
+              <p class="sk-topic">Hỏi lịch mở lớp</p>
+            </header>
 
-            <figure class="ph sk-shot hero frame-mat warm" data-img="images/students.jpg">
-              <figcaption class="ph-cap">Bổ sung kỹ năng thực hành điều dưỡng</figcaption>
-            </figure>
-
-            <p class="sk-kick">Chứng chỉ chuyển đổi</p>
-            <h1 class="sk-h1">Chuyển đổi<em>Điều dưỡng</em></h1>
-            <p class="sk-lead">Dành cho người <b>đã tốt nghiệp trung cấp trở lên trong khối sức khỏe</b>.</p>
+            <p class="sk-lead">Hướng bổ sung kiến thức điều dưỡng cho người đã có văn bằng phù hợp. Hỏi trường về điều kiện của từng đợt.</p>
 
             <div class="sk-spec">
-              <div><span>Đầu vào</span><b>Đã có bằng</b></div>
-              <div><span>Hình thức</span><b>Linh hoạt</b></div>
-              <div><span>Chứng chỉ</span><b>Theo quy định</b></div>
+              <div><span>Đầu vào</span><b>Xét văn bằng</b></div>
+              <div><span>Lịch học</span><b>Hỏi trường</b></div>
+              <div><span>Chứng chỉ</span><b>Hỏi trường</b></div>
             </div>
+
+            <figure class="sk-photo">
+              <img src="images/phong-thuc-hanh.jpg" alt="" />
+              <figcaption>Ảnh nhóm tại phòng thực hành</figcaption>
+            </figure>
 
             <div class="sk-rows">
-              <div class="sk-row"><i>01</i><p><b>Hệ thống kiến thức</b> điều dưỡng cơ sở và các quy trình kỹ thuật.</p></div>
-              <div class="sk-row"><i>02</i><p><b>Thực hành</b> theo dõi, chăm sóc và phối hợp trong nhóm điều trị.</p></div>
-              <div class="sk-row"><i>03</i><p><b>Y đức, giao tiếp</b> và an toàn người bệnh theo quy định.</p></div>
+              <h3 class="h-sub">Bạn sẽ học</h3>
+              <div class="sk-row"><p><b>Hệ thống kiến thức</b> điều dưỡng cơ sở và các quy trình kỹ thuật.</p></div>
+              <div class="sk-row"><p><b>Thực hành</b> theo dõi, chăm sóc và phối hợp trong nhóm điều trị.</p></div>
+              <div class="sk-row"><p><b>Y đức, giao tiếp</b> và an toàn người bệnh theo quy định.</p></div>
             </div>
 
-            <div class="sk-chips"><span>Người đã có bằng</span><span>Học linh hoạt</span><span>Chứng chỉ</span></div>
+            <div class="sk-chips"><p class="sk-note">Hành nghề điều dưỡng cần đáp ứng điều kiện cấp giấy phép.</p></div>
 
-            <footer class="sk-bot"><span>Điều kiện đầu vào xét theo bằng hiện có</span><i>— 08</i></footer>
+            <footer class="pg-foot"><span class="sk-footer-note">Xác nhận điều kiện theo từng đợt</span><span>08</span></footer>
           </div>
         </article>
       </section>
@@ -293,65 +308,64 @@
       <!-- ============ SHEET 5 : Xoa bóp + So sánh ============ -->
       <section class="sheet">
         <!-- P9 · XOA BÓP BẤM HUYỆT – VLTL -->
-        <article class="face front page skpg" id="xoaBop">
-          <div class="page-inner sk">
-            <header class="sk-top"><span>Sổ tay Sức khỏe</span><span><b>06</b> / 06 chương trình</span></header>
+        <article class="face front page skpg sk-program sk-layout-workshop" id="xoaBop">
+          <div class="page-inner">
+            <header class="sk-program-title">
+              <h2 class="h-serif">Xoa bóp bấm huyệt <em>&amp; Vật lý trị liệu</em></h2>
+              <p class="sk-topic">Hỏi lịch mở lớp</p>
+            </header>
 
-            <p class="sk-kick">Sơ cấp · Chứng chỉ</p>
-            <h1 class="sk-h1">Xoa bóp bấm huyệt<em>&amp; Vật lý trị liệu</em></h1>
-            <p class="sk-lead">Xoa bóp, bấm huyệt và làm quen <b>thiết bị vật lý trị liệu</b>.</p>
-
-            <figure class="ph sk-shot hero frame-line warm" data-img="images/xoa-bop.jpg">
-              <figcaption class="ph-cap">Thực hành kỹ thuật xoa bóp – bấm huyệt</figcaption>
+            <figure class="sk-photo">
+              <img src="images/xoa-bop.jpg" alt="" />
+              <figcaption>Thực hành kỹ thuật xoa bóp – bấm huyệt</figcaption>
             </figure>
 
+            <p class="sk-lead">Học xoa bóp, bấm huyệt và làm quen với thiết bị vật lý trị liệu.</p>
+
+            <div class="sk-rows">
+              <h3 class="h-sub">Bạn sẽ học</h3>
+              <div class="sk-row"><p><b>An toàn &amp; chỉ định</b> — nguyên tắc trước khi xoa bóp, bấm huyệt.</p></div>
+              <div class="sk-row"><p><b>Kỹ thuật cơ bản</b> — thực hành trên từng vùng cơ thể.</p></div>
+              <div class="sk-row"><p><b>Thiết bị vật lý trị liệu</b> — quy trình hỗ trợ phục hồi chức năng.</p></div>
+            </div>
+
             <div class="sk-spec">
-                <div><span>Thời gian</span><b class="todo">cần cập nhật</b></div>
-                <div><span>Hình thức</span><b>Thực hành</b></div>
-                <div><span>Chứng chỉ</span><b>Sơ cấp</b></div>
-              </div>
+              <div><span>Lịch học và chứng chỉ</span><b>Hỏi Phòng Tuyển sinh</b></div>
+            </div>
 
-              <div class="sk-rows">
-                <div class="sk-row"><i>01</i><p><b>An toàn &amp; chỉ định</b> — nguyên tắc trước khi xoa bóp, bấm huyệt.</p></div>
-                <div class="sk-row"><i>02</i><p><b>Kỹ thuật cơ bản</b> — thực hành trên từng vùng cơ thể.</p></div>
-                <div class="sk-row"><i>03</i><p><b>Thiết bị vật lý trị liệu</b> — quy trình hỗ trợ phục hồi chức năng.</p></div>
-              </div>
+            <div class="sk-chips"><span>Phục hồi chức năng</span><span>Chăm sóc sức khỏe</span></div>
 
-              <div class="sk-chips"><span>Phục hồi chức năng</span><span>Chăm sóc sức khỏe</span></div>
-
-            <footer class="sk-bot"><span>Trường Trung cấp Miền Tây</span><i>— 09</i></footer>
+            <footer class="pg-foot"><span>09</span></footer>
           </div>
         </article>
 
         <!-- P10 · SO SÁNH BA NGÀNH -->
         <article class="face back page skpg">
-          <div class="page-inner sk">
-            <header class="sk-top"><span>Sổ tay Sức khỏe</span><span>Chọn ngành</span></header>
-
-            <p class="sk-kick">Ba trình độ trung cấp</p>
-            <h1 class="sk-h1">Ba ngành<em>ba thế mạnh</em></h1>
+          <div class="page-inner">
+            <h2 class="h-serif">Ba ngành <em>ba thế mạnh</em></h2>
+            <p class="sk-topic">Ba ngành trung cấp chính quy</p>
             <p class="sk-lead">Cùng nền tảng sức khỏe, khác nhau ở trọng tâm đào tạo và nơi làm việc.</p>
 
-            <table class="sk-tbl">
+            <table class="sk-tbl" aria-label="So sánh ba chương trình trung cấp">
               <thead>
-                <tr><th></th><th class="hl">Y sĩ</th><th>Dược sĩ</th><th>Điều dưỡng</th></tr>
+                <tr><th scope="col">Tiêu chí</th><th scope="col">Y sĩ</th><th scope="col">Dược</th><th scope="col">Điều dưỡng</th></tr>
               </thead>
               <tbody>
-                <tr><th>Trọng tâm</th><td>Y học cơ sở &amp; lâm sàng</td><td>Dược lý, bào chế</td><td>Quy trình chăm sóc</td></tr>
-                <tr><th>Kỹ năng</th><td>Thăm khám, sơ cứu</td><td>Bảo quản, tư vấn thuốc</td><td>Kỹ thuật điều dưỡng</td></tr>
-                <tr><th>Làm ở</th><td>Trạm y tế, phòng khám</td><td>Nhà thuốc GPP</td><td>Bệnh viện, phòng bệnh</td></tr>
-                <tr><th>Học lên</th><td colspan="3" class="span">Liên thông cao đẳng, đại học theo quy định — tư vấn cùng ĐH Trà Vinh, ĐH Y Dược Cần Thơ</td></tr>
-                <tr><th>Thời gian</th><td colspan="3" class="span sk-todo">cần cập nhật thời gian đào tạo từng ngành</td></tr>
+                <tr><th scope="row">Trọng tâm</th><td>Y học cơ sở &amp; lâm sàng</td><td>Dược lý, bào chế</td><td>Quy trình chăm sóc</td></tr>
+                <tr><th scope="row">Kỹ năng</th><td>Thăm khám, sơ cứu</td><td>Bảo quản, tư vấn thuốc</td><td>Kỹ thuật điều dưỡng</td></tr>
+                <tr><th scope="row">Hướng việc làm</th><td>Cơ sở y tế, tùy điều kiện hành nghề</td><td>Nhà thuốc, khoa dược</td><td>Bệnh viện, cơ sở chăm sóc</td></tr>
+                <tr><th scope="row">Học lên</th><td colspan="3">Dự tuyển theo ngành và điều kiện của cơ sở tiếp nhận.</td></tr>
+                <tr><th scope="row">Thời gian</th><td colspan="3">1,5 năm sau THPT hoặc tương đương · 2,5 năm sau THCS, có học văn hóa THPT.</td></tr>
               </tbody>
             </table>
 
             <div class="sk-pick">
-              <div><h4>Chọn Y sĩ nếu…</h4><p>Muốn khám, xử trí và theo dõi sức khỏe ban đầu.</p></div>
+              <div><h4>Chọn Y sĩ nếu…</h4><p>Quan tâm đến y học cơ sở và chăm sóc sức khỏe ban đầu.</p></div>
               <div><h4>Chọn Dược nếu…</h4><p>Thích thuốc, hóa dược và tư vấn dùng thuốc.</p></div>
               <div><h4>Chọn Điều dưỡng nếu…</h4><p>Muốn chăm sóc người bệnh trực tiếp mỗi ngày.</p></div>
             </div>
 
-            <footer class="sk-bot"><span>Bảng mang tính định hướng</span><i>— 10</i></footer>
+            <footer class="pg-foot"><span class="sk-footer-note">Bảng mang tính định hướng</span><span>10</span></footer>
           </div>
         </article>
       </section>
@@ -360,51 +374,48 @@
       <section class="sheet">
         <!-- P11 · HỌC BẰNG TAY NGHỀ -->
         <article class="face front page skpg">
-          <div class="page-inner sk">
-            <header class="sk-top"><span>Sổ tay Sức khỏe</span><span>Môi trường học</span></header>
-
-            <figure class="ph sk-shot hero frame-line warm" data-img="images/cover-2026.jpg">
-              <figcaption class="ph-cap">Sinh viên trong khuôn viên trường</figcaption>
-            </figure>
-
-            <p class="sk-kick">Lý thuyết gắn thực hành</p>
-            <h1 class="sk-h1">Học bằng<em>tay nghề</em></h1>
+          <div class="page-inner">
+            <h2 class="h-serif">Học bằng <em>tay nghề</em></h2>
+            <p class="sk-topic">Lý thuyết gắn thực hành</p>
             <p class="sk-lead">Khối sức khỏe không thể học chỉ bằng lý thuyết. Chương trình tổ chức theo hướng <b>thực hành là trung tâm</b>, gắn với cơ sở y tế.</p>
 
-            <div class="sk-rows">
-              <div class="sk-row"><i>01</i><p><b>Phòng thực hành kỹ năng</b> — luyện thao tác trên mô hình trước khi tiếp xúc người bệnh.</p></div>
-              <div class="sk-row"><i>02</i><p><b>Thực tập tại cơ sở y tế</b> — làm quen bệnh viện, phòng khám, nhà thuốc.</p></div>
-              <div class="sk-row"><i>03</i><p><b>Rèn y đức &amp; giao tiếp</b> — thái độ, trách nhiệm với người bệnh.</p></div>
+            <div class="sk-practice">
+              <figure class="sk-photo">
+                <img src="images/cover-2026.jpg" alt="Sinh viên đi bộ ven sông" />
+              </figure>
+              <div class="sk-rows">
+                <div class="sk-row"><i>01</i><p><b>Phòng thực hành kỹ năng</b> — luyện thao tác trên mô hình trước khi tiếp xúc người bệnh.</p></div>
+                <div class="sk-row"><i>02</i><p><b>Thực tập tại cơ sở y tế</b> — làm quen bệnh viện, phòng khám, nhà thuốc.</p></div>
+                <div class="sk-row"><i>03</i><p><b>Rèn y đức &amp; giao tiếp</b> — thái độ, trách nhiệm với người bệnh.</p></div>
+              </div>
             </div>
 
             <div class="sk-hot"><span>Lịch học linh hoạt</span><b>6h – 22h</b></div>
 
-            <footer class="sk-bot"><span>Tất cả các ngày trong tuần</span><i>— 11</i></footer>
+            <footer class="pg-foot"><span class="sk-footer-note">Tất cả các ngày trong tuần</span><span>11</span></footer>
           </div>
         </article>
 
         <!-- P12 · LỘ TRÌNH NGHỀ NGHIỆP -->
         <article class="face back page skpg">
-          <div class="page-inner sk">
-            <header class="sk-top"><span>Sổ tay Sức khỏe</span><span>Sau tốt nghiệp</span></header>
+          <div class="page-inner">
+            <h2 class="h-serif">Ra trường <em>làm ở đâu?</em></h2>
+            <p class="sk-topic">Vị trí tùy văn bằng, giấy phép hành nghề và yêu cầu tuyển dụng</p>
 
-            <p class="sk-kick">Sáu hướng làm việc</p>
-            <h1 class="sk-h1">Ra trường<em>làm ở đâu?</em></h1>
-
-            <figure class="ph sk-shot hero frame-mat" data-img="images/chuyen-doi-dieu-duong.jpg">
-              <figcaption class="ph-cap">Người học thực tập tại cơ sở y tế</figcaption>
+            <figure class="ph hero-photo sk-photo-inset" data-img="images/tot-nghiep-y-si-2025.jpg">
+              <figcaption class="ph-cap">Ảnh nhóm tại lễ tốt nghiệp Y sĩ năm 2025</figcaption>
             </figure>
 
             <div class="sk-jobs">
               <div class="sk-job"><i>01</i><div><h4>Trạm y tế tuyến xã</h4><p>Chăm sóc sức khỏe ban đầu, phòng bệnh cộng đồng.</p></div></div>
               <div class="sk-job"><i>02</i><div><h4>Phòng khám tư nhân</h4><p>Hỗ trợ thăm khám và theo dõi người bệnh.</p></div></div>
-              <div class="sk-job"><i>03</i><div><h4>Bệnh viện &amp; phòng bệnh</h4><p>Thực hiện quy trình chăm sóc theo phân công.</p></div></div>
-              <div class="sk-job"><i>04</i><div><h4>Nhà thuốc GPP</h4><p>Bảo quản dược phẩm, tư vấn sử dụng thuốc.</p></div></div>
+              <div class="sk-job"><i>03</i><div><h4>Bệnh viện &amp; cơ sở chăm sóc</h4><p>Thực hiện quy trình chăm sóc theo phân công.</p></div></div>
+              <div class="sk-job"><i>04</i><div><h4>Nhà thuốc GPP</h4><p>Bảo quản và hướng dẫn sử dụng thuốc trong phạm vi chuyên môn.</p></div></div>
               <div class="sk-job"><i>05</i><div><h4>Cơ sở phục hồi chức năng</h4><p>Xoa bóp, bấm huyệt, vật lý trị liệu.</p></div></div>
-              <div class="sk-job"><i>06</i><div><h4>Trung tâm chăm sóc</h4><p>Dưỡng sinh, nha khoa cơ bản, chăm sóc sức khỏe.</p></div></div>
+              <div class="sk-job"><i>06</i><div><h4>Trung tâm chăm sóc</h4><p>Hỗ trợ chăm sóc người cao tuổi theo vị trí chuyên môn.</p></div></div>
             </div>
 
-            <footer class="sk-bot"><span>Vị trí phụ thuộc trình độ &amp; chứng chỉ</span><i>— 12</i></footer>
+            <footer class="pg-foot"><span class="sk-footer-note">Vị trí phụ thuộc trình độ &amp; chứng chỉ</span><span>12</span></footer>
           </div>
         </article>
       </section>
@@ -413,57 +424,53 @@
       <section class="sheet">
         <!-- P13 · ĐIỀU KIỆN & HỒ SƠ -->
         <article class="face front page skpg">
-          <div class="page-inner sk">
-            <header class="sk-top"><span>Sổ tay Sức khỏe</span><span>Tuyển sinh</span></header>
-
-            <p class="sk-kick">Ai có thể đăng ký</p>
-            <h1 class="sk-h1">Điều kiện<em>&amp; hồ sơ</em></h1>
+          <div class="page-inner">
+            <h2 class="h-serif">Điều kiện <em>&amp; hồ sơ</em></h2>
+            <p class="sk-topic">Ai có thể đăng ký</p>
               <p class="sk-lead">Điều kiện đầu vào khác nhau theo chương trình; phòng tuyển sinh kiểm tra và hướng dẫn từng trường hợp cụ thể.</p>
 
               <div class="sk-pick two">
-              <div><h4>Học sinh THCS, THPT</h4><p>Chọn nghề sớm, rèn kỹ năng thực hành từ đầu.</p></div>
-              <div><h4>Người đi làm</h4><p>Học buổi tối, ngày nghỉ — không phải nghỉ việc.</p></div>
-              <div><h4>Người có bằng ngành khác</h4><p>Học chứng chỉ chuyển đổi, xét theo bằng hiện có.</p></div>
-              <div><h4>Bộ đội, công an xuất ngũ</h4><p>Hỗ trợ hồ sơ theo chính sách hiện hành.</p></div>
+              <div><h4>Người tốt nghiệp THCS, THPT</h4><p>Người tốt nghiệp THCS học song song chương trình văn hóa THPT.</p></div>
+              <div><h4>Người đi làm</h4><p>Hỏi về lớp ban ngày, buổi tối hoặc cuối tuần.</p></div>
+              <div><h4>Người có bằng ngành khác</h4><p>Hỏi về lộ trình văn bằng 2 và điều kiện theo ngành.</p></div>
+              <div><h4>Bộ đội, công an xuất ngũ</h4><p>Hỏi trường về hồ sơ và điều kiện hỗ trợ học nghề.</p></div>
             </div>
 
             <div class="sk-rows">
-              <div class="sk-row"><i>01</i><p><b>Đơn đăng ký</b> theo mẫu của nhà trường.</p></div>
-              <div class="sk-row"><i>02</i><p><b>Bằng &amp; học bạ</b> (bản sao), giấy khai sinh.</p></div>
-              <div class="sk-row"><i>03</i><p><b>Ảnh thẻ</b> và các giấy tờ ưu tiên (nếu có).</p></div>
+              <div class="sk-row"><i>01</i><p><b>Phiếu đăng ký xét tuyển</b> theo mẫu của trường.</p></div>
+              <div class="sk-row"><i>02</i><p><b>Bản sao bằng tốt nghiệp và học bạ</b> hoặc giấy chứng nhận tốt nghiệp tạm thời theo hướng dẫn.</p></div>
+              <div class="sk-row"><i>03</i><p><b>CCCD, giấy khai sinh, ảnh 3×4</b> và giấy khám sức khỏe.</p></div>
             </div>
 
-            <p class="sk-note">Điều kiện chính thức từng ngành: <span class="sk-todo">cần cập nhật theo quy định tuyển sinh</span>.</p>
+            <p class="sk-note">Xem hồ sơ theo từng đợt tại <a href="https://web.mtpc.edu.vn/tuyen-sinh">trang tuyển sinh của trường</a>.</p>
 
-            <footer class="sk-bot"><span>Hồ sơ nộp tại văn phòng tuyển sinh</span><i>— 13</i></footer>
+            <footer class="pg-foot"><span class="sk-footer-note">Hồ sơ nộp tại văn phòng tuyển sinh</span><span>13</span></footer>
           </div>
         </article>
 
         <!-- P14 · HỌC PHÍ & HỖ TRỢ -->
         <article class="face back page skpg">
-          <div class="page-inner sk">
-            <header class="sk-top"><span>Sổ tay Sức khỏe</span><span>Học phí</span></header>
-
-            <p class="sk-kick">Minh bạch trước khi nộp</p>
-            <h1 class="sk-h1">Học phí<em>&amp; chính sách hỗ trợ</em></h1>
-            <p class="sk-lead">Học phí công bố theo từng chương trình và năm tuyển sinh, tư vấn rõ trước khi người học đăng ký.</p>
+          <div class="page-inner">
+            <h2 class="h-serif">Học phí <em>&amp; chính sách hỗ trợ</em></h2>
+            <p class="sk-topic">Minh bạch trước khi nộp</p>
+            <p class="sk-lead">Học phí công bố theo từng đợt tuyển sinh.</p>
 
             <div class="sk-pick two">
-              <div><h4>Học phí</h4><p>Thu theo chương trình, không phát sinh ngoài thông báo.</p></div>
-              <div><h4>Đóng nhiều đợt</h4><p>Chia theo kỳ học để giảm áp lực tài chính.</p></div>
-              <div><h4>Chính sách ưu đãi</h4><p>Theo quy định cho đối tượng chính sách, hộ nghèo, dân tộc thiểu số.</p></div>
+              <div><h4>Học phí</h4><p>Xem mức thu của ngành và đợt tuyển sinh bạn chọn.</p></div>
+              <div><h4>Lịch đóng</h4><p>Hỏi thời hạn, cách đóng và các khoản thu theo thông báo.</p></div>
+              <div><h4>Chính sách ưu đãi</h4><p>Hỏi điều kiện và giấy tờ cần nộp nếu thuộc diện hỗ trợ.</p></div>
               <div><h4>Tư vấn trước khi nộp</h4><p>Gọi hotline để được giải thích từng khoản và lộ trình học.</p></div>
             </div>
 
             <div class="sk-rows">
-              <div class="sk-row"><i>01</i><p><b>Không tự ý thu thêm</b> — mọi khoản thu đều có thông báo, biên lai.</p></div>
+              <div class="sk-row"><i>01</i><p><b>Đối chiếu thông báo thu</b> trước khi đóng học phí.</p></div>
               <div class="sk-row"><i>02</i><p><b>Hỗ trợ người ở xa</b> — tư vấn chỗ ở, đi lại khi nhập học.</p></div>
-              <div class="sk-row"><i>03</i><p><b>Giới thiệu thực tập – việc làm</b> tại bệnh viện, nhà thuốc, cơ sở y tế.</p></div>
+              <div class="sk-row"><i>03</i><p><b>Hỏi về thực tập</b> theo ngành và kế hoạch của từng lớp.</p></div>
             </div>
 
-            <p class="sk-note">Mức học phí chính thức: <span class="sk-todo">phòng tuyển sinh cung cấp</span>.</p>
+            <p class="sk-note">Thông tin học phí và hỗ trợ theo thông báo từng đợt.</p>
 
-            <footer class="sk-bot"><span>Trường Trung cấp Miền Tây</span><i>— 14</i></footer>
+            <footer class="pg-foot"><span>14</span></footer>
           </div>
         </article>
       </section>
@@ -472,58 +479,48 @@
       <section class="sheet">
         <!-- P15 · HỌC LÊN -->
         <article class="face front page skpg">
-          <div class="page-inner sk">
-            <header class="sk-top"><span>Sổ tay Sức khỏe</span><span>Học lên</span></header>
+          <div class="page-inner">
+            <h2 class="h-serif">Trung cấp <em>chưa phải điểm dừng</em></h2>
+            <p class="sk-topic">Lộ trình dài hơi</p>
+              <p class="sk-lead">Người có bằng trung cấp có thể tìm hiểu lộ trình học lên theo ngành, văn bằng đầu vào và quy định tuyển sinh của cơ sở tiếp nhận.</p>
 
-            <p class="sk-kick">Lộ trình dài hơi</p>
-            <h1 class="sk-h1">Trung cấp<em>chưa phải điểm dừng</em></h1>
-              <p class="sk-lead">Trung cấp là điểm khởi đầu. Người học có thể tiếp tục lên <b>cao đẳng, đại học</b> theo quy định liên thông.</p>
-
-              <figure class="ph sk-shot hero frame-mat warm" data-img="images/contact.jpg">
-                <figcaption class="ph-cap">Ký kết liên thông với Trường Cao đẳng Nghề Cần Thơ</figcaption>
+              <figure class="ph hero-photo sk-photo-inset" data-img="images/contact.jpg">
+                <figcaption class="ph-cap">Hoạt động hợp tác với Trường Cao đẳng Nghề Cần Thơ</figcaption>
               </figure>
 
               <div class="sk-rows">
-              <div class="sk-row"><i>01</i><p><b>Hoàn thành trung cấp</b> — nhận bằng và chứng chỉ hành nghề theo quy định.</p></div>
-              <div class="sk-row"><i>02</i><p><b>Đi làm tích lũy kinh nghiệm</b> — vừa làm vừa học để ổn định thu nhập.</p></div>
+              <div class="sk-row"><i>01</i><p><b>Hoàn thành trung cấp</b> và nhận bằng khi đủ điều kiện tốt nghiệp. Giấy phép hành nghề có thủ tục và điều kiện riêng.</p></div>
+              <div class="sk-row"><i>02</i><p><b>Tìm việc</b> theo chuyên môn và điều kiện của vị trí tuyển dụng.</p></div>
               <div class="sk-row"><i>03</i><p><b>Liên thông cao đẳng / đại học</b> — theo quy định tuyển sinh của trường đào tạo.</p></div>
-              <div class="sk-row"><i>04</i><p><b>Học thêm chứng chỉ chuyên môn</b> — mở rộng phạm vi hành nghề phù hợp.</p></div>
+              <div class="sk-row"><i>04</i><p><b>Bồi dưỡng chuyên môn</b> theo yêu cầu của công việc và quy định hiện hành.</p></div>
             </div>
 
-            <div class="sk-chips"><span>ĐH Trà Vinh</span><span>ĐH Y Dược Cần Thơ</span><span>CĐ Nghề Cần Thơ</span></div>
+            <div class="sk-chips"><span>Điều kiện đầu vào</span><span>Ngành dự tuyển</span><span>Hồ sơ</span></div>
 
             <p class="sk-note">Điều kiện liên thông thay đổi theo quy định từng năm — nhà trường tư vấn trường hợp cụ thể.</p>
 
-            <footer class="sk-bot"><span>Trường Trung cấp Miền Tây</span><i>— 15</i></footer>
+            <footer class="pg-foot"><span>15</span></footer>
           </div>
         </article>
 
         <!-- P16 · CẢM NHẬN NGƯỜI HỌC -->
         <article class="face back page skpg">
-          <div class="page-inner sk">
-            <header class="sk-top"><span>Sổ tay Sức khỏe</span><span>Chia sẻ</span></header>
+          <div class="page-inner">
+            <h2 class="h-serif">Chuẩn bị <em>trước khi nhập học</em></h2>
+            <p class="sk-topic">Lịch học và thực hành</p>
 
-            <p class="sk-kick">Người học nói gì</p>
-            <h1 class="sk-h1">Học ở đây<em>khác gì?</em></h1>
-
-            <figure class="ph sk-shot hero frame-mat" data-img="images/students.jpg">
-              <figcaption class="ph-cap">Thực hành &amp; hoạt động của người học</figcaption>
+            <figure class="ph hero-photo sk-photo-inset" data-img="images/tot-nghiep-y-si-2025-b.jpg">
+              <figcaption class="ph-cap">Phát biểu tại lễ tốt nghiệp Y sĩ</figcaption>
             </figure>
 
-            <div class="sk-quotes">
-                <blockquote class="sk-quote">
-                  <p>Học điều dưỡng ở đây mình được thực hành nhiều, đi bệnh viện sớm nên ra trường không bỡ ngỡ. Thầy cô sửa từng thao tác nhỏ.</p>
-                  <cite><span class="sk-todo">tên · ngành · năm tốt nghiệp</span></cite>
-                </blockquote>
-                <blockquote class="sk-quote">
-                  <p>Mình vừa làm vừa học lớp buổi tối. Lịch linh hoạt giúp mình không phải nghỉ việc mà vẫn theo được bài.</p>
-                  <cite><span class="sk-todo">tên · ngành · năm tốt nghiệp</span></cite>
-              </blockquote>
+            <div class="sk-rows">
+              <div class="sk-row"><p><b>Lịch học:</b> Hỏi lớp ban ngày, buổi tối hoặc cuối tuần và kiểm tra lịch từng học kỳ.</p></div>
+              <div class="sk-row"><p><b>Thực hành:</b> Hỏi trường về địa điểm, thời gian và yêu cầu chuẩn bị theo từng ngành.</p></div>
             </div>
 
-            <p class="sk-note">Nội dung cảm nhận cần lấy từ người học thật (kèm ảnh nếu có) trước khi phát hành.</p>
+            <p class="sk-note">Xác nhận lịch cụ thể với Phòng Tuyển sinh trước khi đăng ký.</p>
 
-            <footer class="sk-bot"><span>Trường Trung cấp Miền Tây</span><i>— 16</i></footer>
+            <footer class="pg-foot"><span>16</span></footer>
           </div>
         </article>
       </section>
@@ -532,47 +529,50 @@
       <section class="sheet">
         <!-- P17 · HỎI & ĐÁP -->
         <article class="face front page skpg">
-          <div class="page-inner sk">
-            <header class="sk-top"><span>Sổ tay Sức khỏe</span><span>Hỏi &amp; đáp</span></header>
-
-            <p class="sk-kick">Sáu câu hỏi thường gặp</p>
-            <h1 class="sk-h1">Câu hỏi<em>thường gặp</em></h1>
+          <div class="page-inner">
+            <h2 class="h-serif">Câu hỏi <em>thường gặp</em></h2>
+            <p class="sk-topic">Sáu câu hỏi thường gặp</p>
 
             <dl class="sk-faq">
-              <div><dt>Chưa học xong THPT có học được không?</dt><dd>Tùy chương trình: một số ngành tuyển tốt nghiệp THCS, số khác yêu cầu THPT.</dd></div>
-              <div><dt>Học bao lâu thì ra trường?</dt><dd>Khác nhau theo ngành và trình độ. <span class="sk-todo">cập nhật số liệu</span></dd></div>
-              <div><dt>Vừa làm vừa học được không?</dt><dd>Được — lịch học 6h–22h, tất cả các ngày trong tuần.</dd></div>
-              <div><dt>Ra trường có xin được việc?</dt><dd>Nhà trường kết nối bệnh viện, nhà thuốc, cơ sở y tế để giới thiệu việc làm.</dd></div>
-              <div><dt>Đã có bằng ngành khác, muốn chuyển sang điều dưỡng?</dt><dd>Học chứng chỉ chuyển đổi Điều dưỡng, điều kiện xét theo bằng hiện có.</dd></div>
+              <div><dt>Chưa học xong THPT có học được không?</dt><dd>Người tốt nghiệp THCS có thể xét tuyển trung cấp và học song song chương trình văn hóa THPT.</dd></div>
+              <div><dt>Học bao lâu thì ra trường?</dt><dd>Với ba ngành trung cấp sức khỏe, thời gian công bố là 1,5 năm sau THPT hoặc 2,5 năm sau THCS. Văn bằng 2 có lộ trình riêng.</dd></div>
+              <div><dt>Vừa làm vừa học được không?</dt><dd>Trường có lớp ban ngày, buổi tối và cuối tuần. Lịch cụ thể theo từng lớp.</dd></div>
+              <div><dt>Ra trường có xin được việc?</dt><dd>Cơ hội việc làm tùy ngành, vị trí tuyển dụng và điều kiện hành nghề.</dd></div>
+              <div><dt>Đã có bằng ngành khác, muốn chuyển sang điều dưỡng?</dt><dd>Hỏi trường về văn bằng 2 ngành Điều dưỡng và các khóa bồi dưỡng phù hợp với bằng hiện có.</dd></div>
               <div><dt>Nộp hồ sơ ở đâu?</dt><dd>Văn phòng tuyển sinh: 130C–130D Nguyễn Văn Cừ nối dài, P. Tân An, Cần Thơ.</dd></div>
             </dl>
 
-            <div class="sk-hot"><span>Chưa thấy câu trả lời?</span><b>0934 790 790</b></div>
+            <div class="sk-hot"><span>Chưa thấy câu trả lời?</span><b><a href="tel:0375711766">0375 711 766</a></b></div>
 
-            <footer class="sk-bot"><span>Tư vấn trực tiếp mỗi ngày</span><i>— 17</i></footer>
+            <footer class="pg-foot"><span class="sk-footer-note">Tư vấn trực tiếp mỗi ngày</span><span>17</span></footer>
           </div>
         </article>
 
         <!-- P18 · ĐỐI TÁC & CƠ SỞ THỰC HÀNH -->
         <article class="face back page skpg">
-          <div class="page-inner sk">
-            <header class="sk-top"><span>Sổ tay Sức khỏe</span><span>Đối tác</span></header>
+          <div class="page-inner">
+            <h2 class="h-serif">Đối tác <em>&amp; cơ sở thực hành</em></h2>
+            <p class="sk-topic">Hợp tác &amp; liên kết</p>
 
-            <figure class="ph sk-shot hero frame-mat warm" data-img="images/partners.jpg">
-              <figcaption class="ph-cap">Hợp tác đào tạo cùng các đơn vị liên kết</figcaption>
-            </figure>
-
-            <p class="sk-kick">Hợp tác &amp; liên kết</p>
-            <h1 class="sk-h1">Đối tác<em>&amp; cơ sở thực hành</em></h1>
+            <div class="sk-event-pair">
+              <figure class="sk-photo">
+                <img src="images/partners.jpg" alt="Ảnh nhóm tại buổi làm việc với Trường Đại học Y Dược Cần Thơ" />
+                <figcaption>Hợp tác đào tạo với Trường Đại học Y Dược Cần Thơ</figcaption>
+              </figure>
+              <figure class="sk-photo">
+                <img src="images/anh-nhom-dai-hoc-bac-lieu.jpg" width="1600" height="892" alt="Ảnh nhóm tại Trường Đại học Bạc Liêu" />
+                <figcaption>Ảnh nhóm tại Trường Đại học Bạc Liêu</figcaption>
+              </figure>
+            </div>
 
             <div class="sk-rows">
               <div class="sk-row"><i>01</i><p><b>Bệnh viện &amp; cơ sở y tế</b> — môi trường thực tập cho điều dưỡng, y sĩ.</p></div>
               <div class="sk-row"><i>02</i><p><b>Nhà thuốc đạt chuẩn GPP</b> — thực hành dược và tư vấn thuốc.</p></div>
-              <div class="sk-row"><i>03</i><p><b>ĐH Trà Vinh · ĐH Y Dược Cần Thơ</b> — liên thông, phối hợp đào tạo.</p></div>
-              <div class="sk-row"><i>04</i><p><b>Hợp tác quốc tế</b> — đào tạo sinh viên Campuchia từ 2025.</p></div>
+              <div class="sk-row"><i>03</i><p><b>ĐH Y Dược Cần Thơ · CĐ Nghề Cần Thơ</b> — hợp tác chuyên môn theo văn bản năm 2025.</p></div>
+              <div class="sk-row"><i>04</i><p><b>Hợp tác quốc tế</b> — khai giảng các lớp cho học sinh Campuchia năm 2025.</p></div>
             </div>
 
-            <footer class="sk-bot"><span>MOU ký kết chính thức</span><i>— 18</i></footer>
+            <footer class="pg-foot"><span>18</span></footer>
           </div>
         </article>
       </section>
@@ -580,63 +580,59 @@
       <!-- ============ SHEET 10 : Đăng ký + Bìa sau ============ -->
       <section class="sheet">
         <!-- P19 · ĐĂNG KÝ TƯ VẤN -->
-        <article class="face front page skpg">
-          <div class="page-inner sk">
-            <header class="sk-top"><span>Sổ tay Sức khỏe</span><span>Đăng ký</span></header>
+        <article class="face front page skpg has-seal">
+          <div class="page-inner">
+            <h2 class="h-serif">Đăng ký <em>nhận tư vấn</em></h2>
+            <p class="sk-topic">Tư vấn miễn phí</p>
 
-            <p class="sk-kick">Tư vấn miễn phí</p>
-            <h1 class="sk-h1">Đăng ký<em>nhận tư vấn</em></h1>
-
-            <div class="sk-contact">
-              <div class="sk-crow"><span>Địa chỉ</span><span>130C – 130D Nguyễn Văn Cừ nối dài, P. Tân An, TP. Cần Thơ</span></div>
-              <div class="sk-crow"><span>Tuyển sinh</span><span class="strong">0934 790 790 · 0292 222 6677</span></div>
-              <div class="sk-crow"><span>Website</span><span>https://www.mtpc.edu.vn</span></div>
+            <div class="sk-contact-panel">
+              <div class="contact">
+                <div class="contact-row"><span class="c-label">Địa chỉ</span><span>130C – 130D Nguyễn Văn Cừ nối dài, P. Tân An, TP. Cần Thơ</span></div>
+                <div class="contact-row"><span class="c-label">Tuyển sinh</span><span class="c-strong"><a href="tel:0375711766">0375 711 766</a> · <a href="tel:02922226677">0292 222 6677</a></span></div>
+                <div class="contact-row"><span class="c-label">Website</span><a href="https://web.mtpc.edu.vn">web.mtpc.edu.vn</a></div>
+              </div>
+              <figure class="sk-photo sk-contact-photo sk-job-fair">
+                <img src="images/ngay-hoi-viec-lam-an-giang-2026.jpg" width="2194" height="1504" alt="Đại biểu trên sân khấu ngày hội việc làm tại An Giang" />
+                <figcaption>Ngày hội việc làm cho chiến sĩ công an xuất ngũ · An Giang, 2026</figcaption>
+              </figure>
             </div>
 
-            <form class="register compact" id="regForm" novalidate>
-              <h3 class="h-sub">Đăng ký tư vấn khối sức khỏe</h3>
-              <div class="form-row">
-                <label for="f-name">Họ và tên</label>
-                <input id="f-name" name="name" type="text" autocomplete="name" required placeholder="Nguyễn Văn A" />
-              </div>
-              <div class="form-row">
-                <label for="f-phone">Số điện thoại</label>
-                <input id="f-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel"
-                       required pattern="0[0-9 ]{9,11}" placeholder="09xx xxx xxx" />
-              </div>
-              <div class="form-row">
-                <label for="f-major">Ngành học</label>
-                <select id="f-major" name="major">
-                  <option>Y sĩ đa khoa</option>
-                  <option>Dược sĩ</option>
-                  <option>Điều dưỡng</option>
-                  <option>Răng hàm mặt</option>
-                  <option>Chứng chỉ chuyển đổi Điều dưỡng</option>
-                  <option>Xoa bóp bấm huyệt – VLTL</option>
-                </select>
-              </div>
-              <button class="btn" type="submit">Gửi thông tin</button>
-              <p class="form-note" id="regMsg" role="status" aria-live="polite"></p>
-            </form>
+            <div class="register compact">
+              <h3 class="h-sub">Đăng ký trực tuyến</h3>
+              <a class="btn" href="https://web.mtpc.edu.vn/tuyen-sinh">Mở trang tuyển sinh của trường</a>
+            </div>
 
-            <footer class="sk-bot"><span>Trường Trung cấp Miền Tây</span><i>— 19</i></footer>
+            <footer class="pg-foot"><span>19</span></footer>
           </div>
         </article>
 
         <!-- P20 · BÌA SAU -->
-        <article class="face back page skback">
-          <div class="skback-inner">
-            <img src="images/logo-mtpc.png?v=1" alt="Logo Trường Trung Cấp Miền Tây" />
-            <h2>Trường Trung cấp<br>Miền Tây</h2>
-            <p class="skback-slogan">Tri thức – Đạo đức – Hội nhập – Phát triển</p>
-            <span class="skback-rule"></span>
-            <div class="skback-contact">
-              <p>https://www.mtpc.edu.vn</p>
-              <p>0934 790 790 · 0292 222 6677 · 0292 222 5577</p>
-              <p>130C – 130D Nguyễn Văn Cừ nối dài, P. Tân An, TP. Cần Thơ</p>
-            </div>
-            <p class="skback-copy">© 2026 · Sổ tay ngành Sức khỏe</p>
+        <article class="face back page backcover sk-backcover">
+          <div class="sk-backcover-title">
+            <img src="images/logo-mtpc.png?v=1" alt="" width="56" height="56" />
+            <h2>Hẹn gặp bạn<br>ở Miền Tây</h2>
+            <p>Tri thức · Đạo đức · Hội nhập · Phát triển</p>
           </div>
+
+          <div class="sk-backcover-info">
+            <div class="sk-backcover-phone">
+              <p>Tư vấn tuyển sinh</p>
+              <a class="sk-backcover-hotline" href="tel:0375711766">0375 711 766</a>
+              <div class="sk-backcover-landlines">
+                <a href="tel:02922226677">0292 222 6677</a>
+                <a href="tel:02922225577">0292 222 5577</a>
+              </div>
+            </div>
+            <address>
+              <a href="https://web.mtpc.edu.vn">web.mtpc.edu.vn</a>
+              <p>130C–130D Nguyễn Văn Cừ nối dài, P. Tân An, TP. Cần Thơ</p>
+            </address>
+          </div>
+
+          <footer class="sk-backcover-credit">
+            <span>Trường Trung cấp Miền Tây</span>
+            <span>Sổ tay Sức khỏe 2026</span>
+          </footer>
         </article>
       </section>
 
@@ -646,14 +642,14 @@
     </div>
 
     <!-- ===== Thanh công cụ ===== -->
-    <div class="toolbar">
+    <div class="toolbar" role="group" aria-label="Điều khiển lật trang">
       <button class="tb-btn" id="btnFirst" title="Về trang bìa" aria-label="Về trang bìa">
         <svg viewBox="0 0 24 24"><path d="M18 5v14L7 12l11-7zM6 5h2v14H6z"/></svg>
       </button>
       <button class="tb-btn" id="btnPrev" title="Trang trước" aria-label="Trang trước">
         <svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7V5z"/></svg>
       </button>
-      <span class="tb-indicator" id="indicator">1 / 20</span>
+      <span class="tb-indicator" id="indicator" aria-live="polite">1 / 20</span>
       <button class="tb-btn" id="btnNext" title="Trang sau" aria-label="Trang sau">
         <svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7V5z"/></svg>
       </button>
@@ -669,6 +665,7 @@
     <div class="hint" id="hint" hidden>Bấm vào trang để lật <span>→</span></div>
   </main>
 
-  <script src="js/main.js?v=4.2"></script>
+  <script src="js/main.js?v=8"></script>
+  <script src="../js/ebook-library.js?v=1"></script>
 </body>
 </html>

@@ -1,758 +1,560 @@
-/* ============================================================
-   SỔ TAY NGÀNH SỨC KHỎE — MTPC
-   Design system riêng cho ebook sức khỏe.
-   Dùng chung engine lật trang (css/style.css) cho khung sách;
-   file này thay toàn bộ phần trình bày BÊN TRONG trang.
-   ============================================================ */
-
-:root {
-  --ink:        #0B2F2A;
-  --teal:       #0E8F79;
-  --teal-deep:  #0A5E50;
-  --mint:       #E7F4EF;
-  --paper:      #FDFBF6;
-  --sand:       #B98F44;
-  --line:       #DFEBE5;
-  --soft:       #4C6660;
-  --mute:       #7E948D;
+/* Bố cục các phần chỉ có trong Sổ tay ngành Sức khỏe. */
+.sk-cover {
+  --cover-inset: clamp(1rem, 2.4cqi, 2.35rem);
+  --cover-accent: #edbf67;
 }
 
-/* Trang: bỏ padding/font mặc định của style.css, dựng lưới riêng */
-.page.skpg {
-  padding: 0;
-  /* Co THUẦN theo cqi (tỉ lệ khung sách cố định 1.52:1). Hệ số 1.44: chữ to
-     dễ đọc; bù lại bằng lề trang hẹp hơn và các khối nội dung siết nhịp. */
-  font-size: clamp(8.5px, 1.44cqi, 12px);
-  line-height: 1.58;
-  color: var(--ink);
-  background: var(--paper);
-  letter-spacing: .002em;
+.book .sk-cover .cover-photo { position: absolute; inset: 0; }
+.book .sk-cover .cover-photo > img { object-position: 54% center; }
+.book .sk-cover .cover-photo::after {
+  content: "";
+  background: linear-gradient(180deg, #12261ba6, transparent 25% 64%, #101e17f2 100%);
+  pointer-events: none;
 }
 
-.page-inner.sk {
-  height: 100%;
+.sk-cover-brand {
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  gap: 0;
-  padding: 1.55em 2.3em 1.4em;
-}
-
-/* ---------- Thanh đầu / chân trang ---------- */
-.sk-top {
-  display: flex;
-  justify-content: space-between;
   align-items: center;
-  gap: 1em;
-  font-size: .66em;
-  font-weight: 600;
-  letter-spacing: .26em;
-  text-transform: uppercase;
-  color: var(--mute);
-  padding-bottom: .75em;
-  border-bottom: 1px solid var(--line);
+  gap: .8rem;
+  padding: var(--cover-inset);
+  color: #fff;
+  font: 700 clamp(.78rem, 1.4cqi, 1rem)/1.28 var(--sans);
 }
-.sk-top b { color: var(--teal-deep); font-weight: 700; }
-
-.sk-bot {
-  display: flex;
-  justify-content: space-between;
+.sk-cover-brand img { display: block; width: clamp(2rem, 4.7cqi, 3.25rem); height: auto; }
+.book .sk-cover .cover-inner { margin-top: auto; }
+.book .sk-cover .cover-lower {
   align-items: center;
-  gap: 1em;
-  padding-top: .8em;
-  border-top: 1px solid var(--line);
-  font-size: .64em;
-  font-weight: 600;
-  letter-spacing: .22em;
-  text-transform: uppercase;
-  color: var(--mute);
+  padding: var(--cover-inset);
+  background: transparent;
 }
-.sk-bot i { font-style: normal; color: var(--teal); }
-.face.back .sk-bot { flex-direction: row-reverse; }
+.book .sk-cover .cover-edition {
+  margin: 0 0 .65em;
+  color: var(--cover-accent);
+  font: 700 clamp(.78rem, 1.45cqi, 1rem)/1.3 var(--sans);
+}
+.book .sk-cover .cover-main-title {
+  color: #fffef5;
+  font: 800 clamp(2.65rem, 7.2cqi, 7rem)/1 var(--sans);
+  letter-spacing: -.065em;
+}
+.book .sk-cover .cover-open { background: var(--cover-accent); color: #15241e; }
+.book .sk-cover .cover-open:hover { background: #ffe0a4; }
+.sk-cover .cover-open span { margin-inline-start: .35em; }
 
-/* ---------- Kiểu chữ ---------- */
-.sk-kick {
-  font-size: .68em;
-  font-weight: 700;
-  letter-spacing: .24em;
-  text-transform: uppercase;
-  color: var(--teal);
-  margin-top: .7em;
+@media (max-width: 899px) {
+  .sk-cover { --cover-inset: clamp(1rem, 5.2vw, 1.7rem); }
+  .book .sk-cover .cover-main-title { font-size: clamp(2.2rem, 11cqi, 5.35rem); }
 }
-.sk-h1 {
-  font-family: var(--serif);
-  font-size: 2.95em;
+
+@media (max-width: 420px) {
+  .book .sk-cover .cover-open { padding-inline: .72rem; font-size: .8rem; }
+}
+
+.book .skpg .page-inner {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.skpg .h-serif { text-wrap: balance; }
+
+.skpg .h-serif em {
+  font-style: normal;
+  color: var(--reader-green);
+}
+
+.sk-topic {
+  color: var(--reader-green);
+  font-size: .86em;
   font-weight: 600;
-  line-height: 1.03;
-  letter-spacing: -.005em;
-  color: var(--ink);
-  margin: .34em 0 0;
 }
-.sk-h1 em {
-  display: block;
-  font-style: italic;
-  font-weight: 500;
-  font-size: .68em;
-  color: var(--teal-deep);
-  margin-top: .12em;
-}
+
 .sk-lead {
-  font-size: .93em;
-  line-height: 1.65;
-  color: var(--soft);
-  margin-top: .55em;
-  max-width: 40em;
-}
-.sk-lead b { color: var(--ink); font-weight: 600; }
-
-/* ---------- Ảnh — hệ khung editorial của catalogue tổng ----------
-   Dùng lại nguyên vẹn các class gốc của style.css (bản copy):
-   · .frame-mat — tấm lót màu lệch sau ảnh (trang trái lệch chiều đối xứng gáy)
-   · .frame-line — khung hairline thả nổi quanh ảnh
-   · .warm — biến thể tấm lót/khung màu cát vàng đồng
-   · .ph-cap — caption serif nghiêng in trên ảnh (chân ảnh tạp chí)
-   Suc-khoe chỉ giữ phần BỐ CỤC: hero (băng trên) · media (cột dọc biên).
-   Khung, bóng, bo góc, caption để style.css tự lo — giống hệ catalogue. */
-.sk-shot { margin: .85em 0 0; }
-.sk-shot.hero {
-  /* grow: hút hết chỗ trống còn lại của trang → ảnh luôn cao tối đa;
-     basis 44% + trần 21em giữ ảnh không phình quá mức trên trang thưa */
-  flex: 1 1 44%;
-  min-height: 8em;
-  max-height: 21em;
-  background-position: center 32%;
-}
-
-/* ---------- Dải thông số — 1 dòng mảnh (tiết kiệm chỗ cho ảnh) ---------- */
-.sk-spec {
-  display: flex;
-  flex-wrap: wrap;
-  gap: .3em 1.9em;
-  margin-top: .95em;
-  padding: .5em 0 .45em;
-  border-top: 1px solid var(--line);
-}
-.sk-spec > div { display: inline-flex; align-items: baseline; gap: .55em; }
-.sk-spec span {
-  font-size: .6em;
-  font-weight: 700;
-  letter-spacing: .2em;
-  text-transform: uppercase;
-  color: var(--mute);
-}
-.sk-spec b {
-  font-family: var(--serif);
-  font-size: 1.05em;
-  font-weight: 600;
-  color: var(--teal-deep);
-  line-height: 1.25;
-}
-.sk-spec b.todo {
-  font-family: var(--sans);
-  font-size: .7em;
-  font-weight: 600;
-  letter-spacing: .02em;
-  color: var(--sand);
-}
-
-/* ---------- Danh sách đánh số ---------- */
-.sk-rows { margin-top: .65em; }
-.sk-row {
-  display: grid;
-  grid-template-columns: 1.9em 1fr;
-  gap: .85em;
-  padding: .38em 0;
-  border-bottom: 1px solid var(--line);
-}
-.sk-row:last-child { border-bottom: 0; }
-.sk-row > i {
-  font-family: var(--serif);
-  font-style: italic;
-  font-size: 1.1em;
-  line-height: 1.3;
-  color: var(--teal);
-}
-.sk-row p {
-  font-size: .88em;
-  line-height: 1.5;
-  color: var(--soft);
-}
-.sk-row p b { font-weight: 600; color: var(--ink); }
-
-/* ---------- Chip ---------- */
-.sk-chips {
-  display: flex;
-  flex-wrap: wrap;
-  gap: .45em;
-  margin-top: .6em;
-}
-.sk-chips span {
-  font-size: .66em;
-  font-weight: 500;
-  letter-spacing: .04em;
-  color: var(--teal-deep);
-  background: var(--mint);
-  border: 1px solid #CFE7DF;
-  border-radius: 2px;
-  padding: .5em 1.05em;
-}
-
-/* ---------- Bảng so sánh ---------- */
-.sk-tbl {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 1.15em;
-  font-size: .72em;
-  line-height: 1.45;
-}
-.sk-tbl th,
-.sk-tbl td {
-  text-align: left;
-  vertical-align: top;
-  padding: .62em .62em;
-  border-bottom: 1px solid var(--line);
-}
-.sk-tbl thead th {
-  font-size: .92em;
-  font-weight: 700;
-  letter-spacing: .14em;
-  text-transform: uppercase;
-  color: var(--mute);
-  padding-bottom: .55em;
-}
-.sk-tbl thead th.hl {
-  color: var(--teal-deep);
-  background: var(--mint);
-}
-.sk-tbl tbody th {
-  font-weight: 600;
-  color: var(--teal-deep);
-  width: 21%;
-  letter-spacing: .02em;
-}
-.sk-tbl td { color: var(--soft); }
-.sk-tbl tbody tr:nth-child(even) td { background: #F6FBF8; }
-.sk-tbl .span { font-size: .98em; }
-.sk-todo { color: var(--sand); font-weight: 600; }
-
-/* ---------- Thẻ "chọn ngành nếu…" ---------- */
-.sk-pick {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: .6em;
-  margin-top: 1.1em;
-}
-.sk-pick.two { grid-template-columns: 1fr 1fr; }
-.sk-pick > div {
-  background: #F4FAF7;
-  border-top: 2px solid var(--teal);
-  padding: .72em .75em .8em;
-}
-.sk-pick h4 {
-  font-family: var(--serif);
-  font-size: 1.12em;
-  font-weight: 600;
-  line-height: 1.15;
-  color: var(--ink);
-}
-.sk-pick p {
-  font-size: .68em;
-  line-height: 1.5;
-  color: var(--soft);
-  margin-top: .28em;
-}
-
-/* ---------- Hỏi đáp ---------- */
-.sk-faq {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0 1.8em;
-  margin-top: .9em;
-}
-.sk-faq > div {
-  padding: .8em 0 .72em;
-  border-top: 1px solid var(--line);
-}
-.sk-faq dt {
-  position: relative;
-  padding-left: 1.5em;
-  font-size: .77em;
-  font-weight: 600;
-  line-height: 1.42;
-  color: var(--ink);
-}
-.sk-faq dt::before {
-  content: "?";
-  position: absolute;
-  left: 0; top: 0;
-  font-family: var(--serif);
-  font-size: 1.15em;
-  font-weight: 700;
-  color: var(--teal);
-}
-.sk-faq dd {
-  font-size: .7em;
-  line-height: 1.55;
-  color: var(--soft);
-  margin-top: .28em;
-  padding-left: 1.5em;
-}
-
-/* Dải hotline nổi */
-.sk-hot {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1em;
-  margin-top: 1.25em;
-  padding: .8em 1.1em;
-  background: var(--teal-deep);
-  color: #EAF6F1;
-  border-radius: 3px;
-}
-.sk-hot b { font-family: var(--serif); font-size: 1.25em; letter-spacing: .02em; }
-.sk-hot span {
-  font-size: .68em;
-  letter-spacing: .14em;
-  text-transform: uppercase;
-  opacity: .82;
-}
-
-/* ---------- Cảm nhận người học ---------- */
-.sk-quotes { display: grid; gap: .7em; margin-top: 1em; }
-.sk-quote {
-  position: relative;
-  padding: .95em 1.1em .9em 1.4em;
-  background: #F4FAF7;
-  border-left: 2px solid var(--teal);
-}
-.sk-quote p {
-  font-family: var(--serif);
-  font-style: italic;
+  color: var(--reader-ink);
   font-size: 1em;
   line-height: 1.55;
-  color: var(--ink);
-}
-.sk-quote cite {
-  display: block;
-  margin-top: .5em;
-  font-family: var(--sans);
-  font-style: normal;
-  font-size: .62em;
-  font-weight: 600;
-  letter-spacing: .14em;
-  text-transform: uppercase;
-  color: var(--mute);
 }
 
-/* ---------- Nghề nghiệp ---------- */
-.sk-jobs {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0 1.6em;
-  margin-top: .9em;
+.book .skpg .hero-photo {
+  aspect-ratio: 16 / 7;
+  flex: 0 0 auto;
+  background-position: center 42%;
 }
+
+.book .skpg .hero-photo .ph-cap { max-width: 100%; }
+
+.book .skpg .sk-photo-inset {
+  width: min(84%, 28em);
+  aspect-ratio: 3 / 2;
+  align-self: flex-start;
+}
+
+.book .skpg.front .sk-photo-inset { align-self: flex-end; }
+
+.sk-practice {
+  display: grid;
+  grid-template-columns: minmax(0, .72fr) minmax(0, 1fr);
+  align-items: center;
+  gap: 1.25em;
+}
+
+.sk-photo { min-width: 0; }
+.sk-photo img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 2px;
+}
+.sk-photo figcaption {
+  padding-block-start: .47em;
+  color: var(--soft);
+  font-size: .83em;
+  line-height: 1.4;
+}
+
+.sk-practice img {
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+}
+
+.book .skpg .pg-foot {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: .75em;
+  letter-spacing: .13em;
+}
+
+.book .skpg .pg-foot span:last-child { margin-inline-start: auto; }
+.book .skpg .sk-footer-note {
+  color: var(--soft);
+  font-weight: 400;
+  letter-spacing: 0;
+  text-align: left;
+  text-transform: none;
+}
+
+.sk-spec {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: .7em;
+  padding: .75em 0;
+  border-block: 1px solid var(--hairline);
+}
+
+.sk-spec > div { display: grid; align-content: start; gap: .15em; }
+.sk-spec span { font-size: .84em; color: var(--soft); }
+.sk-spec b { font-size: .9em; color: var(--reader-ink); }
+.sk-spec .todo,
+.sk-todo { color: #805b27; font-weight: 600; }
+
+.sk-rows { display: grid; gap: .4em; }
+.sk-row {
+  display: grid;
+  grid-template-columns: 1.4em minmax(0, 1fr);
+  gap: .5em;
+  font-size: .94em;
+}
+
+.sk-row > p:only-child { grid-column: 1 / -1; }
+
+.sk-row > i,
+.sk-job > i {
+  color: var(--green-700);
+  font-size: .82em;
+  font-style: normal;
+  font-variant-numeric: tabular-nums;
+}
+
+.sk-program .sk-rows {
+  gap: .45em;
+}
+.sk-program .sk-rows h3 {
+  margin: 0 0 .28em;
+  color: var(--reader-green);
+  font-size: 1.05em;
+}
+.sk-program .sk-row { grid-template-columns: minmax(0, 1fr); }
+.sk-program-title .sk-topic { margin-top: .45em; }
+
+.sk-program .sk-chips {
+  align-items: baseline;
+  gap: .25em .5em;
+  color: var(--soft);
+  font-size: .85em;
+}
+.sk-program .sk-chips span {
+  padding: 0;
+  background: none;
+  color: inherit;
+  font-size: 1em;
+}
+.sk-program .sk-chips span + span::before {
+  content: "·";
+  margin-inline-end: .5em;
+}
+
+.sk-program .sk-spec {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .38em 1em;
+  padding: .55em 0 0;
+  border: 0;
+}
+.sk-program .sk-spec > div {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: .2em .45em;
+}
+
+.book .page.sk-layout-pair { background: #edf3e9; }
+.book .page.sk-layout-portrait { background: var(--reader-mint); }
+.book .page.sk-layout-workshop { background: #f3ead6; }
+
+.sk-layout-pair .sk-program-title {
+  padding: .9em 1.15em;
+  background: #174638;
+}
+.sk-layout-pair .sk-program-title :is(.h-serif, .sk-topic) { color: #f4faf1; }
+
+.sk-photo-pair {
+  display: grid;
+  grid-template-columns: minmax(0, 1.24fr) minmax(0, 1fr);
+  align-items: end;
+  gap: 0 .55em;
+}
+.sk-photo-pair figcaption { grid-column: 1 / -1; }
+
+.sk-layout-portrait .sk-photo { width: min(85%, 23em); }
+.sk-layout-portrait .sk-photo img {
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  object-position: 68% center;
+}
+.sk-layout-centered .sk-photo {
+  width: min(89%, 29em);
+  align-self: center;
+}
+.sk-layout-centered .sk-photo img {
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+}
+.sk-layout-feature .sk-photo { width: min(92%, 30em); }
+.sk-layout-workshop .sk-photo img {
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  object-position: 48% 41%;
+}
+
+@media (min-width: 620px) {
+  .book .sk-program .page-inner {
+    display: grid;
+    grid-template-columns: var(--program-columns, minmax(0, 1fr) minmax(0, 1fr));
+    grid-template-rows: var(--program-rows, auto auto auto auto auto minmax(0, 1fr) auto);
+    gap: .9em 1.35em;
+    align-items: start;
+  }
+
+  .sk-program-title { grid-area: title; }
+  .sk-program .sk-lead { grid-area: intro; }
+  .sk-program .sk-spec { grid-area: facts; }
+  .sk-program .sk-photo { grid-area: photo; }
+  .sk-program .sk-rows { grid-area: training; }
+  .sk-program .sk-chips { grid-area: topics; }
+  .sk-program .pg-foot { grid-area: foot; }
+
+  .sk-layout-opening .page-inner {
+    --program-columns: minmax(0, 1.12fr) minmax(0, 1fr);
+    --program-rows: minmax(12em, 1fr) auto auto auto auto minmax(0, .1fr) auto;
+    grid-template-areas: "photo photo" "title title" "intro training" "facts training" "topics training" ". ." "foot foot";
+  }
+  .sk-layout-opening .sk-photo {
+    position: relative;
+    align-self: stretch;
+    overflow: hidden;
+    min-height: 12em;
+  }
+  .sk-layout-opening .sk-photo img {
+    position: absolute;
+    inset: 0;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 44%;
+  }
+  .sk-layout-opening .sk-photo figcaption {
+    position: absolute;
+    inset: auto auto .85em .85em;
+    max-width: calc(100% - 1.7em);
+    padding: .4em .65em;
+    color: #fff;
+    background: #12362ded;
+  }
+
+  .sk-layout-pair .page-inner {
+    --program-columns: minmax(0, 1.45fr) minmax(0, .75fr);
+    grid-template-areas: "title title" "intro intro" "photo photo" "training facts" "training topics" ". ." "foot foot";
+  }
+  .sk-layout-pair .sk-spec,
+  .sk-layout-pair .sk-chips { border-top: 1px solid var(--hairline); padding-top: .6em; }
+
+  .sk-layout-portrait .page-inner {
+    --program-columns: minmax(0, 1fr) minmax(0, 1.03fr);
+    grid-template-areas: "title title" "photo intro" "photo training" "photo facts" "photo topics" ". ." "foot foot";
+  }
+  .sk-layout-portrait .sk-photo { width: 100%; }
+
+  .sk-layout-centered .page-inner {
+    --program-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+    grid-template-areas: "title title" "intro facts" "photo photo" "training training" "topics topics" ". ." "foot foot";
+  }
+  .sk-layout-centered .sk-photo { width: min(75%, 29em); justify-self: center; }
+  .sk-layout-centered .sk-photo img { aspect-ratio: 16 / 9; }
+
+  .sk-layout-feature .page-inner {
+    --program-columns: minmax(0, .84fr) minmax(0, 1.2fr);
+    grid-template-areas: "title title" "intro photo" "facts photo" "training training" "topics topics" ". ." "foot foot";
+  }
+  .sk-layout-feature .sk-photo { width: 100%; }
+  .sk-layout-feature .sk-photo img {
+    aspect-ratio: 5 / 4;
+    object-fit: cover;
+  }
+
+  .sk-layout-workshop .page-inner {
+    --program-columns: minmax(0, 1fr) minmax(0, 1.08fr);
+    grid-template-areas: "title photo" "intro photo" "training photo" "facts facts" "topics topics" ". ." "foot foot";
+  }
+  .book .sk-layout-workshop .h-serif {
+    font-size: clamp(1.85em, 3.8cqi, 2.5em);
+    text-wrap: normal;
+  }
+  .sk-layout-workshop .h-serif em {
+    display: block;
+    margin-top: .25em;
+    font-size: .74em;
+  }
+  .sk-layout-workshop .sk-photo img { aspect-ratio: 4 / 5; }
+}
+
+@media (min-width: 900px) {
+  .sk-layout-opening .sk-photo { margin: -1.65em -1.85em 0; }
+  .sk-layout-opening .sk-photo img { border-radius: 0; }
+  .sk-layout-pair .sk-program-title { margin: -1.65em -1.85em 0; padding: 1.65em 1.85em 1em; }
+}
+
+@media (min-width: 900px) and (max-height: 730px) {
+  .book .sk-program .page-inner { gap: .55em .95em; }
+  .sk-layout-opening .page-inner { --program-rows: minmax(9em, 1fr) auto auto auto auto minmax(0, .1fr) auto; }
+  .sk-layout-opening .sk-photo { min-height: 9em; }
+  .sk-layout-pair .sk-photo img,
+  .sk-layout-centered .sk-photo img { max-height: 11.5em; object-fit: cover; }
+}
+
+
+.sk-chips { display: flex; flex-wrap: wrap; gap: .35em; }
+.sk-chips span {
+  padding: .25em .65em;
+  border-radius: 3px;
+  background: var(--reader-mint);
+  color: var(--reader-green);
+  font-size: .81em;
+}
+
+.book .skpg .major-list { margin: 0; }
+.book .skpg .major-row { min-height: 44px; }
+.major-info h3 { color: var(--reader-ink); font-size: 1em; line-height: 1.25; }
+.book .skpg .major-info p { font-size: .91em; line-height: 1.45; }
+
+.sk-tbl { width: 100%; table-layout: fixed; border-collapse: collapse; font-size: .9em; }
+.sk-tbl :is(th, td) {
+  border-bottom: 1px solid var(--hairline);
+  padding: .55em .4em;
+  text-align: left;
+  vertical-align: top;
+}
+.sk-tbl thead th { background: var(--reader-green); color: #fff; }
+.sk-tbl tbody th { font-weight: 600; color: var(--reader-ink); }
+.sk-tbl tbody tr:nth-child(even) { background: var(--green-50); }
+
+.sk-pick,
+.sk-jobs,
+.sk-faq {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: .8em 1.05em;
+}
+.sk-pick { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.sk-pick.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.sk-pick > div { background: var(--reader-mint); padding: .65em .7em; }
+.sk-pick h4,
+.sk-job h4,
+.sk-faq dt { color: var(--reader-ink); font-size: .95em; font-weight: 600; }
+.sk-pick p,
+.sk-job p,
+.sk-faq dd { margin-top: .2em; font-size: .9em; color: var(--soft); }
 .sk-job {
   display: grid;
-  grid-template-columns: 2em 1fr;
-  gap: .7em;
-  padding: .72em 0;
-  border-top: 1px solid var(--line);
+  grid-template-columns: 1.35em minmax(0, 1fr);
+  gap: .35em;
 }
-.sk-job > i {
-  font-family: var(--serif);
-  font-style: italic;
-  font-size: 1.16em;
-  line-height: 1.25;
-  color: var(--teal);
-}
-.sk-job h4 { font-size: .79em; font-weight: 600; color: var(--ink); }
-.sk-job p { font-size: .68em; line-height: 1.5; color: var(--soft); margin-top: .1em; }
+.sk-faq > div { padding-top: .45em; border-top: 1px solid var(--hairline); }
 
-/* ---------- Danh mục chương trình (P3) ---------- */
-.sk-list { margin-top: 1.1em; }
-.sk-item {
-  display: grid;
-  grid-template-columns: 2.1em 1fr auto;
-  gap: .95em;
-  align-items: baseline;
-  padding: .82em 0;
-  border-bottom: 1px solid var(--line);
-  text-decoration: none;
-  color: inherit;
-  cursor: pointer;
-  transition: background .25s ease;
-}
-.sk-item:first-child { border-top: 1px solid var(--line); }
-.sk-item:hover { background: var(--mint); }
-.sk-item > i {
-  font-family: var(--serif);
-  font-style: italic;
-  font-size: 1.35em;
-  color: var(--teal);
-  line-height: 1.1;
-}
-.sk-item h4 {
-  font-family: var(--serif);
-  font-size: 1.28em;
-  font-weight: 600;
-  line-height: 1.15;
-  color: var(--ink);
-}
-.sk-item h4 em { font-style: italic; font-size: .78em; color: var(--mute); }
-.sk-item p { font-size: .68em; line-height: 1.45; color: var(--soft); margin-top: .15em; }
-.sk-item > span:last-child { font-size: .95em; color: var(--teal); opacity: .45; }
-.sk-item:hover > span:last-child { opacity: 1; }
-
-/* ---------- Liên hệ ---------- */
-.sk-contact { margin-top: 1em; }
-.sk-crow {
-  display: grid;
-  grid-template-columns: 6.2em 1fr;
-  gap: .8em;
-  padding: .6em 0;
-  border-bottom: 1px solid var(--line);
-  font-size: .74em;
-  line-height: 1.5;
-  color: var(--soft);
-}
-.sk-crow:first-child { border-top: 1px solid var(--line); }
-.sk-crow span:first-child {
-  font-size: .86em;
-  font-weight: 700;
-  letter-spacing: .12em;
-  text-transform: uppercase;
-  color: var(--mute);
-}
-.sk-crow .strong { font-weight: 600; color: var(--teal-deep); }
-
-/* ---------- Form đăng ký (dùng class gốc, đổi màu) ---------- */
-.page.skpg .register {
-  background: #F4FAF7;
-  border: 1px solid #CFE7DF;
-  border-radius: 3px;
-  box-shadow: none;
-}
-.page.skpg .register .h-sub {
-  font-family: var(--sans);
-  font-size: .74em;
-  font-weight: 700;
-  letter-spacing: .12em;
-  text-transform: uppercase;
-  color: var(--teal-deep);
-  margin-bottom: .8em;
-}
-.page.skpg .form-row label { font-size: .68em; color: var(--mute); }
-.page.skpg .form-row input,
-.page.skpg .form-row select {
-  border-radius: 2px;
-  border-color: #CFE7DF;
-  font-size: .76em;
-}
-.page.skpg .btn {
-  background: var(--teal-deep);
-  border-radius: 2px;
-  font-size: .74em;
-  letter-spacing: .12em;
-}
-
-/* ---------- Ghi chú ---------- */
-.sk-note {
-  font-size: .68em;
-  line-height: 1.5;
-  color: var(--mute);
-  border-left: 2px solid #CFE7DF;
-  padding-left: .8em;
-  margin-top: .7em;
-}
-
-/* ============================================================
-   BÌA
-   Ảnh phủ toàn trang (giữ nguyên bố cục full-bleed).
-   Phần chữ nằm ở nửa dưới trên lớp phủ tối dần nên luôn đọc rõ,
-   không phụ thuộc vùng sáng/tối của ảnh phía sau.
-   ============================================================ */
-.page.skcover {
-  padding: 0;
-  background: #0B2F2A;
-  color: #F4EFE2;
-  overflow: hidden;
-  position: relative;
-}
-/* Chế độ 1 trang: style.css tăng padding cho .page — bìa phải giữ 0. */
-.book.single .page.skcover { padding: 0; }
-.skcover > .ph,
-.skcover > img {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center 35%;
-  border: 0;
-  border-radius: 0;
-}
-.skcover > .ph {
-  background-color: #13332c;
-  background-size: cover;
-  background-position: center 35%;
-}
-
-/* Khối chữ phía trên: nền xanh đậm che bảng hiệu trong ảnh,
-   chừa lại phần giữa cho nhóm sinh viên. */
-.skcv::before {
-  content: "";
-  position: absolute;
-  left: 0; right: 0; top: 0;
-  height: 48%;
-  z-index: -1;
-  pointer-events: none;
-  background:
-    linear-gradient(180deg,
-      #0B2F2A 0%,
-      #0B2F2A 82%,
-      rgba(11, 47, 42, .97) 90%,
-      rgba(11, 47, 42, .72) 96%,
-      rgba(11, 47, 42, 0) 100%);
-}
-
-/* Dải thông tin phía dưới: chỉ phủ phần nền/đất, không che mặt người. */
-.skcv::after {
-  content: "";
-  position: absolute;
-  left: 0; right: 0; bottom: 0;
-  height: 12%;
-  z-index: -1;
-  pointer-events: none;
-  background:
-    linear-gradient(180deg,
-      rgba(6, 26, 22, 0) 0%,
-      rgba(6, 26, 22, .55) 40%,
-      rgba(6, 26, 22, .90) 70%,
-      rgba(6, 26, 22, .97) 100%);
-}
-
-.skcv {
-  position: relative;
-  z-index: 2;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  padding: 2.1em 2.5em 1.9em;
-}
-.skcv-head { display: flex; align-items: center; gap: .8em; }
-.skcv-head img {
-  width: 2.7em; height: 2.7em;
-  object-fit: contain;
-  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, .5));
-}
-.skcv-head > div { display: flex; flex-direction: column; }
-.skcv-head b {
-  font-size: .74em; font-weight: 600;
-  letter-spacing: .22em; text-transform: uppercase;
-}
-.skcv-head span {
-  font-size: .6em; letter-spacing: .18em; text-transform: uppercase;
-  color: #B9D7CA; margin-top: .2em;
-}
-.skcv-year {
-  margin-left: auto;
-  font-size: .64em; letter-spacing: .26em; text-transform: uppercase;
-  color: #D9B26A;
-}
-.skcv-body { margin-top: 1.5em; }
-.skcv-flag {
-  display: inline-flex;
-  align-items: center;
-  gap: .6em;
-  font-size: .64em;
-  font-weight: 700;
-  letter-spacing: .24em;
-  text-transform: uppercase;
-  color: #DCEFE6;
-  background: rgba(8, 34, 28, .55);
-  border: 1px solid rgba(207, 233, 223, .45);
-  padding: .55em 1.05em;
-  border-radius: 2px;
-}
-.skcv-flag svg { width: .95em; height: .95em; }
-.skcv-pre {
-  font-family: var(--serif);
-  font-style: italic;
-  font-size: 1.55em;
-  color: #F0DFB9;
-  margin: 1em 0 .05em;
-}
-.skcv-title {
-  font-family: var(--serif);
-  font-size: 5.2em;
-  font-weight: 700;
-  line-height: .98;
-  letter-spacing: .008em;
-  color: #FBF6E8;
-  white-space: nowrap;
-  text-shadow: 0 3px 28px rgba(0, 0, 0, .5);
-}
-.skcv-foot {
+.sk-hot {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
-  gap: 1em;
+  gap: .5em;
+  flex-wrap: wrap;
+  color: #fff;
+  background: var(--reader-green);
+  padding: .65em .85em;
+}
+.sk-hot a { color: inherit; text-underline-offset: .18em; }
+
+.sk-quotes { display: grid; gap: .65em; }
+.sk-quote { padding: .65em .85em; background: var(--reader-mint); }
+.sk-quote cite { display: block; margin-top: .35em; font-size: .82em; }
+.sk-note,
+.skpg .form-note { font-size: .88em; color: var(--soft); }
+.sk-note { border-inline-start: 2px solid var(--hairline); padding-inline-start: .65em; }
+
+.book .skpg .register { padding: 1em; }
+.book .skpg .register .h-sub { font-size: 1em; }
+.book .skpg .contact-row { font-size: .94em; }
+.book .skpg .form-row label { font-size: .9em; }
+.book .skpg .form-row :is(input, select) { padding-inline: .65em; }
+
+.sk-contact-panel {
+  display: grid;
+  grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr);
+  align-items: start;
+  gap: .9em;
+}
+.sk-contact-panel .contact-row { grid-template-columns: minmax(0, 1fr); gap: .15em; }
+.sk-contact-photo img { aspect-ratio: 4 / 3; object-fit: cover; }
+
+.sk-event-pair {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: .65em;
+}
+
+.sk-event-pair img {
+  aspect-ratio: 16 / 10;
+  object-fit: contain;
+  background: var(--reader-green);
+}
+
+.book .sk-job-fair img { aspect-ratio: 2194 / 1504; }
+
+.book .page.sk-backcover {
+  --backcover-inset: clamp(1rem, 3.2cqi, 2.65rem);
+  justify-content: flex-start;
+  align-items: stretch;
+  padding: 0;
+  overflow: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  text-align: left;
+  color: var(--reader-ink);
+  background: var(--reader-paper);
+}
+
+.sk-backcover-title {
+  display: flex;
+  flex: 1 0 auto;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: clamp(.75rem, 2cqi, 1.35rem);
+  padding: var(--backcover-inset);
+  background: var(--reader-green);
+  color: #fbfaf4;
+}
+
+.sk-backcover-title img {
+  display: block;
+  width: clamp(2.5rem, 4.8cqi, 3.7rem);
+  height: auto;
+}
+
+.sk-backcover-title h2 {
   margin-top: auto;
-  padding-top: .8em;
-  border-top: 1px solid rgba(217, 178, 106, .32);
-  font-size: .62em;
-  letter-spacing: .14em;
-  text-transform: uppercase;
-  color: #B9D7CA;
+  font: 700 clamp(2.35rem, 5.7cqi, 5.3rem)/.9 var(--serif);
+  letter-spacing: -.04em;
 }
-.skcv-sub {
-  font-size: .82em;
-  line-height: 1.6;
-  letter-spacing: .005em;
-  color: #D8ECE3;
-  max-width: 34em;
-  margin: .95em 0 0;
+
+.sk-backcover-title > p {
+  color: #deebdc;
+  font-size: clamp(.78rem, 1.18cqi, .94rem);
+  line-height: 1.45;
 }
-.skcv-list {
+
+.sk-backcover-info {
+  display: grid;
+  grid-template-columns: minmax(0, 1.08fr) minmax(0, 1fr);
+  flex: .6 0 auto;
+  align-content: center;
+  align-items: start;
+  gap: 1.25rem;
+  padding: clamp(1rem, 2.6cqi, 2.25rem) var(--backcover-inset);
+  font-size: clamp(.875rem, 1.25cqi, 1rem);
+  line-height: 1.5;
+}
+
+.sk-backcover-info a {
+  color: inherit;
+  text-underline-offset: .18em;
+}
+
+.sk-backcover-info a:hover { color: #397155; }
+.sk-backcover-phone { container-type: inline-size; }
+.sk-backcover-phone > p { font-weight: 600; }
+.sk-backcover-hotline {
+  display: inline-block;
+  margin: .18em 0 .32em;
+  font: 700 clamp(1.4rem, 12cqi, 2.8rem)/1 var(--serif);
+  font-variant-numeric: lining-nums tabular-nums;
+}
+
+.sk-backcover-landlines {
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
-  letter-spacing: .16em;
-  text-transform: uppercase;
-  color: #CFE4DA;
+  gap: .2rem .75rem;
+  font-size: .82rem;
 }
-.skcv-list span + span::before {
-  content: "·";
-  margin: 0 .8em;
-  color: #6E9689;
+
+.sk-backcover-info address {
+  display: grid;
+  gap: .42em;
+  font-style: normal;
+  overflow-wrap: anywhere;
 }
-.skcv-hotline {
+
+.sk-backcover-info address a { font-weight: 600; }
+.sk-backcover-credit {
   display: flex;
-  align-items: baseline;
-  gap: .7em;
-  white-space: nowrap;
-}
-.skcv-hotline b { color: #D9B26A; letter-spacing: .08em; font-size: 1.55em; }
-
-/* ============================================================
-   BÌA SAU
-   ============================================================ */
-.page.skback {
-  padding: 0;
-  background: #0B2F2A;
-  color: #F4EFE2;
-  overflow: hidden;
-}
-.skback-inner {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  gap: .9em;
-  padding: 2.5em;
-  background:
-    radial-gradient(ellipse 90% 70% at 50% 0%, rgba(14, 143, 121, .22), transparent 70%),
-    #0B2F2A;
-}
-.skback-inner img {
-  width: 3.6em; height: 3.6em;
-  object-fit: contain;
-  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, .5));
-}
-.skback-inner h2 {
-  font-family: var(--serif);
-  font-size: 2.1em;
-  font-weight: 600;
-  line-height: 1.15;
-  color: #FBF6E8;
-}
-.skback-slogan {
-  font-family: var(--serif);
-  font-style: italic;
-  font-size: .92em;
-  color: #CFE9DF;
-}
-.skback-rule {
-  width: 3.2em;
-  height: 1px;
-  background: rgba(217, 178, 106, .7);
-  margin: .3em 0;
-}
-.skback-contact {
-  font-size: .7em;
-  line-height: 1.9;
-  color: #A9C7BA;
-  letter-spacing: .04em;
-}
-.skback-copy {
-  margin-top: 1.4em;
-  font-size: .6em;
-  letter-spacing: .18em;
-  text-transform: uppercase;
-  color: #6E9689;
+  flex: none;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: .2rem .75rem;
+  padding: .65rem var(--backcover-inset);
+  border-top: 1px solid var(--hairline);
+  color: var(--soft);
+  font-size: .78rem;
+  line-height: 1.4;
 }
 
-/* Cửa sổ thấp (laptop 1280×650): giãn dòng nhẹ hơn để nội dung + ảnh vừa trang */
-@media (max-height: 700px) and (min-width: 900px) {
-  .page.skpg { line-height: 1.5; }
-  .sk-lead { line-height: 1.48; }
-  .sk-row p { line-height: 1.4; }
-  .sk-spec { padding: .35em 0 .3em; }
-  .sk-row { padding: .3em 0; }
-  .sk-list { margin-top: .7em; }
-  .sk-item { padding: .55em 0; }
-  .sk-chips { margin-top: .5em; }
-  .sk-note { margin-top: .55em; }
-  .sk-rows { margin-top: .55em; }
-  .sk-shot { margin-top: .6em; }
-}
-
-/* ============================================================
-   MOBILE
-   ============================================================ */
-@media (max-width: 899px) {
-  .page-inner.sk { padding: 1.55em 1.6em 1.25em; height: auto; min-height: 100%; }
-  /* Chữ mobile: cqi của sách đơn (~313–500px) quá nhỏ → co riêng cho trang,
-     sàn 10.5px đảm bảo dễ đọc trên điện thoại (trang được phép cuộn). */
-  .page.skpg { font-size: clamp(11px, 3.4cqi, 13.5px); }
-  .sk-bot { margin-top: 1.1em; position: static; }
-  .sk-h1 { font-size: 2.35em; }
-  .sk-kick { margin-top: .9em; }
-  .sk-lead { font-size: .88em; margin-top: .6em; }
-  .sk-shot { margin-top: .9em; }
-  /* Mobile cuộn được → ảnh về tỉ lệ cứng cho gọn */
-  .sk-shot.hero { flex: 0 0 auto; min-height: 0; max-height: none; aspect-ratio: 16 / 8.2; }
-  .sk-spec { margin-top: 1em; }
-  .sk-rows { margin-top: .8em; }
-  .sk-row { padding: .55em 0; }
-  .sk-chips { margin-top: .8em; }
-  .sk-jobs { margin-top: .7em; }
-  .sk-job { padding: .55em 0; }
-  .sk-item { padding: .62em 0; }
-  .sk-item h4 { font-size: 1.15em; }
-  .sk-tbl { font-size: .78em; }
-  .sk-tbl th, .sk-tbl td { padding: .48em .42em; }
-  .sk-tbl tbody th { white-space: normal; width: 26%; }
-  .sk-pick { margin-top: .8em; }
-  .sk-pick > div { padding: .6em .65em .65em; }
-  .sk-faq, .sk-jobs, .sk-pick, .sk-pick.two { grid-template-columns: 1fr; }
-  .sk-hot { margin-top: .9em; padding: .7em .9em; }
-  .skcv-title { font-size: 4.35em; }
-  .skcv { padding: 1.7em 1.75em 1.5em; }
-  .skcv-head span, .skcv-year { display: none; }
-  .skcv-body { margin-top: 1.2em; }
-  .skcv-foot { font-size: .58em; }
-  .skcv-sub { font-size: .76em; }
-  .skcv-hotline b { font-size: 1.5em; }
-  .skback-inner { padding: 1.8em; }
-  .page.skpg .register { padding: .9em 1em .85em; }
+@media (max-width: 540px) {
+  .sk-practice { grid-template-columns: minmax(0, .9fr) minmax(0, 1fr); gap: .75em; }
+  .sk-contact-panel { grid-template-columns: minmax(0, 1fr); }
+  .sk-contact-photo { width: min(100%, 19em); }
+  .sk-contact-photo img { aspect-ratio: 2.35 / 1; }
+  .sk-backcover-info { grid-template-columns: minmax(0, 1fr); gap: .8rem; }
 }
 
 @media (max-width: 480px) {
-  .skcv-title { font-size: 3.85em; }
-  .skcv-list span + span::before { margin: 0 .55em; }
+  .sk-pick, .sk-pick.two, .sk-jobs, .sk-faq { grid-template-columns: minmax(0, 1fr); }
+  .sk-tbl { font-size: .81em; }
+  .sk-spec { font-size: .91em; }
+  .book .skpg .form-row :is(input, select) { padding: .55em .6em; }
 }

@@ -1,0 +1,144 @@
+/* Thư viện dùng chung cho ba cuốn sách. */
+.ebook-home {
+  display: grid;
+  grid-template-columns: clamp(13.5rem, 18vw, 17rem) minmax(0, 1fr);
+  height: 100dvh;
+}
+
+.ebook-library {
+  --library-bg: #172f28;
+  --library-ink: #f8f4e7;
+  --library-accent: #edbf67;
+  --library-edge: #f8f4e730;
+  position: relative;
+  z-index: 70;
+  color: var(--library-ink);
+  background: var(--library-bg);
+  overflow: auto;
+}
+
+.ebook-library > summary { display: none; }
+.ebook-library-menu { padding: clamp(1rem, 1.65vw, 1.6rem); }
+
+.ebook-library-brand {
+  display: flex;
+  gap: .68rem;
+  align-items: center;
+  padding-block: .15rem 1.15rem;
+  border-bottom: 1px solid var(--library-edge);
+  font-size: .82rem;
+  font-weight: 600;
+  line-height: 1.32;
+}
+
+.ebook-library-brand img { display: block; width: 36px; height: 36px; }
+.ebook-library-menu h2 {
+  margin-block: clamp(1.35rem, 5.2vh, 3.5rem) .95rem;
+  color: inherit;
+  font: 800 clamp(1.3rem, 1.8vw, 1.7rem)/1.15 var(--sans);
+  letter-spacing: -.045em;
+}
+
+.ebook-library-menu ul { display: grid; gap: .42rem; list-style: none; }
+
+.ebook-library-menu a {
+  display: grid;
+  grid-template-columns: 43px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: .65rem;
+  min-height: 66px;
+  padding: .47rem .52rem;
+  border: 1px solid transparent;
+  border-radius: 5px;
+  color: var(--library-ink);
+  font-size: .86rem;
+  font-weight: 700;
+  line-height: 1.35;
+  text-decoration: none;
+}
+
+.ebook-library-menu a:hover { background: #284438; }
+
+.ebook-library-menu a[aria-current="page"] {
+  border-color: var(--library-edge);
+  background: #2c493e;
+  color: var(--library-accent);
+}
+
+.ebook-library-menu a[aria-current="page"]::after {
+  content: "";
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.ebook-library :is(a, summary):focus-visible {
+  outline: 2px solid var(--library-accent);
+  outline-offset: -2px;
+}
+
+.ebook-library-cover {
+  display: block;
+  width: 43px;
+  height: 56px;
+  border-radius: 2px;
+  object-fit: cover;
+}
+
+.ebook-home > .stage { min-width: 0; min-height: 0; }
+
+@media (min-width: 900px) {
+  .ebook-home > .stage > .book {
+    width: min(1560px, calc(100% - 12px), calc((100dvh - 110px) * 1.66));
+  }
+}
+
+@media (max-width: 899px) {
+  .ebook-home { grid-template: auto minmax(0, 1fr) / minmax(0, 1fr); }
+  .ebook-library { overflow: visible; }
+
+  .ebook-library > summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: .75rem;
+    min-height: 46px;
+    padding: .65rem 1rem;
+    color: var(--library-ink);
+    font-size: .88rem;
+    font-weight: 700;
+    list-style: none;
+    cursor: pointer;
+  }
+  .ebook-library > summary::-webkit-details-marker { display: none; }
+  .ebook-library > summary::after {
+    content: "";
+    width: .5rem;
+    height: .5rem;
+    margin-inline: .2rem;
+    border-block-end: 2px solid var(--library-accent);
+    border-inline-end: 2px solid var(--library-accent);
+    transform: translateY(-.13rem) rotate(45deg);
+  }
+  .ebook-library[open] > summary::after { transform: translateY(.13rem) rotate(225deg); }
+
+  .ebook-library-menu {
+    position: absolute;
+    inset: 100% 0 auto;
+    max-height: calc(100dvh - 46px);
+    padding: .65rem .75rem .8rem;
+    overflow: auto;
+    background: var(--library-bg);
+    border-top: 1px solid var(--library-edge);
+  }
+
+  .ebook-library-menu :is(h2, .ebook-library-brand) { display: none; }
+  .ebook-home > .stage { height: 100%; }
+  .ebook-home > .stage > .book.single {
+    height: min(calc(100% - 72px), calc(var(--single-width) * 1.85));
+  }
+}
+
+:fullscreen .ebook-home { grid-template: minmax(0, 1fr) / minmax(0, 1fr); }
+:fullscreen .ebook-library { display: none; }

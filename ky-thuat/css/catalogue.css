@@ -1,0 +1,458 @@
+/* Catalogue tuyển sinh chính. Khung sách và hiệu ứng lật nằm trong style.css. */
+:root {
+  --reader-paper: #fbfaf4;
+  --reader-ink: #163b30;
+  --reader-green: #184a3b;
+  --reader-mint: #e3efe6;
+  --reader-sand: #f1e8d4;
+}
+
+.stage {
+  padding: 22px 12px 12px;
+  gap: 16px;
+}
+
+.book {
+  width: min(1560px, calc(100vw - 36px), calc((100dvh - 110px) * 1.66));
+  aspect-ratio: 1.66;
+  flex: none;
+  perspective: 9600px;
+  transition: none;
+}
+
+/* Góc xoay và mặt nạ đã điều khiển chuyển động. Khi đổi trạng thái,
+   vị trí và kích thước đế phải khớp ngay với bìa. */
+.book::before { transition: none; }
+
+/* Khi bìa xoay, chỉ hiện phần đế đã có bìa che phía trên. */
+.book.cover-turn {
+  --cover-mask: calc((100% - var(--cover-reveal)) / 2 - 2px);
+  transform: translateX(var(--cover-offset)) perspective(2800px) rotateY(var(--cover-tilt));
+  perspective: 14000px;
+}
+
+.book.cover-turn::before {
+  inset: -4px -9px -9px;
+  border-radius: 12px;
+  box-shadow: 0 1px 0 #fff7 inset;
+}
+
+/* Bóng mềm nằm riêng dưới đế để mặt nạ không cắt bóng thành đường thẳng. */
+.book.cover-turn::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 -12px;
+  width: auto;
+  height: 22px;
+  border-radius: 50%;
+  transform: none;
+  background: #163b3059;
+  filter: blur(15px);
+  box-shadow: none;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.book.cover-turn-front::before { clip-path: inset(-100px -100px -100px var(--cover-mask)); }
+.book.cover-turn-back::before { clip-path: inset(-100px var(--cover-mask) -100px -100px); }
+.book.cover-turn-front::after { left: var(--cover-mask); }
+.book.cover-turn-back::after { right: var(--cover-mask); }
+.book.cover-turn-front .cast-left { clip-path: inset(0 0 0 calc(100% - var(--cover-reveal))); }
+.book.cover-turn-back .cast-right { clip-path: inset(0 calc(100% - var(--cover-reveal)) 0 0); }
+.book.cover-turn ~ .hint { visibility: hidden; }
+
+.book .leaf-panel {
+  --panel-width: calc(var(--leaf-width) / var(--leaf-panels));
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: var(--panel-width);
+  transform-origin: left center;
+  transform-style: preserve-3d;
+}
+
+.book .leaf-panel > .leaf-panel { left: 100%; }
+
+.book .leaf-surface {
+  position: absolute;
+  inset: 0;
+  width: calc(var(--panel-width) + .5px);
+  overflow: hidden;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.book .hardcover-leaf .leaf-surface,
+.book .leaf-panel .leaf-panel .leaf-panel > .leaf-surface { width: var(--panel-width); }
+.book .leaf-surface.back {
+  transform: rotateY(180deg);
+  transform-origin: calc(var(--panel-width) / 2) center;
+}
+
+.book .leaf-surface > .face {
+  left: calc(-1 * var(--column) * var(--panel-width));
+  width: var(--leaf-width);
+  transform: none;
+}
+
+.book .leaf-surface::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  opacity: var(--fold-light, 0);
+  background-position: calc(-1 * var(--column) * var(--panel-width)) 0;
+  background-size: var(--leaf-width) 100%;
+  background-repeat: no-repeat;
+}
+
+.book .leaf-surface.front::after {
+  background-image: linear-gradient(90deg, #27372b27, transparent 59%, #fff3 95%, #f8f3e7);
+}
+
+.book .leaf-surface.back::after {
+  background-image: linear-gradient(270deg, #27372b1f, transparent 62%, #fff4 96%, #f8f3e7);
+}
+
+.book.single {
+  --single-width: min(640px, calc(100vw - 24px));
+  width: var(--single-width);
+  height: min(calc(100dvh - 100px), calc(var(--single-width) * 1.85));
+  aspect-ratio: auto;
+}
+
+.book.single .single-turn {
+  position: absolute;
+  inset: 0;
+  z-index: 15;
+  border-radius: 10px;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.book.single .single-turn > .face {
+  transform: none;
+  display: flex;
+}
+
+.single-turn-shadow,
+.single-turn-fold {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  opacity: 0;
+}
+
+.single-turn-shadow { background: #1b3528; }
+.single-turn-fold {
+  background: linear-gradient(90deg, #b9bba9, #eeece0 27%, #fffdf4 57%, #c5c9b9) no-repeat;
+  background-size: 32% 100%;
+}
+
+.book :is(button, a, input, select):focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
+
+.book h2:focus-visible {
+  text-decoration: underline;
+  text-decoration-color: #739983;
+  text-decoration-thickness: 2px;
+  text-underline-offset: .14em;
+  outline: none;
+}
+
+/* Bìa chia hai mảng: ảnh địa phương và tiêu đề trên nền xanh. */
+.book .cover {
+  display: flex;
+  padding: 0;
+  background: var(--reader-green);
+}
+
+.book .cover .cover-photo {
+  position: relative;
+  inset: auto;
+  flex: 1 1 0;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.book .cover-photo > img:first-child {
+  object-position: center 43%;
+  filter: none;
+  transform: none;
+}
+
+.book .cover-photo::after { content: none; }
+.book .cover-inner { flex: none; height: auto; }
+.book .cover-lower {
+  display: flex;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: .6rem 1rem;
+  padding: 1.35rem clamp(1rem, 3cqi, 2.4rem) 1.5rem;
+  background: var(--reader-green);
+  text-shadow: none;
+}
+
+.book .cover-kicker {
+  font-size: .875rem;
+  margin: 0 0 .2em;
+  letter-spacing: 0;
+  text-transform: none;
+  color: #d6e9d7;
+}
+
+.book .cover-main-title {
+  margin: 0;
+  font-size: clamp(2.75rem, 6.2cqi, 5.5rem);
+  line-height: .95;
+  letter-spacing: -.045em;
+  text-shadow: none;
+}
+
+.book .cover-edition {
+  margin-top: .45em;
+  color: #d6e9d7;
+  font-size: .875rem;
+}
+
+.book .cover-photo .cover-mark {
+  position: absolute;
+  inset: clamp(.75rem, 2cqi, 1.5rem) auto auto clamp(.75rem, 2cqi, 1.5rem);
+  width: clamp(2rem, 5cqi, 3rem);
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 1px 4px #163b3066);
+  transform: none;
+}
+
+.book .cover-footer { width: auto; margin: 0; }
+.cover-open {
+  min-height: 44px;
+  padding: .55rem .9rem;
+  font: 600 .875rem/1.25 var(--sans);
+  border: 0;
+  border-radius: 4px;
+  cursor: pointer;
+  background: var(--reader-paper);
+  color: var(--reader-ink);
+}
+.cover-open:hover { background: #e2eedf; }
+
+/* Một hệ lề và chân trang cho cả 18 mặt. Mặt dài có thể cuộn trong khung sách. */
+.book .page:not(.cover, .backcover, .closing) {
+  flex-direction: column;
+  gap: .75em;
+  padding: 1.65em 1.85em 1.15em;
+  font-size: clamp(13px, 1.52cqi, 16px);
+  line-height: 1.5;
+  letter-spacing: 0;
+  color: var(--reader-ink);
+  background: var(--reader-paper);
+  overflow: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+}
+
+.book.single .sheet.active.show-back .face.front,
+.book.single .sheet.active:not(.show-back) .face.back { display: none; }
+
+.book .sheet > .page[inert] { overflow: hidden; }
+.book .page:not(.cover, .backcover, .closing) :is(p, ul, ol, figure) { flex-shrink: 0; }
+.book .page-inner,
+.book .page-editorial .page-inner {
+  flex: 1 0 auto;
+  height: auto;
+  min-height: 100%;
+  padding: 0;
+  justify-content: flex-start;
+  gap: .85em;
+}
+
+.book .page .pg-foot {
+  position: static;
+  margin-top: auto;
+  padding: .4em 0 0;
+  text-align: right;
+  color: var(--reader-green);
+  font-size: .8em;
+}
+
+.book .pg-foot span::before { content: none; }
+.book .page :is(.h-serif, .ed-title) {
+  font-size: clamp(2em, 4.6cqi, 3em);
+  line-height: 1;
+  letter-spacing: -.035em;
+  margin: 0 0 .25em;
+}
+.book .page :is(.lead, .ed-lead) {
+  font-size: 1em;
+  line-height: 1.55;
+  color: var(--reader-ink);
+}
+
+.book .page.page-editorial { background: var(--reader-mint); }
+.book .page.has-seal { background: var(--reader-sand); }
+.book .page.has-seal .page-inner::before { content: none; }
+.book .page :is(.hero-photo, .ed-photo, .photo-card) {
+  margin: 0;
+  border: 0;
+  border-radius: 2px;
+  box-shadow: none;
+}
+.book .page .ph.frame-mat::before,
+.book .page .ph.frame-line::after { content: none; }
+.book .page :is(.ghost-art, .ghost-no, .feat-no, .reason-check, .major-no, .orn-divider) {
+  display: none;
+}
+.book .page .program-level {
+  font-size: .875rem;
+  font-weight: 600;
+  color: var(--reader-green);
+  margin-bottom: .55em;
+}
+.book .page .ed-photo { min-height: 0; flex: 0 0 auto; }
+.book .ed-photo img {
+  height: auto;
+  aspect-ratio: 16 / 8;
+  min-height: 0;
+  border-radius: 2px;
+}
+.book .page :is(.ed-stats, .ed-cols, .ed-quote, .cap, .num-list) { margin: 0; }
+.book .page .ed-cols { gap: 1em; }
+.book .page .ed-col p { font-size: .92em; }
+.book .page :is(.reason-card, .curriculum-box, .register) {
+  border: 0;
+  border-radius: 2px;
+  box-shadow: none;
+}
+.book .page .feature-item { grid-template-columns: minmax(0, 1fr); }
+.book .page :is(.reason-card p, .feature-item p, .major-info p, .photo-row p, .ticks li) {
+  color: var(--ink);
+  font-size: max(.9em, 13px);
+}
+.book .page :is(.cap, .ed-quote) { border: 0; padding: .4em 0; }
+.book .page .ph-cap {
+  inset: auto auto 0 0;
+  background: var(--reader-green);
+  padding: .45em .7em;
+  font-size: max(.8em, 12px);
+}
+.book .page .photo-row .ph { border: 0; border-radius: 2px; box-shadow: none; }
+.illustration-thumb img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: 2px;
+}
+.illustration-thumb figcaption {
+  margin-top: .25em;
+  color: var(--soft);
+  font-size: .76em;
+  text-align: center;
+}
+.photo-row.mirror .illustration-thumb { order: 2; }
+.duoc-photo-pair {
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+  align-items: end;
+  gap: .4em .55em;
+}
+.duoc-photo-pair img {
+  display: block;
+  width: 100%;
+  border-radius: 2px;
+}
+.duoc-photo-pair figcaption {
+  grid-column: 1 / -1;
+  color: var(--soft);
+  font-size: .83em;
+}
+.book .major-row { padding-block: .65em; }
+.book .page .contact { margin-top: 0; }
+.book .contact-row { align-items: start; }
+.book .c-label { text-transform: none; letter-spacing: 0; font-size: .9em; color: var(--reader-ink); }
+.book .contact-row a { color: inherit; text-underline-offset: .2em; }
+.book .c-strong a { white-space: nowrap; }
+.book .page .register { margin-top: 0; background: var(--reader-paper); }
+.book .form-row { grid-template-columns: 7em minmax(0, 1fr); }
+.book .form-row :is(input, select) { min-width: 0; }
+.book .register .btn {
+  background: var(--reader-green);
+  border-radius: 4px;
+  min-height: 44px;
+  box-shadow: none;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.book .closing,
+.book .backcover { background: var(--reader-green); }
+.book .closing { padding: 0; overflow: auto; }
+.book .closing-photo {
+  min-height: 8rem;
+  flex: 1 0 40%;
+  overflow: hidden;
+}
+.book .closing-photo img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: center 42%;
+}
+.book .closing-content {
+  position: relative;
+  inset: auto;
+  flex: none;
+  padding: clamp(1rem, 3cqi, 2.3rem);
+}
+.book .closing-text { font-size: clamp(.875rem, 1.45cqi, 1rem); margin-top: .5em; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .book .sheet .cover-photo > img:first-child { animation: cover-reveal .65s ease-out both; }
+  @keyframes cover-reveal {
+    from { opacity: 0; transform: scale(1.04); }
+    to { opacity: 1; transform: scale(1); }
+  }
+}
+
+.book .page.strip-top { padding: 0; gap: 0; }
+.book .strip-top .ph.banner {
+  position: relative;
+  inset: auto;
+  flex: none;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 7;
+}
+.book .strip-top .strip-bottom {
+  position: relative;
+  inset: auto;
+  height: auto;
+  flex: 1 0 auto;
+  padding: 1.4em 1.85em 1.15em;
+}
+
+@media (max-width: 899px) {
+  .book.single .page:not(.cover, .backcover, .closing) {
+    padding: 1.15em 1.1em .8em;
+    font-size: 1rem;
+  }
+  .book.single .page.strip-top { padding: 0; }
+  .book .strip-top .strip-bottom { padding: 1.15em 1.1em .8em; }
+  .book.single .page :is(.h-serif, .ed-title) { font-size: 2em; }
+  .book.single .cover { padding: 0; }
+  .book.single .cover-main-title { font-size: clamp(2.4rem, 12cqi, 4.2rem); }
+  .book.single .cover-lower { padding: .8rem 1rem 1rem; }
+  .book.single .ed-cols { grid-template-columns: 1fr; }
+  .book.single .form-row :is(input, select) { font-size: 1rem; }
+}
+
+@media (max-width: 480px) {
+  .book .contact-row,
+  .book .form-row { grid-template-columns: minmax(0, 1fr); gap: .25em; }
+  .book .form-row label { font-size: .9em; }
+}
